@@ -20,25 +20,25 @@
             <div class="second-column">
                 <h2 class="title title-second">Criar Conta</h2>
                 <p class="description description-second">ou use seu e-mail:</p>
-                <form class="form">
+
+                <form class="form" onsubmit="return validateCadastroPassword()">
                     <label class="label-input" for="">
                         <i class="far fa-user icon-modify"></i>
                         <input type="text" placeholder="Nome">
                     </label>
                     
                     <label class="label-input" for="">
-                        <i class="far fa-envelope icon-modify"></i>
-                        <input type="email" placeholder="Email">
+                        <i class="fas fa-lock icon-modify"></i>
+                        <input id="passwordCadastroInput" type="password" placeholder="Senha">
                     </label>
                     
                     <label class="label-input" for="">
                         <i class="fas fa-lock icon-modify"></i>
-                        <input type="password" placeholder="Senha">
+                        <input id="passwordCadastroInputConfirm" type="password" placeholder="Confimar Senha">
                     </label>
-                    
-                    
-                    <button onClick="window.location.href = 'regarga.html'" class="btn btn-second">Cadastrar</button>        
+                    <button type="submit" onclick="return validateCadastroPassword()" class="btn btn-second">Cadastrar</button>        
                 </form>
+
             </div><!-- second column -->
         </div><!-- first content -->
         <div class="content second-content">
@@ -50,7 +50,8 @@
             <div class="second-column">
                 <h2 class="title title-second">Login</h2>
                 <p class="description description-second">ou use seu e-mail:</p>
-                <form class="form">
+
+                <form class="form" onsubmit="return validateLoginPassword()">
                 
                     <label class="label-input" for="">
                         <i class="far fa-envelope icon-modify"></i>
@@ -59,12 +60,13 @@
                 
                     <label class="label-input" for="">
                         <i class="fas fa-lock icon-modify"></i>
-                        <input type="password" placeholder="Senha">
+                        <input id="passwordLoginInput" type="password" placeholder="Senha">
                     </label>
                 
                     <a class="password" href="#">Esqueceu sua senha?</a>
-                    <button button onClick="window.location.href = 'regarga.html'" class="btn btn-second">Entrar</button>
+                    <button type="submit" onclick="return validateLoginPassword()" class="btn btn-second">Entrar</button>
                 </form>
+                
             </div><!-- second column -->
         </div><!-- second-content -->
     </div>
