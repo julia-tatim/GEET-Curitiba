@@ -3,89 +3,97 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="./input.css" rel="stylesheet">
   <link href="./output.css" rel="stylesheet">
 </head>
 <body>
-  <div> <!-- Começo da nav-->
-    <nav>
-        <div>
-            <h1><a href="\src\index.html">Geet</a></h1>
+  <div class="h-16 flex justify-between items-center border-y-2 border-blue-200"> <!-- Começo da nav-->
+        <div class="p-4">
+            <a href="\src\index.html">Geet</a>
         </div>
-        <div>
-            <div>
-                <ul>
-                    <li>
-                        <a href="#">Explorar</a>
-                    </li>
-                    <li>
-                        <a href="#">Eventos</a>
-                    </li>
-                    <li>
-                        <a href="#">Contato</a>
-                    </li>
-                    <li>
-                        <input type="search" id="Pesquisa">
-                    </li>
-                    <li>
-                        <a href="#">Perfil</a>
-                    </li>
-                </ul>
-            </div>
+        <ul class="flex items-center">
+            <li class="p-4">
+                <a href="#">Explorar</a>
+            </li>
+            <li class="p-4">
+                <a href="#">Eventos</a>
+            </li>
+            <li class="p-4">
+                <a href="#">Contato</a>
+            </li>
+            <li class="p-4">
+                <input type="search" id="Pesquisa" class="block w-full rounded border-2 border-gray-500">
+            </li>
+        </ul>
+        <div class="p-4">
+                <a href="#"><img src="../image/perfil.png" width="40"></a>
         </div>
-    </nav>
   </div> <!-- Fim da nav-->
   <main>
     <div> <!-- Carossel-->
 
     </div> <!-- Carossel-->
-    <div> <!-- Informações-->
-        <div>
-            <img>
-            <h3>XXXXXXXXX</h3>
-            <p>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>
+    <div class="flex flex-wrap space-x-10 mx-auto"> <!-- Informações-->
+        <div class="flex items-center space-x-4 pl-10 mt-6">
+            <img src="../image/1.png" class="w-20">
+            <div>
+                <h3>XXXXXXXXX</h3>
+                <p>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>
+            </div>
         </div>
-        <div>
-            <img>
-            <h3>XXXXXXXXX</h3>
-            <p>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>
+        <div class="flex items-center space-x-4 mt-6">
+            <img src="../image/2.png" class="w-20">
+            <div>
+                <h3>XXXXXXXXX</h3>
+                <p>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>
+            </div>
         </div>
-        <div>
-            <img>
-            <h3>XXXXXXXXX</h3>
-            <p>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>
+        <div class="flex flex-wrap space-x-4 my-6">
+            <img src="../image/3.png" class="w-20">
+            <div>
+                <h3>XXXXXXXXX</h3>
+                <p>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>
+            </div>
         </div>
-        <div>
-            <img>
-            <h3>XXXXXXXXX</h3>
-            <p>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>
+        <div class="flex flex-wrap space-x-4 my-6">
+            <img src="../image/4.png" class="w-20">
+            <div>
+                <h3>XXXXXXXXX</h3>
+                <p>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>
+            </div>
         </div>
     </div> <!-- Informações-->
-    <div> <!-- Destaques-->
-        <h2>Destaques</h2>
-        <button>Mostrar Todos</button>
-        <div>
-            <img>
-            <h4>XXXXX</h4>
-            <p>xxxx xxxx</p>
-            <img>
-            <p>xxxxx</p>
+    <div class="bg-cover"
+    style="background-image: url(../image/fundo2.png);" > <!-- Destaques-->
+        <div class="flex justify-between">
+            <h2 class="m-2">Destaques</h2>
+            <button class="bg-orange-300 rounded m-2 p-1">Mostrar Todos</button>
         </div>
-        <div>
-            <img>
-            <h4>XXXXX</h4>
-            <p>xxxx xxxx</p>
-            <img>
-            <p>xxxxx</p>
+        <div class="flex justify-around">
+            <div class="bg-blue-200">
+                <img>
+                <h4>XXXXX</h4>
+                <p>xxxx xxxx</p>
+                <img>
+                <p>xxxxx</p>
+            </div>
+            <div class="bg-blue-200">
+                <img>
+                <h4>XXXXX</h4>
+                <p>xxxx xxxx</p>
+                <img>
+                <p>xxxxx</p>
+            </div>
+            <div class="bg-blue-200">
+                <img>
+                <h4>XXXXX</h4>
+                <p>xxxx xxxx</p>
+                <img>
+                <p>xxxxx</p>
+            </div>
+            <button></button>
         </div>
-        <div>
-            <img>
-            <h4>XXXXX</h4>
-            <p>xxxx xxxx</p>
-            <img>
-            <p>xxxxx</p>
-        </div>
-        <button></button>
-        <button></button>
+            <button></button>
     </div> <!-- Destaques-->
     <div> <!-- Contato -->
         <h2>Contate-nos!</h2>
