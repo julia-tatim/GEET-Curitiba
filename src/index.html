@@ -13,7 +13,7 @@
         </div>
         <ul class="flex items-center">
             <li class="p-4">
-                <a href="#">Explorar</a>
+                <a href="../src/index.html">Explorar</a>
             </li>
             <li class="p-4">
                 <a href="#">Eventos</a>
@@ -26,7 +26,7 @@
             </li>
         </ul>
         <div class="p-4">
-                <a href="#"><img src="../image/perfil.png" class="w-4 sm:w-20"></a>
+                <img src="../image/perfil.png" class="w-10 sm:w-16" onclick="openLogin()">
         </div>
   </div> <!-- Fim da nav-->
   <main>
@@ -72,12 +72,12 @@
         <br>
         <div class="flex flex-wrap justify-around">
             <div class="bg-blue-200 grid grid-cols-5 justify-center w-52 border-8 rounded-lg border-blue-200 mb-8">
-                <img src="../image/JardimBotânicoDestaque.png" class="w-52 h-52 col-span-5">
+                <img src="../image/JardimBotânicoDestaque.png" class="w-52 h-52 col-span-5" onclick="openBotanico()">
                 <h4 class="col-span-2">XXXXX</h4>
                 <p class="col-end-6 col-span-2 text-right">xxxx xxxx</p>
             </div>
             <div class="bg-blue-200 grid grid-cols-5 justify-center w-52 border-8 rounded-lg border-blue-200 mb-8">
-                <img src="../image/museuOlhoDestaques.png" class="w-52 h-52 col-span-5">
+                <img src="../image/museuOlhoDestaques.png" class="w-52 h-52 col-span-5" >
                 <h4 class="col-span-2">XXXXX</h4>
                 <p class="col-end-6 col-span-2 text-right">xxxx xxxx</p>
             </div>
@@ -102,5 +102,13 @@
             <img src="../image/boneco.png" width="40%" class="bg-gradient-to-r from-white to-blue-500">
     </div> <!-- Contato-->
   </main>
+  <script> 
+    function openBotanico() {
+        window.location.href = '../src/botanico.html';
+    }
+    function openLogin() {
+        window.location.href = '../login/index.html';
+    }
+</script>
 </body>
 </html>
