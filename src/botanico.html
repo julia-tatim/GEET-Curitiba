@@ -9,10 +9,10 @@
 <body>
   <div class="cabecalho">
     <div class="logo">
-      <img src="../image/logo.jpeg" alt="" width="80">
+      <img src="../image/logo.jpeg" alt="" width="80" onclick="openindex()">
     </div>
     <ul class="navegacao">
-      <li><a href="#">Explorar</a></li>
+      <li><a href="../src/index.html">Explorar</a></li>
       <li><a href="#">Eventos</a></li>
       <li><a href="#">Contato</a></li>
       <li>
@@ -20,7 +20,7 @@
       </li>
     </ul>
     <div class="perfil">
-      <a href="..\login\login.html"><img src="../image/perfil.png" width="40" alt="Perfil"></a>
+      <img src="../image/perfil.png" width="70" alt="Perfil" onclick="openLogin()">
     </div>
   </div>
 
@@ -71,5 +71,14 @@
       </div>
     </div>
   </div>
+  <script> 
+    function openindex() {
+        window.location.href = '../src/index.html';
+    }
+    function openLogin() {
+        window.location.href = '../login/index.html';
+    }
+    
+</script>
 </body>
 </html>
