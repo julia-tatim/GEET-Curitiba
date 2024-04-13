@@ -8,13 +8,20 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Cabin:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
-    <title>Document</title>
+    <title>Registro de estabelecimento</title>
+    <style>
+        body {
+        background-image: url('/image/fundo2.png');
+        background-size: cover;
+        background-position: center;
+        }
+    </style>
 </head>
 <body>
-    <!-- cabeçalho -->
+    <!-- navbar -->
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#"><img src="../image\logo.svg" alt="Bootstrap" width="100" height=""></a>
+            <a class="navbar-brand" href="index.html"><img src="../image\logo.svg" alt="Bootstrap" width="100" height=""></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -38,22 +45,57 @@
             <a class="navbar-brand" href="#"><img src="../image\perfil.svg" alt="Bootstrap" width="50" height=""></a>
         </div>
     </nav>
-    <!-- /cabeçalho -->
+    <!-- /navbar -->
     <!-- Main -->
-    <div class="main">
-        <form id="cadatroLocal">
+    <div class="text-center">
+        <form>
+            <label for="nomeLocal">Nome</label>
             <input type="text" id="nomeLocal">
-            <input type="text" id="endereco">
-            <input type="text" id="descricao">
+
+            <label for="tipoLocal">Tipo de estabelecimento</label>
+            <select id="tipoLocal">
+                <option value="restaurante">Restaurante</option>
+                <option value="turismo">Turismo</option>
+                <option value="entreterimento">Entreterimento</option>
+            </select>
+
+            <label for="descricaoLocal">Descrição</label>
+            <textarea id="descricaoLocal" rows="2" cols="25"></textarea>
+
+            <label for="localizacao">Endereço</label>
+            <input type="text" id="localizacao">
+
+            <p>Horario de funcionamento</p>
+            <label for="horaAbertura">Abre às</label>
             <input type="time" id="horaAbertura">
+            <label for="horaFechamento">Fecha às</label>
             <input type="time" id="horaFechamento">
-            <input type="number" id="idadeMim">
+
+            <label for="idadeMim">Classificação Indicativa</label>
+            <select id="idadeMim">
+                <option value="livre">Livre para todos os públicos</option>
+                <option value="10">+10</option>
+                <option value="12">+12</option>
+                <option value="14">+14</option>
+                <option value="16">+16</option>
+                <option value="18">+18</option>
+            </select>
+
+            <label for="telefone">Telefone</label>
             <input type="tel" id="telefone">
-            <input type="url" id="social">
+
+            <label for="redeSocial">Rede Social</label>
+            <input type="url" id="redeSocial">
+
+            <label for="site">Site Oficial</label>
             <input type="url" id="site">
-            <input type="image" id="imagem">
+
+            <label for="image">Imagem do local</label>
+            <input type="file" id="imagem" accept="image/png, image/jpeg, ">
+
+            <input type="submit">
         </form>
     </div>
-    <!-- Main -->
+    <!-- /Main -->
 </body>
 </html>
