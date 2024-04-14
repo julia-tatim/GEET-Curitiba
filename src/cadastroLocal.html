@@ -1,101 +1,214 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GEET Curitiba</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Cabin:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
-    <title>Registro de estabelecimento</title>
     <style>
         body {
-        background-image: url('/image/fundo2.png');
-        background-size: cover;
-        background-position: center;
+            background-image: url('../image/fundo1.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
         }
+        .navbar {
+            border: 2px solid rgb(191 219 254);
+        }
+        .color-btn {
+            color: white;
+            border-color: #F1835E;
+            background-color: #F1835E;
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+        }
+        .color-btn:hover {
+        background-color: rgb(104, 104, 104);
+        color: #fff; 
+    }
+
+    .color-btn2:hover {
+        background-color: #F1835E;
+        color: #fff
+    }
+        .cabin {
+        font-family: "Cabin", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 400;
+        font-style: normal;
+        font-variation-settings:
+          "wdth" 100;
+      }
+      .cabin2 {
+        font-family: "Cabin", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 700;
+        font-style: normal;
+        font-variation-settings:
+          "wdth" 100;
+          color: #fff;
+      }
+
+      .cabin3 {
+        font-family: "Cabin", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 700;
+        font-style: normal;
+        font-variation-settings:
+          "wdth" 100;
+          
+      }
+      
+    .button-color{
+        background-color: #1E659B;
+        color: #fff;
+    }
+
+    .curvaborda{
+        border-radius: 30px;
+    }
+
+    .filtro-container {
+      background-color: rgb(165, 165, 165);
+      color: #fff;
+      
+      padding: 20px; 
+    }
+    
+    .filtro-titulo {
+      margin-bottom: 20px;
+    }
+
+    .card-img-top {
+        max-width: 70%; 
+        height: auto; 
+    }
+
+    .form-check-input:checked {
+    background-color: #F1835E; 
+    }
+    .form-check-input:focus {
+    outline: none;
+    box-shadow: none;
+    border-color: #F1835E;
+    }
+    h2, strong{
+        color: #F1835E;
+    }
+    strong{
+        color: #1E659B;
+    }
+
+    .btnn:hover {
+            color: #fff; /* Ou a cor desejada ao passar o mouse */
+        }
+
     </style>
 </head>
 <body>
-    <!-- navbar -->
+    <!-- cabeçalho -->
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
             <a class="navbar-brand" href="index.html"><img src="../image\logo.svg" alt="Bootstrap" width="100" height=""></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" style="border-color: black;">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
               <ul class="navbar-nav d-flex justify-content-around w-100">
                   <li class="nav-item">
-                      <a class="nav-link text-dark cabin2" aria-current="page" href="#">Explorar</a>
+                      <a class="nav-link text-dark cabin2" aria-current="page" href="explorar.html">Explorar</a>
                   </li>
                   <li class="nav-item">
                       <a class="nav-link text-dark cabin2" aria-current="page" href="#">Eventos</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link text-dark cabin2" aria-current="page" href="#">Contato</a>
+                      <a class="nav-link text-dark cabin2" aria-current="page" href="index.html#contato">Contato</a>
                   </li>
               </ul>
           </div>
             <form class="d-flex">
                 <input class="form-control me-2 cabin2" type="search" placeholder="Pesquisar" aria-label="Pesquisar">
-                <button class="btn btn-outline-dark me-2 cabin2" type="submit">Buscar</button>
+                <button class="btn btn-outline-dark cabin3" type="submit" >Buscar</button>
             </form>
-            <a class="navbar-brand" href="#"><img src="../image\perfil.svg" alt="Bootstrap" width="50" height=""></a>
+            <a class="navbar-brand m-2" href="login.html"><img src="..\image\perfil.svg" alt="Bootstrap" width="50" height=""></a>
         </div>
     </nav>
-    <!-- /navbar -->
-    <!-- Main -->
-    <div class="text-center">
-        <form>
-            <label for="nomeLocal">Nome</label>
-            <input type="text" id="nomeLocal">
-
-            <label for="tipoLocal">Tipo de estabelecimento</label>
-            <select id="tipoLocal">
-                <option value="restaurante">Restaurante</option>
-                <option value="turismo">Turismo</option>
-                <option value="entreterimento">Entreterimento</option>
-            </select>
-
-            <label for="descricaoLocal">Descrição</label>
-            <textarea id="descricaoLocal" rows="2" cols="25"></textarea>
-
-            <label for="localizacao">Endereço</label>
-            <input type="text" id="localizacao">
-
-            <p>Horario de funcionamento</p>
-            <label for="horaAbertura">Abre às</label>
-            <input type="time" id="horaAbertura">
-            <label for="horaFechamento">Fecha às</label>
-            <input type="time" id="horaFechamento">
-
-            <label for="idadeMim">Classificação Indicativa</label>
-            <select id="idadeMim">
-                <option value="livre">Livre para todos os públicos</option>
-                <option value="10">+10</option>
-                <option value="12">+12</option>
-                <option value="14">+14</option>
-                <option value="16">+16</option>
-                <option value="18">+18</option>
-            </select>
-
-            <label for="telefone">Telefone</label>
-            <input type="tel" id="telefone">
-
-            <label for="redeSocial">Rede Social</label>
-            <input type="url" id="redeSocial">
-
-            <label for="site">Site Oficial</label>
-            <input type="url" id="site">
-
-            <label for="image">Imagem do local</label>
-            <input type="file" id="imagem" accept="image/png, image/jpeg, ">
-
-            <input type="submit">
-        </form>
+    <!-- cabeçalho -->
+    
+    <div class="container mt-4 p-4" style="border-radius: 30px; background-color: rgb(104, 104, 104);">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <form>
+                    <div class="mb-3">
+                        <label for="nomeLocal" class="form-label cabin2">Nome</label>
+                        <input type="text" class="form-control" id="nomeLocal">
+                    </div>
+                    <div class="mb-3">
+                        <label for="tipoLocal" class="form-label cabin2">Tipo de Estabelecimento</label>
+                        <select class="form-select" id="tipoLocal">
+                            <option value="restaurante cabin">Restaurante</option>
+                            <option value="turismo cabin">Turismo</option>
+                            <option value="entreterimento cabin">Entretenimento</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="descricaoLocal" class="form-label cabin2">Descrição</label>
+                        <textarea class="form-control" id="descricaoLocal" rows="3"></textarea>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="localizacao" class="form-label cabin2">Endereço</label>
+                            <input type="text" class="form-control" id="localizacao">
+                        </div>
+                        <div class="col">
+                            <label for="telefone" class="form-label cabin2">Telefone</label>
+                            <input type="tel" class="form-control" id="telefone">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="horaAbertura" class="form-label cabin2">Abre às</label>
+                            <input type="time" class="form-control" id="horaAbertura">
+                        </div>
+                        <div class="col">
+                            <label for="horaFechamento" class="form-label cabin2">Fecha às</label>
+                            <input type="time" class="form-control" id="horaFechamento">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="idadeMim" class="form-label cabin2">Classificação Indicativa</label>
+                        <select class="form-select" id="idadeMim">
+                            <option value="livre">Livre para todos os públicos</option>
+                            <option value="10">+10</option>
+                            <option value="12">+12</option>
+                            <option value="14">+14</option>
+                            <option value="16">+16</option>
+                            <option value="18">+18</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="redeSocial" class="form-label cabin2">Rede Social</label>
+                        <input type="url" class="form-control" id="redeSocial">
+                    </div>
+                    <div class="mb-3">
+                        <label for="site" class="form-label cabin2">Site Oficial</label>
+                        <input type="url" class="form-control" id="site">
+                    </div>
+                    <div class="mb-3">
+                        <label for="imagem" class="form-label cabin2">Imagem do Local</label>
+                        <input type="file" class="form-control" id="imagem" accept="image/png, image/jpeg">
+                    </div>
+                    <button type="submit" class="btn btn-outline-light cabin2 color-btn cabin3">Enviar</button>
+                </form>
+            </div>
+        </div>
     </div>
-    <!-- /Main -->
+
+    <!-- Bootstrap JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-xxxxxxxxxxxx" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-xxxxxxxxxxxx" crossorigin="anonymous"></script>
 </body>
 </html>
