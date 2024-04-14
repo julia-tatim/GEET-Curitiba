@@ -104,14 +104,16 @@
   <div class="center-container">
     <div class="container text-center">
       <div class="row">
+        <form action="loginphp.php" method="POST">
         <div class="col custom-bg-color login-form cantoRedondo">
           <h4 class="text-center m-4 cabin2 cor">LOGIN</h4>
           <label for="email" class="cabin  mb-0 cor">Email:</label>
-          <input type="email" class="form-control my-2 cabin2 border-0 cor2" id="email" placeholder="Digite seu email">
+          <input type="email" class="form-control my-2 cabin2 border-0 cor2" id="email" placeholder="Digite seu email" name="email">
           <label for="password" class="cabin mb-0 cor">Senha:</label>
-          <input type="password" class="form-control my-2 cabin2 border-0 cor2" id="password" placeholder="Digite sua senha">
+          <input type="password" class="form-control my-2 cabin2 border-0 cor2" id="password" placeholder="Digite sua senha" name="senha">
           <button type="submit" class="btn btn-primary custom-bg-color my-3  btn-block border-3 cor6 cor4">Entrar</button>
           <p class="m-1 cabin2 cor">Não tem uma conta?</p>
+        </form>
           <button id="signup" class="btn btn-link m-1 cabin2 cor">Registre-se aqui</button>
         </div>
 
