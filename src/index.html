@@ -39,11 +39,11 @@
             text-align: center;
         }
         .custom-carousel-button {
-            background-color: #318EB9; /* Cor do botão */
+            background-color: #318EB9; 
             border-color: #318EB9; 
         }
         .custom-carousel-button:hover {
-            background-color: #F1835E; /* Cor do botão quando passa o mouse */
+            background-color: #F1835E; 
             border-color: #F1835E;
         }
         .carousel-control-prev {
@@ -76,7 +76,7 @@
     }
     .contact-container {
       padding: 50px 0;
-      position: relative; /* Adicionando posição relativa ao container */
+      position: relative; 
     }
     .contact-form {
       background: #fff;
@@ -108,21 +108,21 @@
             <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
               <ul class="navbar-nav d-flex justify-content-around w-100">
                   <li class="nav-item">
-                      <a class="nav-link text-dark cabin2" aria-current="page" href="#">Explorar</a>
+                      <a class="nav-link text-dark cabin2" aria-current="page" href="explorar.html">Explorar</a>
                   </li>
                   <li class="nav-item">
                       <a class="nav-link text-dark cabin2" aria-current="page" href="#">Eventos</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link text-dark cabin2" aria-current="page" href="#">Contato</a>
+                      <a class="nav-link text-dark cabin2" aria-current="page" href="#contato">Contato</a>
                   </li>
               </ul>
           </div>
             <form class="d-flex">
                 <input class="form-control me-2 cabin2" type="search" placeholder="Pesquisar" aria-label="Pesquisar">
-                <button class="btn btn-outline-dark me-2 cabin2" type="submit">Buscar</button>
+                <button class="btn btn-outline-dark cabin2" type="submit">Buscar</button>
             </form>
-            <a class="navbar-brand" href="#"><img src="../image\perfil.svg" alt="Bootstrap" width="50" height=""></a>
+            <a class="navbar-brand m-2" href="login.html"><img src="..\image\perfil.svg" alt="Bootstrap" width="50" height=""></a>
         </div>
     </nav>
     <!-- cabeçalho -->
@@ -140,7 +140,8 @@
                 <div class="carousel-caption d-none d-md-block">
                     <h5 class="cabin2">EXPLORE, DESCUBRA, DESFRUTE</h5>
                     <p class="cabin">Os melhores destinos estão aqui!</p>
-                    <button type="button" class="btn btn-outline-light cabin2 color-btn" >CLIQUE AQUI</button>
+                    <a href="explorar.html"><button type="button" class="btn btn-outline-light cabin2 color-btn" >CLIQUE AQUI</button></a>
+
                 </div>
             </div>
             <div class="carousel-item">
@@ -148,7 +149,8 @@
                 <div class="carousel-caption d-none d-md-block">
                     <h5 class="cabin2">EXPLORE, DESCUBRA, DESFRUTE</h5>
                     <p class="cabin">Os melhores destinos estão aqui!</p>
-                    <button type="button" class="btn btn-outline-light cabin2 color-btn" >CLIQUE AQUI</button>
+                    <a href="explorar.html"><button type="button" class="btn btn-outline-light cabin2 color-btn" >CLIQUE AQUI</button></a>
+
                 </div>
             </div>
             <div class="carousel-item">
@@ -156,7 +158,7 @@
                 <div class="carousel-caption d-none d-md-block">
                     <h5 class="cabin2">EXPLORE, DESCUBRA, DESFRUTE</h5>
                     <p class="cabin">Os melhores destinos estão aqui!</p>
-                    <button type="button" class="btn btn-outline-light cabin2 color-btn" >CLIQUE AQUI</button>
+                    <a href="explorar.html"><button type="button" class="btn btn-outline-light cabin2 color-btn" >CLIQUE AQUI</button></a>
                 </div>
             </div>
         </div>
@@ -199,10 +201,10 @@
     <!-- parte das informações -->
 
     <!-- carrossel de destaques -->
-    <div class="container">
+    <div class="container my-5">
       <h2 class="text-center my-5 cabin2 mb-4">Destaques</h2>
       <div class="text-center mb-3">
-        <button type="button" class="btn btn-outline-light cabin2 color-btn" >MOSTRAR MAIS</button>
+        <a href="explorar.html"><button type="button" class="btn btn-outline-light cabin2 color-btn" >MOSTRAR MAIS</button></a>
       </div>
       <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-inner">
@@ -289,7 +291,7 @@
     <!-- carrossel de destaques -->
 
     <!-- contato -->
-    <div class="container-fluid custom-background">
+    <div id="contato" class="container-fluid custom-background">
     <div class="container p-3">
         <div class="row contact-container">
             <div class="col-md-6  ">
@@ -297,17 +299,17 @@
           <form class="contact-form button-color">
             <div class="form-group">
               <label for="name" class="cabin2">Nome</label>
-              <input type="text" class="form-control cabin2" id="name" placeholder="Digite seu nome" style="color: white;">
+              <input type="text" class="form-control cabin2 my-1" id="name" placeholder="Digite seu nome" style="color: rgb(104, 104, 104);">
             </div>
             <div class="form-group">
               <label for="email" class="cabin2">Email</label>
-              <input type="email" class="form-control cabin2" id="email" placeholder="Digite seu email" style="color: white;">
+              <input type="email" class="form-control cabin2 my-1" id="email" placeholder="Digite seu email" style="color: rgb(104, 104, 104);">
             </div>
             <div class="form-group">
               <label for="message" class="cabin2">Mensagem</label>
-              <textarea class="form-control cabin2" id="message" rows="3" placeholder="Digite sua mensagem" style="color: white;"></textarea>
+              <textarea class="form-control cabin2 my-1" id="message" rows="3" placeholder="Digite sua mensagem" style="color: rgb(104, 104, 104);"></textarea>
             </div>
-            <button type="submit" class="btn btn-outline-light button-color cabin2">Enviar</button>
+            <button type="submit" class="btn btn-outline-light button-color cabin2 my-3">Enviar</button>
           </form>
         </div>
         <div class="col-md-6">
@@ -319,17 +321,7 @@
   </div>
 
 
-
-
-
-    
-
-
-
-
-
-
-    <!-- Bootstrap JavaScript Bundle with Popper -->
+    <!-- Bootstrap JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
