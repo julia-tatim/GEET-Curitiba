@@ -143,7 +143,7 @@ if((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true)
     <!-- cabeçalho -->
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="index.html"><img src="..\image\logo.svg" alt="Bootstrap" width="100" height=""></a>
+            <a class="navbar-brand" href="index.php"><img src="..\image\logo.svg" alt="Bootstrap" width="100" height=""></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" style="border-color: black;">
                 <span class="navbar-toggler-icon"></span>
             </button>

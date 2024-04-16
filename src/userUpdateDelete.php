@@ -18,25 +18,21 @@ if (isset($_POST['update'])) {
         $data_nascimento = $_POST['data_nascimento']; 
 
         //--update nome e data
-        if (isset($nome) || isset($data_nascimento)) {
-            $sqlUpdate = "UPDATE usuario SET nome='$nome', data_nascimento='$data_nascimento' WHERE email='$email_antigo'";
-            $resultUpdate = $conn->query($sqlUpdate);
-        }
+        
+        $sqlUpdate = "UPDATE usuario SET nome='$nome', data_nascimento='$data_nascimento' WHERE email='$email_antigo'";
+        $resultUpdate = $conn->query($sqlUpdate);
+        
+        $crypt = password_hash($senha, PASSWORD_BCRYPT);
+        $cryptConfirma = password_hash($confirmaSenha, PASSWORD_BCRYPT);
 
-        if (!isset($_POST['senha']) || !isset($_POST['confirmaSenha'])) {
-
-            $crypt = password_hash($senha, PASSWORD_BCRYPT);
-            $cryptConfirma = password_hash($confirmaSenha, PASSWORD_BCRYPT);
-
-            if ($senha != $confirmaSenha) {
-                echo "presta mais atenção filho da puta (ou akemi que é trouxa e errou no código)";
-            }else{
-                $sqlSenha = "UPDATE usuario SET senha='$crypt', confirmaSenha='$cryptConfirma' WHERE email='$email_antigo'";
-                $resultSenha = $conn->query($sqlSenha);
-            }
+        if ($senha != $confirmaSenha) {
+            echo "presta mais atenção filho da puta (ou akemi que é trouxa e errou no código)";
+        }else{
+            $sqlSenha = "UPDATE usuario SET senha='$crypt', confirmaSenha='$cryptConfirma' WHERE email='$email_antigo'";
+            $resultSenha = $conn->query($sqlSenha);
         }
         
-        if (!isset($_POST['email'])) {
+        if ($email_antigo!== $email_novo) {
 
             $sqlCheckEmail = "SELECT COUNT(*) AS count FROM usuario WHERE email='$email_novo'";
             $resultCheckEmail = $conn->query($sqlCheckEmail);
