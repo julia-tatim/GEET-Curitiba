@@ -25,9 +25,15 @@
             background-color: #F1835E;
             box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
         }
-        .color-btn:hover {
+        .color-btn:hover, .color-btn-cofirm:hover {
         background-color: rgb(104, 104, 104);
         color: #fff; 
+    }
+
+    .color-btn-cofirm {
+        color: white;
+        border-color: #F1835E;
+        background-color: #F1835E;
     }
 
     .color-btn2:hover {
@@ -60,6 +66,25 @@
         font-variation-settings:
           "wdth" 100;
           
+      }
+
+      .cabin4 {
+        font-family: "Cabin", sans-serif;
+        display: inline;
+        font-optical-sizing: auto;
+        font-weight: 700;
+        font-style: normal;
+        font-variation-settings:
+          "wdth" 100;
+          color: #fff;
+      }
+
+      .cabin5 {
+        font-family: "Cabin", sans-serif;
+        display: inline;
+        font-variation-settings:
+          "wdth" 100;
+          color: #fff;
       }
       
     .button-color{
@@ -103,7 +128,7 @@
     }
 
     .btnn:hover {
-            color: #fff; /* Ou a cor desejada ao passar o mouse */
+            color: #fff; 
         }
 
     </style>
@@ -112,7 +137,7 @@
     <!-- cabeçalho -->
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="index.html"><img src="../image\logo.svg" alt="Bootstrap" width="100" height=""></a>
+            <a class="navbar-brand" href="index.php"><img src="../image\logo.svg" alt="Bootstrap" width="100" height=""></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" style="border-color: black;">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -137,7 +162,51 @@
         </div>
     </nav>
     <!-- cabeçalho -->
-    <!-- main -->
+    <!-- informações atuais -->
+    <div class="container mt-4 p-4" style="border-radius: 30px; background-color: rgb(104, 104, 104);">
+        <div class="p-1">
+            <p class="cabin4">Nome do local: </p>
+            <p class="cabin5">info atual</p>
+        </div>
+        <div class="p-1">
+            <p class="cabin4">Tipo de local: </p>
+            <p class="cabin5">info atual</p>
+        </div>
+        <div class="p-1">
+            <p class="cabin4">Endereço: </p>
+            <p class="cabin5">info atual</p>
+        </div>
+        <div class="p-1">
+            <p class="cabin4">Descrição: </p>
+            <p class="cabin5">info atual</p>
+        </div>
+        <div class="p-1">
+            <p class="cabin4">Horario de funcionamento: </p>
+            <p class="cabin5">info atual</p>
+        </div>
+        <div class="p-1">
+            <p class="cabin4">Restrição de idade: </p>
+            <p class="cabin5">info atual</p>
+        </div>
+        <div class="p-1">
+            <p class="cabin4">Telefone: </p>
+            <p class="cabin5">info atual</p>
+        </div>
+        <div class="p-1">
+            <p class="cabin4">Rede socail: </p>
+            <p class="cabin5">info atual</p>
+        </div>
+        <div class="p-1">
+            <p class="cabin4">Site oficial: </p>
+            <p class="cabin5">info atual</p>
+        </div>
+        <div class="p-1">
+            <p class="cabin4">Imagem: </p>
+            <p class="cabin5">info atual</p>
+        </div>
+    </div>
+    <!-- informações atuais -->
+    <!-- formulario de edição -->
     <div class="container mt-4 p-4" style="border-radius: 30px; background-color: rgb(104, 104, 104);">
         <div class="row justify-content-center">
             <div class="col-lg-8">
@@ -201,14 +270,38 @@
                         <label for="imagem" class="form-label cabin2">Imagem do Local</label>
                         <input type="file" class="form-control" id="imagem" accept="image/png, image/jpeg">
                     </div>
-                    <button type="submit" class="btn btn-outline-light cabin2 color-btn cabin3">Criar</button>
+                    <div class="d-flex justify-content-between">
+                        <button type="button" class="btn btn-outline-light cabin2 color-btn cabin3" data-bs-toggle="modal" data-bs-target="#excluir">Excluir</button>
+                        <button type="submit" class="btn btn-outline-light cabin2 color-btn cabin3">Editar</button>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
-    <!-- main -->
+    <!-- formulario de edição -->
+    <!-- confirmar exclusão -->
+    <div class="modal fade" id="excluir" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modal-title">Deseja mesmo excluir este local?</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <p>Você está prestes a excluir este local permanentemente. Tem certeza que deseja prosseguir?</p>
+                <p>Clique em 'Confirmar' para excluir ou 'Cancelar' para manter.</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-outline-light cabin2 color-btn-cofirm cabin3">Confirmar</button>
+              </div>
+            </div>
+        </div>
+    </div>
+    <!-- confirmar exclusão -->
     <!-- Bootstrap JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-xxxxxxxxxxxx" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-xxxxxxxxxxxx" crossorigin="anonymous"></script>
 </body>
 </html>
