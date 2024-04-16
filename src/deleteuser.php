@@ -1,22 +1,31 @@
 <?php
-  
-    $servername = "localhost";
-    $username = "root";
-    $password = "A992176566kemi_";
-    $database = "geet";
-    
-    $conn = new mysqli($servername, $username, $password, $database);
+include_once('config.php');
 
-    $email = $_POST["email"];
+if (isset($_POST['delete'])) {
 
-    $sql = "DELETE FROM usuario where email = ".$email;
+    if (!empty($_POST['email'])) {
+        $email = $_POST['email'];
 
-    if(mysql_query($sql,$con)){
-        header("Location: index.html");
-        exit();
-    }else{
-        $msg = "Erro ao deletar!";
+        $sql = "DELETE FROM usuario WHERE email = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("s", $email);
+
+        if ($stmt->execute()) {
+            $msg = "Deletado com sucesso!";//enviar mensagem
+        } else {
+            $msg = "Erro ao deletar: " . $conn->error;
+        }
+
+        $stmt->close();
+        $conn->close();
+    } else {
+        $msg = "Email não fornecido.";
     }
-    mysql_close($con);
+} else {
+    $msg = "Ação de exclusão não acionada.";
+}
 
-    ?>
+header("Location:login.html");
+exit();
+?>
+

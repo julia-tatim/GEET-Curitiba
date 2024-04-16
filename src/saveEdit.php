@@ -13,8 +13,10 @@
 
         $sqlUpdate = "UPDATE usuario SET nome='$nome',senha='$crypt',data_nascimento='$data_nascimento' WHERE email='$email'";
 
-        $result = $conn->query($sqlUpdate);
+        $result = $conn->query($sqlUpdate);//adicionar mensagem de usuário editado com sucesso
         
     }
     header("Location:meusdados.php");
+    exit();
 ?>
+

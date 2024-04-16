@@ -171,7 +171,7 @@ if((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true)
         <div class="row">
             <div class="col-md-6 mx-auto mt-5 bg-light p-5" style="border-radius: 20px;">
                 <!-- Seu conteúdo aqui -->
-                <form action="saveEdit.php" method="POST">
+                <form method="POST" action="userUpdateDelete.php">
                     <div class="form-group">
                         <label for="inputNome" class="cabin2">Nome</label>
                         <input type="text" class="form-control cabin2 corfundo" name="nome" id="inputNome" value="<?php echo $nome; ?>">
@@ -201,6 +201,7 @@ if((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true)
           
     <!-- Bootstrap JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    
 </body>
 </html>
 
