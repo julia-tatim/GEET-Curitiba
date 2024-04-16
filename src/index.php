@@ -132,7 +132,7 @@
                 <input class="form-control me-2 cabin2" type="search" placeholder="Pesquisar" aria-label="Pesquisar">
                 <button class="btn btn-outline-dark cabin2" type="submit">Buscar</button>
             </form>
-            <a class="navbar-brand m-2" href="login.html"><img src="..\image\perfil.svg" alt="Bootstrap" width="50" height=""></a>
+            <a class="navbar-brand m-2" href="meusdados.php"><img src="..\image\perfil.svg" alt="Bootstrap" width="50" height=""></a>
         </div>
     </nav>
     <!-- cabeçalho -->

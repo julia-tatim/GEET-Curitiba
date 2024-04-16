@@ -1,3 +1,33 @@
+<?php
+
+include_once('config.php');
+
+session_start();
+
+if((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true)){
+    unset($_SESSION['email']);
+    unset($_SESSION['senha']);
+    header('Location: login.html');
+}
+
+    $email = $_SESSION['email'];
+    $senha = $_SESSION['senha'];
+
+    $sql = "SELECT nome, data_nascimento FROM usuario WHERE email = '$email'";
+    $result = mysqli_query($conn, $sql);
+
+    if (mysqli_num_rows($result) > 0) {
+        // Fetch the data
+        $row = mysqli_fetch_assoc($result);
+        $nome = $row['nome'];
+        $dataNascimento = $row['data_nascimento'];
+    } else {
+        // Handle if no user found
+        $nome = "Nome não encontrado";
+        $dataNascimento = "Data de Nascimento não encontrada";
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -141,27 +171,27 @@
         <div class="row">
             <div class="col-md-6 mx-auto mt-5 bg-light p-5" style="border-radius: 20px;">
                 <!-- Seu conteúdo aqui -->
-                <form>
+                <form action="saveEdit.php" method="POST">
                     <div class="form-group">
                         <label for="inputNome" class="cabin2">Nome</label>
-                        <input type="text" class="form-control cabin2 corfundo" id="inputNome" placeholder="Nome">
+                        <input type="text" class="form-control cabin2 corfundo" name="nome" id="inputNome" value="<?php echo $nome; ?>">
                     </div>
                     <div class="form-group">
                         <label for="inputSenha4" class="cabin2">Senha</label>
-                        <input type="password" class="form-control cabin2 corfundo" id="inputSenha4" placeholder="Senha">
+                        <input type="password" class="form-control cabin2 corfundo" name="senha" id="inputSenha4" value="<?php echo $senha; ?>">
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="inputEmail4" class="cabin2">Email</label>
-                            <input type="email" class="form-control cabin2 corfundo" id="inputEmail4" placeholder="Email">
+                            <input type="email" class="form-control cabin2 corfundo" name="email" id="inputEmail4" value="<?php echo $email; ?>">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="inputNascimento" class="cabin2">Data de Nascimento 2</label>
-                            <input type="date" class="form-control cabin2 corfundo" id="inputNascimento" placeholder="dd/mm/yyyy">
+                            <input type="date" class="form-control cabin2 corfundo" name="data_nascimento" id="inputNascimento" value="<?php echo $dataNascimento; ?>">
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-outline-light cabin2 color-btn cabin2 mr-2 ">Editar</button>
-                    <button type="submit" class="btn btn-outline-light cabin2 color-btn cabin2 color-btn3">Deletar</button>
+                    <button type="submit" class="btn btn-outline-light cabin2 color-btn cabin2 mr-2 " name="update" id="update">Editar</button>
+                    <button type="submit" class="btn btn-outline-light cabin2 color-btn cabin2 color-btn3" name="delete" id="delete">Deletar</button>
                 </form>
             </div>
         </div>
