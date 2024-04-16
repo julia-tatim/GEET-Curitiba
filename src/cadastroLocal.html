@@ -144,7 +144,7 @@
                 <form>
                     <div class="mb-3">
                         <label for="nomeLocal" class="form-label cabin2">Nome</label>
-                        <input type="text" class="form-control" id="nomeLocal">
+                        <input type="text" class="form-control" id="nomeLocal" required pattern="^[a-zA-Z]{3,}$" title="Nome muito curto(mínimo 3 caracteres)">
                     </div>
                     <div class="mb-3">
                         <label for="tipoLocal" class="form-label cabin2">Tipo de Estabelecimento</label>
@@ -156,16 +156,16 @@
                     </div>
                     <div class="mb-3">
                         <label for="descricaoLocal" class="form-label cabin2">Descrição</label>
-                        <textarea class="form-control" id="descricaoLocal" rows="3"></textarea>
+                        <input class="form-control" id="descricaoLocal" rows="3" required pattern="^[a-zA-Z]{50,}$" title="Descrição muito curta(mínimo 50 caracteres)"></input>
                     </div>
                     <div class="row mb-3">
                         <div class="col">
                             <label for="localizacao" class="form-label cabin2">Endereço</label>
-                            <input type="text" class="form-control" id="localizacao">
+                            <input type="text" class="form-control" id="localizacao" required pattern="^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{8,}$" title="Insira um endereço valido">
                         </div>
                         <div class="col">
                             <label for="telefone" class="form-label cabin2">Telefone</label>
-                            <input type="tel" class="form-control" id="telefone">
+                            <input type="tel" class="form-control" id="telefone" required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" title="Insira um numero valido">
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -191,11 +191,11 @@
                     </div>
                     <div class="mb-3">
                         <label for="redeSocial" class="form-label cabin2">Rede Social</label>
-                        <input type="url" class="form-control" id="redeSocial">
+                        <input type="url" class="form-control" id="redeSocial" pattern="^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{8,}$" title="Insira um link valido">
                     </div>
                     <div class="mb-3">
                         <label for="site" class="form-label cabin2">Site Oficial</label>
-                        <input type="url" class="form-control" id="site">
+                        <input type="url" class="form-control" id="site" pattern="^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{8,}$" title="Insira um link valido">
                     </div>
                     <div class="mb-3">
                         <label for="imagem" class="form-label cabin2">Imagem do Local</label>

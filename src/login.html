@@ -114,15 +114,12 @@
                         <h4 class="text-center m-4 cabin2 cor">LOGIN</h4>
                         <label for="email" class="cabin  mb-0 cor">Email:</label>
                         <input type="email" class="form-control my-2 cabin2 border-0 cor2" id="email"
-                            placeholder="Digite seu email" name="email">
+                            placeholder="Digite seu email" name="email" required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
                         <label for="password" class="cabin mb-0 cor">Senha:</label>
                         <input type="password" class="form-control my-2 cabin2 border-0 cor2" id="password"
-                            placeholder="Digite sua senha" name="senha">
+                            placeholder="Digite sua senha" name="senha" required>
                         <button type="submit" class="btn btn-primary custom-bg-color my-3  btn-block border-3 cor6 cor4" name="submit">Entrar</button>
                 </form>
-                        <div class="alert alert-danger" role="alert">
-                            Usuário não encontrado
-                        </div>
                         <p class="m-1 cabin2 cor">Não tem uma conta?</p>
                         <a id="signup" href="#" class="btn btn-link m-1 cabin2 cor">Registre-se aqui</a>
                     </div>
@@ -132,23 +129,23 @@
                         <h4 class="text-center m-4 cor cabin2">Registro</h4>
                         <label for="name" class="mb-0 cor cabin2">Nome:</label>
                         <input type="text" class="form-control my-2 cabin2 border-0 cor2 cor7" id="name"
-                            placeholder="Digite seu nome" name="nome">
+                            placeholder="Digite seu nome" name="nome" required pattern="^[a-zA-Z]{3,}$" title="Seu nome precisa ter no mínimo 3 caracteres">
 
                         <label for="email" class="mb-0 cor cabin2">Email:</label>
                         <input type="email" class="form-control my-2 cabin2 border-0 cor2 cor7" id="email"
-                            placeholder="Digite seu email" name="email">
+                            placeholder="Digite seu email" name="email" required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" title="Insira um email válido">
 
                         <label for="password" class="mb-0 cor cabin2">Senha:</label>
                         <input type="password" class="form-control my-2 cabin2 border-0 cor2 cor7" id="password"
-                            placeholder="Digite sua senha" name="senha">
+                            placeholder="Digite sua senha" name="senha" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[a-zA-Z]).{8,}$" title="Sua senha precisa de no mínimo 8 caracteres dentre eles é preciso um caractere especial, uma letra maiuscula e uma minuscula">
 
                         <label for="password" class="mb-0 cor cabin2">Confirme sua senha:</label>
                         <input type="password" class="form-control my-2 cabin2 border-0 cor2 cor7" id="confirmaSenha"
-                                placeholder="Digite novamente sua senha" name="confirmaSenha">
+                                placeholder="Digite novamente sua senha" name="confirmaSenha" required>
                           
                         <label for="birthdate" class="mb-0 cor cabin2">Data de Nascimento:</label>
                         <input type="date" class="form-control my-2 cabin2 border-0 cor2 cor7" id="birthdate"
-                            name="nascimento">
+                            name="nascimento" required pattern="^(19\d{2}|20(?:[0-1]\d|19))-(0[1-9]|1[0-2])-(0[1-9]|[1-2]\d|3[0-1])$" title="Insira uma data de nascimento valida (mínimo 5 anos)">
                         
                         <button type="submit"
                             class="btn btn-primary custom-bg-color my-3  btn-block border-3 cor6 cor4">Registrar</button>
