@@ -15,41 +15,32 @@
         rel="stylesheet">
     <style>
         body {
-            background-image: url("image\\fundo2.png");
+            background-image: url(".../image/fundo2.png");
             background-size: cover;
-            /* Para cobrir todo o corpo */
             background-position: center;
-            /* Para centralizar a imagem */
         }
 
-        /* Estilo personalizado para centralizar o conteúdo */
         .center-container {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 80vh;
-            /* Definindo a altura da página para que o conteúdo seja centralizado verticalmente */
         }
 
         .container {
             max-width: 600px;
-            /* Definindo uma largura máxima para o container */
         }
 
-        /* Estilos adicionais para os formulários */
         .login-form,
         .register-form {
             display: none;
             transition: opacity 0.5s ease-in-out;
-            /* Adicionando uma transição de desvanecimento */
         }
 
-        /* Estilo para exibir o formulário de login */
         .sign-in-js .login-form {
             display: block;
         }
 
-        /* Estilo para exibir o formulário de registro */
         .sign-up-js .register-form {
             display: block;
         }
@@ -79,7 +70,7 @@
         }
 
         .cor2 {
-            background-color: #ecf0f1;
+            background-color: #dddddd;
         }
 
         .cor7 {
@@ -114,12 +105,12 @@
     </style>
 </head>
 
-<body class="sign-in-js">
+<body class="sign-in-js" style="background-image: url(../image/fundo2.png);">
     <div class="center-container">
         <div class="container text-center">
             <div class="row">
                 <form action="./testeLogin.php" method="POST">
-                    <div class="col custom-bg-color login-form cantoRedondo">
+                    <div class="col custom-bg-color login-form cantoRedondo p-2">
                         <h4 class="text-center m-4 cabin2 cor">LOGIN</h4>
                         <label for="email" class="cabin  mb-0 cor">Email:</label>
                         <input type="email" class="form-control my-2 cabin2 border-0 cor2" id="email"
@@ -129,10 +120,10 @@
                             placeholder="Digite sua senha" name="senha">
                         <button type="submit" class="btn btn-primary custom-bg-color my-3  btn-block border-3 cor6 cor4" name="submit">Entrar</button>
                         <p class="m-1 cabin2 cor">Não tem uma conta?</p>
+                        <a id="signup" href="#" class="btn btn-link m-1 cabin2 cor">Registre-se aqui</a>
+
                     </div>
                 </form>
-                <button id="signup" class="btn btn-link m-1 cabin2 cor">Registre-se aqui</button>
-
 
                 <div class="col custom-bg-color register-form cus">
                     <form action="signupphp.php" method="POST">
@@ -153,8 +144,8 @@
                             class="btn btn-primary custom-bg-color my-3  btn-block border-3 cor6 cor4">Registrar</button>
                         <p class="m-1 cabin2 cor">Já tem uma conta?</p> 
                     </form>
-                
-                        <button id="signin" class="btn btn-link m-1 cabin2 cor">Faça login aqui</button></div>
+                        <button id="signin" class="btn btn-link m-1 cabin2 cor">Faça login aqui</button>
+                </div>
             </div>
         </div>
     </div>
