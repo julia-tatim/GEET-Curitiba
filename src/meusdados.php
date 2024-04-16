@@ -13,7 +13,7 @@ if((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true)
     $email = $_SESSION['email'];
     $senha = $_SESSION['senha'];
 
-    $sql = "SELECT nome, data_nascimento FROM usuario WHERE email = '$email'";
+    $sql = "SELECT nome, data_nascimento, confirmaSenha FROM usuario WHERE email = '$email'";
     $result = mysqli_query($conn, $sql);
 
     if (mysqli_num_rows($result) > 0) {
@@ -21,10 +21,12 @@ if((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true)
         $row = mysqli_fetch_assoc($result);
         $nome = $row['nome'];
         $dataNascimento = $row['data_nascimento'];
+        $confirmaSenha = $row["confirmaSenha"];
     } else {
         // Handle if no user found
         $nome = "Nome não encontrado";
         $dataNascimento = "Data de Nascimento não encontrada";
+        $confirmaSenha = "Confirmação de senha não encontrada";
     }
 ?>
 
@@ -180,6 +182,10 @@ if((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true)
                         <label for="inputSenha4" class="cabin2">Senha</label>
                         <input type="password" class="form-control cabin2 corfundo" name="senha" id="inputSenha4" value="<?php echo $senha; ?>">
                     </div>
+                    <div class="form-group">
+                        <label for="inputSenha4" class="cabin2">Confirme sua senha</label>
+                        <input type="password" class="form-control cabin2 corfundo" name="confirmaSenha" id="confirmaSenha" value="<?php echo $confirmaSenha; ?>">
+                    </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="inputEmail4" class="cabin2">Email</label>
@@ -191,7 +197,8 @@ if((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true)
                         </div>
                     </div>
                     <button type="submit" class="btn btn-outline-light cabin2 color-btn cabin2 mr-2 " name="update" id="update">Editar</button>
-                    <button type="submit" class="btn btn-outline-light cabin2 color-btn cabin2 color-btn3" name="delete" id="delete">Deletar</button>
+                    <button type="submit" class="btn btn-outline-light cabin2 color-btn cabin2 color-btn3 mr-2" name="delete" id="delete">Deletar</button>
+                    <button type="submit" class="btn btn-outline-light cabin2 color-btn cabin2 " name="logout" id="logout">Deslogar</button>
                 </form>
             </div>
         </div>

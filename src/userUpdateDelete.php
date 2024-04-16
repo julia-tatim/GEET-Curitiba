@@ -1,25 +1,74 @@
 <?php
-
+session_start();
 include_once('config.php');
 
 if (isset($_POST['update'])) {
-    $nome = $_POST['nome'];
-        $email = $_POST['email'];
-        $senha = $_POST['senha'];
-        $data_nascimento = $_POST['data_nascimento'];
 
-        $crypt = password_hash($senha, PASSWORD_BCRYPT);
-        echo($crypt);       
+    //se trocar nome -> troca nome
+    //se trocar data nascimento -> troca data nascimento
+    //se trocar senha -> troca senha e deve trocar a confirmação de senha 
+    //confirmação de senha tem que ser igual a senha
+    //se troca email -> troca email que não existe e os outros dados continueam iguais
 
-        $sqlUpdate = "UPDATE usuario SET nome='$nome',senha='$crypt',data_nascimento='$data_nascimento' WHERE email='$email'";
+        $email_antigo = $_SESSION['email']; 
+        $email_novo = $_POST['email']; 
+        $nome = $_POST['nome']; 
+        $senha = $_POST['senha']; 
+        $confirmaSenha = $_POST['confirmaSenha']; 
+        $data_nascimento = $_POST['data_nascimento']; 
 
-        $result = $conn->query($sqlUpdate);//adicionar mensagem de usuário editado com sucesso
+        //--update nome e data
+        if (isset($nome) || isset($data_nascimento)) {
+            $sqlUpdate = "UPDATE usuario SET nome='$nome', data_nascimento='$data_nascimento' WHERE email='$email_antigo'";
+            $resultUpdate = $conn->query($sqlUpdate);
+        }
 
-        header("Location:meusdados.php");
-        exit();
+        if (!isset($_POST['senha']) || !isset($_POST['confirmaSenha'])) {
+
+            $crypt = password_hash($senha, PASSWORD_BCRYPT);
+            $cryptConfirma = password_hash($confirmaSenha, PASSWORD_BCRYPT);
+
+            if ($senha != $confirmaSenha) {
+                echo "presta mais atenção filho da puta (ou akemi que é trouxa e errou no código)";
+            }else{
+                $sqlSenha = "UPDATE usuario SET senha='$crypt', confirmaSenha='$cryptConfirma' WHERE email='$email_antigo'";
+                $resultSenha = $conn->query($sqlSenha);
+            }
+        }
         
+        if (!isset($_POST['email'])) {
+
+            $sqlCheckEmail = "SELECT COUNT(*) AS count FROM usuario WHERE email='$email_novo'";
+            $resultCheckEmail = $conn->query($sqlCheckEmail);
+            $row = $resultCheckEmail->fetch_assoc();
+            $emailExistente = $row['count'];
+
+            if ($emailExistente > 0) {
+                echo "O e-mail fornecido já está em uso. Por favor, escolha outro.";//mandar mensagem de email já existente
+            } else {
+
+                $sqlEmail = "UPDATE usuario SET email='$email_novo' WHERE email='$email_antigo'";
+
+                $resultEmail = $conn->query($sqlEmail); 
+
+                if ($resultEmail) {
+
+                    $_SESSION['email'] = $email_novo;
+                    echo "Usuário editado com sucesso!";
+                } else {
+                    echo "Erro ao editar usuário: " . $conn->error;
+                }
+                header("Location: meusdados.php");
+                exit();
+            }
+        }
+        header("Location: meusdados.php");
+        exit();
+
 } elseif (isset($_POST['delete'])) {
+
     if (!empty($_POST['email'])) {
+        
         $email = $_POST['email'];
 
         $sql = "DELETE FROM usuario WHERE email = ?";
@@ -28,17 +77,27 @@ if (isset($_POST['update'])) {
 
         if ($stmt->execute()) {
             $msg = "Deletado com sucesso!";//enviar mensagem
-            header("Location:login.html");
-            exit();
+            unset($_SESSION['email']);
+            unset($_SESSION['senha']);
+         
         } else {
             $msg = "Erro ao deletar: " . $conn->error;
         }
-
+        
         $stmt->close();
         $conn->close();
+        header("Location:login.html");
+        exit();
+
     } else {
         $msg = "Email não fornecido.";
     }
+} elseif (isset($_POST['logout'])) {
+
+    unset($_SESSION['email']);
+    unset($_SESSION['senha']);
+    header('Location: login.html');
+    exit();
 }
 
 ?>
