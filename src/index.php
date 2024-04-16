@@ -5,7 +5,6 @@
         unset($_SESSION['senha']);
         header('Location: login.html');
     }
-    $logado = $_SESSION['email'];
 ?>
 
 <!DOCTYPE html>

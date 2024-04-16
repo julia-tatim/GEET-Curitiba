@@ -11,9 +11,8 @@ if((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true)
 }
 
     $email = $_SESSION['email'];
-    $senha = $_SESSION['senha'];
 
-    $sql = "SELECT nome, data_nascimento, confirmaSenha FROM usuario WHERE email = '$email'";
+    $sql = "SELECT nome, data_nascimento, confirmaSenha, senha FROM usuario WHERE email = '$email'";
     $result = mysqli_query($conn, $sql);
 
     if (mysqli_num_rows($result) > 0) {
@@ -22,11 +21,13 @@ if((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true)
         $nome = $row['nome'];
         $dataNascimento = $row['data_nascimento'];
         $confirmaSenha = $row["confirmaSenha"];
+        $senha = $row["senha"];
     } else {
         // Handle if no user found
         $nome = "Nome não encontrado";
         $dataNascimento = "Data de Nascimento não encontrada";
         $confirmaSenha = "Confirmação de senha não encontrada";
+        $senha = "Senha não encontrada";
     }
 ?>
 
@@ -167,7 +168,7 @@ if((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true)
             <a class="navbar-brand m-2" href="login.html"><img src="..\image\perfil.svg" alt="Bootstrap" width="50" height=""></a>
         </div>
     </nav>
-    <!-- cabeçalho -->
+    <!-- cabeçalho -->+
 
     <div class="container">
         <div class="row">

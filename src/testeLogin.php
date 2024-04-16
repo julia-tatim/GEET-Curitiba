@@ -24,11 +24,11 @@ if (isset($_POST['submit']) && !empty($_POST['email']) && !empty($_POST['senha']
         } else {
             unset($_SESSION['email']);
             unset($_SESSION['senha']);
-            header('Location: login.html'); //adicionar mensagem de usuário não encontrado/ não existe
+            echo "erro";
             exit();
         }
     } else {
-        echo "<script>alert('Email e/ou senha incorretos');window.location.href='login.html';</script>";//adicionar mensagem de usuário não encontrado/ não existe
+        echo "erro";//adicionar mensagem de usuário não encontrado/ não existe
         exit();
     }
     
