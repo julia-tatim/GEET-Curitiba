@@ -1,5 +1,5 @@
 <?php
-include "../php/config.php";
+include "config.php";
 
     $nome = $_POST["nome"];
     $email = $_POST["email"];
@@ -12,12 +12,11 @@ include "../php/config.php";
     $sql = "INSERT INTO usuario (nome, senha, email, data_nascimento) VALUES ('$nome', '$crypt', '$email', '$nascimento')";
 
     if(mysqli_query($conn, $sql)){
-        $msg = "Gravado com sucesso!";
-        // Redirect to login page
+        //adicionar mensagem de sucesso
         header("Location: login.html");
-        exit(); // Make sure to exit after redirecting
+        exit();
     }else{
-        $msg = "Erro ao gravar: " . mysqli_error($conn);
+        $msg = "Erro ao gravar: " . mysqli_error($conn);//adicionar mensagem de erro
     }
 
     mysqli_close($conn);
