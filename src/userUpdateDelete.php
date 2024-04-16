@@ -1,7 +1,6 @@
 <?php
 session_start();
 include_once('config.php');
-
 if (isset($_POST['update'])) {
 
     //se trocar nome -> troca nome
@@ -25,8 +24,9 @@ if (isset($_POST['update'])) {
         $crypt = password_hash($senha, PASSWORD_BCRYPT);
         $cryptConfirma = password_hash($confirmaSenha, PASSWORD_BCRYPT);
 
-        if ($senha != $confirmaSenha) {
+        if ($senha !== $confirmaSenha) {
             echo "presta mais atenção filho da puta (ou akemi que é trouxa e errou no código)";
+            exit();
         }else{
             $sqlSenha = "UPDATE usuario SET senha='$crypt', confirmaSenha='$cryptConfirma' WHERE email='$email_antigo'";
             $resultSenha = $conn->query($sqlSenha);
@@ -60,6 +60,7 @@ if (isset($_POST['update'])) {
         }
         header("Location: meusdados.php");
         exit();
+
 
 } elseif (isset($_POST['delete'])) {
 
