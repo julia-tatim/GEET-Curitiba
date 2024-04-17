@@ -24,16 +24,18 @@ if (isset($_POST['submit']) && !empty($_POST['email']) && !empty($_POST['senha']
         } else {
             unset($_SESSION['email']);
             unset($_SESSION['senha']);
-            echo "erro";
+            echo '<script>alert("Usuário não encontrado ou credenciais inválidas. Por favor, tente novamente."); window.location.href = "login.html";</script>';
             exit();
         }
     } else {
-        echo "erro";//adicionar mensagem de usuário não encontrado/ não existe
+        echo '<script>alert("Usuário não encontrado ou credenciais inválidas. Por favor, tente novamente."); window.location.href = "login.html";</script>';;//adicionar mensagem de usuário não encontrado/ não existe
         exit();
     }
     
     $stmt->close();
     $conn->close();
+
+    
 
 }
 else {

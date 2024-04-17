@@ -1,13 +1,9 @@
 <?php
 session_start();
 include_once('config.php');
-if (isset($_POST['update'])) {
 
-    //se trocar nome -> troca nome
-    //se trocar data nascimento -> troca data nascimento
-    //se trocar senha -> troca senha e deve trocar a confirmação de senha 
-    //confirmação de senha tem que ser igual a senha
-    //se troca email -> troca email que não existe e os outros dados continueam iguais
+//UPDATE
+if (isset($_POST['update'])) {
 
         $email_antigo = $_SESSION['email']; 
         $email_novo = $_POST['email']; 
@@ -15,8 +11,6 @@ if (isset($_POST['update'])) {
         $senha = $_POST['senha']; 
         $confirmaSenha = $_POST['confirmaSenha']; 
         $data_nascimento = $_POST['data_nascimento']; 
-
-        //--update nome e data
         
         $sqlUpdate = "UPDATE usuario SET nome='$nome', data_nascimento='$data_nascimento' WHERE email='$email_antigo'";
         $resultUpdate = $conn->query($sqlUpdate);
@@ -24,10 +18,12 @@ if (isset($_POST['update'])) {
         $crypt = password_hash($senha, PASSWORD_BCRYPT);
         $cryptConfirma = password_hash($confirmaSenha, PASSWORD_BCRYPT);
 
+        //tem erro aqui - se não mudar nada, está ativando o echo das senhas não coincidem 
         if ($senha !== $confirmaSenha) {
-            echo "presta mais atenção filho da puta (ou akemi que é trouxa e errou no código)";
+            echo 'ERRO';//mandar mensagem as senhas não coincidem
             exit();
-        }else{
+        } else {
+ 
             $sqlSenha = "UPDATE usuario SET senha='$crypt', confirmaSenha='$cryptConfirma' WHERE email='$email_antigo'";
             $resultSenha = $conn->query($sqlSenha);
         }
@@ -38,9 +34,9 @@ if (isset($_POST['update'])) {
             $resultCheckEmail = $conn->query($sqlCheckEmail);
             $row = $resultCheckEmail->fetch_assoc();
             $emailExistente = $row['count'];
-
+            //aqui tem erro tbm (o alerto do email já utilizado n aparece)
             if ($emailExistente > 0) {
-                echo "O e-mail fornecido já está em uso. Por favor, escolha outro.";//mandar mensagem de email já existente
+                echo '<script>alert("Este email já está sendo utilizado.");</script>';
             } else {
 
                 $sqlEmail = "UPDATE usuario SET email='$email_novo' WHERE email='$email_antigo'";
@@ -48,9 +44,8 @@ if (isset($_POST['update'])) {
                 $resultEmail = $conn->query($sqlEmail); 
 
                 if ($resultEmail) {
-
                     $_SESSION['email'] = $email_novo;
-                    echo "Usuário editado com sucesso!";
+                    echo '<script>alert("Email editado com sucesso.");</script>';//esse não aparece tbm
                 } else {
                     echo "Erro ao editar usuário: " . $conn->error;
                 }
@@ -61,7 +56,7 @@ if (isset($_POST['update'])) {
         header("Location: meusdados.php");
         exit();
 
-
+//DELETE
 } elseif (isset($_POST['delete'])) {
 
     if (!empty($_POST['email'])) {
@@ -73,7 +68,7 @@ if (isset($_POST['update'])) {
         $stmt->bind_param("s", $email);
 
         if ($stmt->execute()) {
-            $msg = "Deletado com sucesso!";//enviar mensagem
+            echo '<script>alert("Usuário deletado com sucesso.");</script>'; //esse não ta aparecendo tbm
             unset($_SESSION['email']);
             unset($_SESSION['senha']);
          
