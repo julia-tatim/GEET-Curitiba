@@ -18,9 +18,9 @@ if (isset($_POST['update'])) {
         $crypt = password_hash($senha, PASSWORD_BCRYPT);
         $cryptConfirma = password_hash($confirmaSenha, PASSWORD_BCRYPT);
 
-        //tem erro aqui - se não mudar nada, está ativando o echo das senhas não coincidem 
-        if ($senha !== $confirmaSenha) {
-            echo 'ERRO';//mandar mensagem as senhas não coincidem
+        
+        if ($senha != $confirmaSenha) {
+            echo '<script>alert("As senhas não conferem.");window.location.href = "meusdados.php;</script>';
             exit();
         } else {
  
@@ -34,7 +34,7 @@ if (isset($_POST['update'])) {
             $resultCheckEmail = $conn->query($sqlCheckEmail);
             $row = $resultCheckEmail->fetch_assoc();
             $emailExistente = $row['count'];
-            //aqui tem erro tbm (o alerto do email já utilizado n aparece)
+            
             if ($emailExistente > 0) {
                 echo '<script>alert("Este email já está sendo utilizado.");</script>';
             } else {
@@ -45,7 +45,7 @@ if (isset($_POST['update'])) {
 
                 if ($resultEmail) {
                     $_SESSION['email'] = $email_novo;
-                    echo '<script>alert("Email editado com sucesso.");</script>';//esse não aparece tbm
+                    echo 'As senhas não conferem';
                 } else {
                     echo "Erro ao editar usuário: " . $conn->error;
                 }
@@ -68,7 +68,7 @@ if (isset($_POST['update'])) {
         $stmt->bind_param("s", $email);
 
         if ($stmt->execute()) {
-            echo '<script>alert("Usuário deletado com sucesso.");</script>'; //esse não ta aparecendo tbm
+            echo '<script>alert("Usuário deletado com sucesso.");</script>'; 
             unset($_SESSION['email']);
             unset($_SESSION['senha']);
          
