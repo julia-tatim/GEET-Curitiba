@@ -92,6 +92,13 @@
         color: #1E659B;
     }
 
+    .color8{
+        background-color: rgba(255, 255, 255, 0.5);
+        border-radius: 15px;
+        
+    }
+
+
 
     </style>
 </head>
@@ -124,11 +131,14 @@
         </div>
     </nav>
     <!-- cabeçalho -->
+    <div>
+
+    </div>
     <div class="container mt-4">
         <div class="row justify-content-center">
-            <div class="col-md-6">
+            <div class="col-md-6 color8">
                 <div class="d-flex flex-column align-items-center">
-                    <img src="..\image\botanico.png" class="img-fluid" alt="Imagem do Local">
+                    <img src="..\image\botanico.png" class="img-fluid" alt="Imagem do Local" style="margin-top: 12px;">
 
                     <!-- Informações -->
                     <div class="conteiner col-md-12">
@@ -142,11 +152,30 @@
                         <p class="cabin2"><strong>Rede Social: </strong><a href="#">Instagram</a>, <a href="#">Facebook</a></p>
                         <p class="cabin2"><strong>Site: </strong><a href="#">www.example.com</a></p>
                     </div>
+                    
                 </div>
             </div>
-        </div>
-    </div>
-    
+            <!-- Container de comentarios -->
+            <div class= "conteiner col-md-6 color8">
+                <h2 class="cabin2" style="margin-top: 12px;">Comentários</h2>
+                <form>
+                    <div class="mb-3">
+                        <label for="exampleFormControlTextarea1" class="form-label cabin2">Deixe seu comentário:</label>
+                        <textarea class="form-control cabin2" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary cabin2">Enviar</button>
+                </form>
+                <!-- Ex de um Comet -->
+                <div class="mt-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Nome do Usuário</h5>
+                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae urna eget dolor commodo posuere.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- adiconar novo comentario aqui -->
+            </div>
            
             
         </div>
