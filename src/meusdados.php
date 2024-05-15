@@ -168,7 +168,7 @@ if((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true)
             <a class="navbar-brand m-2" href="login.html"><img src="..\image\perfil.svg" alt="Bootstrap" width="50" height=""></a>
         </div>
     </nav>
-    <!-- cabeçalho -->+
+    <!-- cabeçalho -->
 
     <div class="container">
         <div class="row">
