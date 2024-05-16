@@ -32,19 +32,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
                 $stmt_delete_imagem->close();
             }
 
-            echo "<div class='w3-responsive w3-card-4'>";
-            echo "<p>&nbsp;Estabelecimento excluído com sucesso! </p>";
-            echo "</div>";
+
+            echo '<script>alert("Dados do estabelecimento excluídos com sucesso!");window.location.href = "explorarHTML.php";
+            </script>';
+
         } else {
             echo "Erro ao excluir o estabelecimento: " . $conn->error;
+            echo '<script>window.location.href = "explorarHTML.php";</script>';
         }
 
         $stmt->close(); // Fecha o statement
         $conn->close(); // Fecha a conexão com o banco de dados
     } else {
-        echo "ID do estabelecimento não foi especificado.";
+        echo '<script>alert("ID do estabelecimento não foi especificado.");window.location.href = "explorarHTML.php";</script>';
     }
 } else {
-    echo "Solicitação inválida.";
+    echo '<script>alert("Solicitação inválida.");window.location.href = "explorarHTML.php";</script>';
 }
 ?>

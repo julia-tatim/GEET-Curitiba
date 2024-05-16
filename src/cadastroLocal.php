@@ -65,18 +65,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         exit();
                     } else {
 
-                        // Insere os dados do estabelecimento na tabela 'estabelecimento'
+                        // Insere os dados do estabelecimento na tabela 'estabelecimento' usando instruções preparadas
                         $sql_estabelecimento = "INSERT INTO estabelecimento (localizacao, nome, descricao, telefone, rede_social, site, idadeMinima, horario_abertura, horario_fechamento, imagem_id, id_tipo)
-                                VALUES ('$localizacao', '$nome', '$descricao', '$telefone', '$redeSocial', '$site', '$idadeMim', '$horario_abertura', '$horario_fechamento', '$id_imagem', '$id_tipo')";
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-                        // uso de alert do js
-                        if (mysqli_query($conn, $sql_estabelecimento)) {
-                            echo '<script>alert("Estabelecimento registrado com sucesso."); window.location.href = "explorarHTML.php";</script>';
-                            exit();
+                        $stmt = $conn->prepare($sql_estabelecimento);
+                        $stmt->bind_param("ssssssssssi", $localizacao, $nome, $descricao, $telefone, $redeSocial, $site, $idadeMim, $horario_abertura, $horario_fechamento, $id_imagem, $id_tipo);
+
+                        if ($stmt->execute()) {
+                        echo '<script>alert("Estabelecimento registrado com sucesso."); window.location.href = "explorarHTML.php";</script>';
+                        exit();
                         } else {
-                            echo '<script>alert("Erro ao registrar estabelecimento."); window.location.href = "cadastroLocal.html";</script>';
-                            exit();
+                        echo '<script>alert("Erro ao registrar estabelecimento."); window.location.href = "cadastroLocal.html";</script>';
+                        exit();
                         }
+
+                        $stmt->close();
+
                     }
                 }
             } else {

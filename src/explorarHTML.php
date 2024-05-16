@@ -104,7 +104,11 @@ $result = mysqli_query($conn, $sql);
     box-shadow: none;
     border-color: #F1835E;
  }
-
+ .tamanho-imagem-card {
+      width: 210px;
+      height: 210px;
+      border-radius: 10px;
+}
 
 </style>
 
@@ -200,11 +204,11 @@ $result = mysqli_query($conn, $sql);
                             echo "<div class='col-md-4 p-3 estabelecimento-card' data-categorias='$categorias'>";
                             echo "<div class='card'>";
                             echo "<div class='text-center'>";
-                            echo "<img src='$imagem_src' class='card-img-top m-2 mt-4' alt='Imagem do estabelecimento'>";
+                            echo "<img src='$imagem_src' class='card-img-top m-2 mt-4 tamanho-imagem-card' alt='Imagem do estabelecimento'>";
                             echo "</div>";
                             echo "<div class='card-body'>";
                             echo "<h5 class='card-title cabin2'>$nome</h5>";
-                            echo "<p class='card-text cabin2'>$descricao</p>";
+                            
                             echo "<a href='LocalHTML.php?id=$id_estabelecimento' class='btn btn-outline-light cabin2 color-btn cabin2'>Saiba mais</a>"; echo "<a href='edicaoLocalHTML.php?id=$id_estabelecimento' class='btn btn-outline-light cabin2 color-btn cabin2'>ADM</a>";
                             echo "</div>";
                             echo "</div>";
