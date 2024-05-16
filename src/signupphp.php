@@ -16,6 +16,10 @@ if (mysqli_num_rows($result) > 0) {
     echo '<script>alert("Este email já está sendo utilizado."); window.location.href = "login.html";</script>';
     exit();
 } else {
+    // Email doesn't exist, proceed with insertion
+    if ($senha !== $confirmaSenha) {
+        echo '<script>alert("As senhas não coincidem."); window.location.href = "login.html";</script>';//mandar mensagem as senhas não coincidem
+    } else {
         $cryptSenha = password_hash($senha, PASSWORD_BCRYPT);
         $cryptConfirma = password_hash($confirmaSenha, PASSWORD_BCRYPT);
 
@@ -31,7 +35,7 @@ if (mysqli_num_rows($result) > 0) {
             header("Location: Login.html");
             exit();
         }
-    
+    }
 }
 
 mysqli_close($conn);

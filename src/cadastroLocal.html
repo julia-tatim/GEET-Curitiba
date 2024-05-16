@@ -107,6 +107,7 @@
         }
 
     </style>
+    
 </head>
 <body>
     <!-- cabeçalho -->
@@ -141,46 +142,52 @@
     <div class="container mt-4 p-4" style="border-radius: 30px; background-color: rgb(104, 104, 104);">
         <div class="row justify-content-center">
             <div class="col-lg-8">
-                <form>
+                <form action="cadastroLocal.php" method="POST" enctype="multipart/form-data">
                     <div class="mb-3">
+
                         <label for="nomeLocal" class="form-label cabin2">Nome</label>
-                        <input type="text" class="form-control" id="nomeLocal" required pattern="^[a-zA-Z]{3,}$" title="Nome muito curto(mínimo 3 caracteres)">
+                        <input type="text" class="form-control" id="nomeLocal" name="nomeLocal" required minlength="3" required pattern="^[a-zA-Z\s]+" title="Nome inválido">
+
                     </div>
                     <div class="mb-3">
                         <label for="tipoLocal" class="form-label cabin2">Tipo de Estabelecimento</label>
-                        <select class="form-select" id="tipoLocal">
-                            <option value="restaurante cabin">Restaurante</option>
-                            <option value="turismo cabin">Turismo</option>
-                            <option value="entreterimento cabin">Entretenimento</option>
+                        <select class="form-select" id="tipoLocal" name="tipoLocal" required>
+                            <option value="restaurante cabin">Restaurantes</option>
+                            <option value="restaurante_vegano cabin">Restaurantes Veganos</option>
+                            <option value="restaurante_opcao_vegana cabin">Restaurantes com Opções Veganas</option>
+                            <option value="cafe cabin">Cafés</option>
+                            <option value="cafe_vegano cabin">Cafés com Opções Veganas</option>
+                            <option value="entreterimento cabin">Entreterimento</option>
+                            <option value="pontos_turisticos cabin">Pontos Turísticos</option>
                         </select>
                     </div>
                     <div class="mb-3">
                         <label for="descricaoLocal" class="form-label cabin2">Descrição</label>
-                        <input class="form-control" id="descricaoLocal" rows="3" required pattern="^[a-zA-Z]{50,}$" title="Descrição muito curta(mínimo 50 caracteres)"></input>
+                        <textarea class="form-control" id="descricaoLocal" name="descricaoLocal" rows="3" required minlength="50" title="Descrição muito curta"></textarea>
                     </div>
                     <div class="row mb-3">
                         <div class="col">
                             <label for="localizacao" class="form-label cabin2">Endereço</label>
-                            <input type="text" class="form-control" id="localizacao" required pattern="^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{8,}$" title="Insira um endereço valido">
+                            <input type="text" class="form-control" id="localizacao" name="localizacao" required pattern="^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{8,}$" title="Insira um endereço valido">
                         </div>
                         <div class="col">
                             <label for="telefone" class="form-label cabin2">Telefone</label>
-                            <input type="tel" class="form-control" id="telefone" required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" title="Insira um numero valido">
+                            <input type="tel" class="form-control" id="telefone" name="telefone" required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" title="Insira um numero valido">
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col">
-                            <label for="horaAbertura" class="form-label cabin2">Abre às</label>
-                            <input type="time" class="form-control" id="horaAbertura">
+                            <label for="horario_abertura" class="form-label cabin2">Abre às</label>
+                            <input type="time" class="form-control" id="horario_abertura" name="horario_abertura" required>
                         </div>
                         <div class="col">
-                            <label for="horaFechamento" class="form-label cabin2">Fecha às</label>
-                            <input type="time" class="form-control" id="horaFechamento">
+                            <label for="horario_fechamento" class="form-label cabin2">Fecha às</label>
+                            <input type="time" class="form-control" id="horario_fechamento" name="horario_fechamento" required>
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="idadeMim" class="form-label cabin2">Classificação Indicativa</label>
-                        <select class="form-select" id="idadeMim">
+                        <select class="form-select" id="idadeMim" name="idadeMim" required>
                             <option value="livre">Livre para todos os públicos</option>
                             <option value="10">+10</option>
                             <option value="12">+12</option>
@@ -191,15 +198,15 @@
                     </div>
                     <div class="mb-3">
                         <label for="redeSocial" class="form-label cabin2">Rede Social</label>
-                        <input type="url" class="form-control" id="redeSocial" pattern="^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{8,}$" title="Insira um link valido">
+                        <input type="text" class="form-control" id="redeSocial" name="redeSocial"  title="Insira um link valido" required>
                     </div>
                     <div class="mb-3">
                         <label for="site" class="form-label cabin2">Site Oficial</label>
-                        <input type="url" class="form-control" id="site" pattern="^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{8,}$" title="Insira um link valido">
+                        <input type="text" class="form-control" id="site" name="site"  title="Insira um link valido" required>
                     </div>
                     <div class="mb-3">
                         <label for="imagem" class="form-label cabin2">Imagem do Local</label>
-                        <input type="file" class="form-control" id="imagem" accept="image/png, image/jpeg">
+                        <input type="file" name="imagem" id="imagem" accept="image/*" required>
                     </div>
                     <button type="submit" class="btn btn-outline-light cabin2 color-btn cabin3">Criar</button>
                 </form>

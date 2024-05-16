@@ -168,7 +168,7 @@ if((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true)
             <a class="navbar-brand m-2" href="login.html"><img src="..\image\perfil.svg" alt="Bootstrap" width="50" height=""></a>
         </div>
     </nav>
-    <!-- cabeçalho -->
+    <!-- cabeçalho -->+
 
     <div class="container">
         <div class="row">
@@ -181,11 +181,11 @@ if((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true)
                     </div>
                     <div class="form-group">
                         <label for="inputSenha4" class="cabin2">Senha</label>
-                        <input type="password" class="form-control cabin2 corfundo" name="senha" id="inputSenha4" >
+                        <input type="password" class="form-control cabin2 corfundo" name="senha" id="inputSenha4" value="<?php echo $senha; ?>">
                     </div>
                     <div class="form-group">
                         <label for="inputSenha4" class="cabin2">Confirme sua senha</label>
-                        <input type="password" class="form-control cabin2 corfundo" name="confirmaSenha" id="confirmaSenha" >
+                        <input type="password" class="form-control cabin2 corfundo" name="confirmaSenha" id="confirmaSenha" value="<?php echo $confirmaSenha; ?>">
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
@@ -197,7 +197,7 @@ if((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true)
                             <input type="date" class="form-control cabin2 corfundo" name="data_nascimento" id="inputNascimento" value="<?php echo $dataNascimento; ?>">
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-outline-light cabin2 color-btn cabin2 mr-2 " name="update" id="update">Editar</button>
+                    <button type="submit" class="btn btn-outline-light cabin2 color-btn cabin2 mr-2 "name="update" id="update">Editar</button>
                     <button type="submit" class="btn btn-outline-light cabin2 color-btn cabin2 color-btn3 mr-2" name="delete" id="delete">Deletar</button>
                     <button type="submit" class="btn btn-outline-light cabin2 color-btn cabin2 " name="logout" id="logout">Deslogar</button>
                 </form>
