@@ -181,11 +181,11 @@ if((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true)
                     </div>
                     <div class="form-group">
                         <label for="inputSenha4" class="cabin2">Senha</label>
-                        <input type="password" class="form-control cabin2 corfundo" name="senha" id="inputSenha4" value="<?php echo $senha; ?>">
+                        <input type="password" class="form-control cabin2 corfundo" name="senha" id="inputSenha4" >
                     </div>
                     <div class="form-group">
                         <label for="inputSenha4" class="cabin2">Confirme sua senha</label>
-                        <input type="password" class="form-control cabin2 corfundo" name="confirmaSenha" id="confirmaSenha" value="<?php echo $confirmaSenha; ?>">
+                        <input type="password" class="form-control cabin2 corfundo" name="confirmaSenha" id="confirmaSenha" >
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
