@@ -17,13 +17,13 @@ CREATE TABLE estabelecimento (
     id_estabelecimento INT AUTO_INCREMENT PRIMARY KEY,
     localizacao VARCHAR(250),
     nome VARCHAR(50) UNIQUE,
-    horario_abertura VARCHAR(5),
+    horario_abertura TIME,
     descricao TEXT,
     telefone VARCHAR(50) UNIQUE,
     rede_social VARCHAR(500),
     site VARCHAR(500),
     idadeMinima VARCHAR(35),
-    horario_fechamento VARCHAR(5),
+    horario_fechamento TIME,
     imagem_id INT,
     id_tipo INT,
     FOREIGN KEY (imagem_id) REFERENCES imagem(id_imagem) ON DELETE RESTRICT,
@@ -62,13 +62,13 @@ CREATE TABLE administrador (
 
 CREATE TABLE comentario_estabelecimento (
     id_comentario INT AUTO_INCREMENT PRIMARY KEY,
-    estrelas INT,
     texto TEXT,
+    estrelas INT,
     horario TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    fk_usuario_email VARCHAR(50),
-    fk_estabelecimento_id INT,
-    FOREIGN KEY (fk_usuario_email) REFERENCES usuario(email),
-    FOREIGN KEY (fk_estabelecimento_id) REFERENCES estabelecimento(id_estabelecimento) ON DELETE CASCADE
+    usuario_email VARCHAR(50),
+    estabelecimento_id INT,
+    FOREIGN KEY (usuario_email) REFERENCES usuario(email),
+    FOREIGN KEY (estabelecimento_id) REFERENCES estabelecimento(id_estabelecimento) ON DELETE CASCADE
 );
 
 CREATE TABLE favorito_estabelecimento (
@@ -105,33 +105,17 @@ insert into tipo (id_tipo, tipoLocal, local) values
 (4, "Cafés", 'Estabelecimento'),
 (5, "Cafés com Opções Veganas", 'Estabelecimento'),
 
-(6, "Entreterimentos", 'Estabelecimento'),
+(6, "Entretenimento", 'Estabelecimento'),
 (7, "Pontos Turísticos", 'Estabelecimento'),
 
 (30, "$", 'Estabelecimento'),
 (31, "$$", 'Estabelecimento'),
 (32, "$$%", 'Estabelecimento');
 
-insert into estabelecimento values 
-("Alameda Dr. Carlos de Carvalho, 1148 - Batel", "Degusto Café", "09:00", "Diversos tipos de cafés gourmets, além de brownies, cupcakes e tortas, em espaço inspirado nos Estados Unidos"," 41 992865127", "https://www.instagram.com/degustocafe/", "https://www.degustocafe.com.br/", "livre", "21:00", 1, 4);
-
-id_estabelecimento INT AUTO_INCREMENT PRIMARY KEY,
-    localizacao VARCHAR(250),
-    nome VARCHAR(50) UNIQUE,
-    horario_abertura VARCHAR(5),
-    descricao TEXT,
-    telefone VARCHAR(50) UNIQUE,
-    rede_social VARCHAR(500),
-    site VARCHAR(500),
-    idadeMinima VARCHAR(35),
-    horario_fechamento VARCHAR(5),
-    imagem_id INT,
-    id_tipo INT,
-
-insert into usuario values 
-("thais@gmail.com","thais","" "Restaurantes"),
 
 /*
+insert into estabelecimento values 
+("Alameda Dr. Carlos de Carvalho, 1148 - Batel", "Degusto Café", "09:00", "Diversos tipos de cafés gourmets, além de brownies, cupcakes e tortas, em espaço inspirado nos Estados Unidos"," 41 992865127", "https://www.instagram.com/degustocafe/", "https://www.degustocafe.com.br/", "livre", "21:00", 1, 4);
 
 -- Trigger para inserção de evento
 DELIMITER //

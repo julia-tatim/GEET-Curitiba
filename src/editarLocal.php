@@ -1,6 +1,7 @@
 <?php
 include_once('config.php');
 
+// Verifica se o formulário foi submetido
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     $id_estabelecimento = $_POST['id_estabelecimento'];
@@ -14,8 +15,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $redeSocial = $_POST['redeSocial'] ?? '';
     $site = $_POST['site'] ?? '';
     $tipoLocal = $_POST['tipoLocal'] ?? '';
-    //window.location.href = "explorarHTML.php";
-    
+
+
+
+    // Formatando os valores para salvar apenas hora e minuto
+    $horario_abertura_formatado = date('H:i', strtotime($_POST['horario_abertura']));
+    $horario_fechamento_formatado = date('H:i', strtotime($_POST['horario_fechamento']));
+
     // Preparar consulta para atualizar os dados do estabelecimento
     $sql_update_estabelecimento = "UPDATE estabelecimento SET localizacao=?, nome=?, descricao=?, telefone=?, rede_social=?, site=?, idadeMinima=?, horario_abertura=?, horario_fechamento=?, id_tipo=? WHERE id_estabelecimento=?";
     $stmt_update_estabelecimento = mysqli_prepare($conn, $sql_update_estabelecimento);
@@ -23,9 +29,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!$stmt_update_estabelecimento) {
         die("Falha ao preparar a consulta de atualização do estabelecimento: " . mysqli_error($conn));
     }
-
     // Vincular os parâmetros à declaração preparada para atualizar o estabelecimento
-    mysqli_stmt_bind_param($stmt_update_estabelecimento, 'ssssssssisi', $localizacao, $nome, $descricao, $telefone, $redeSocial, $site, $idadeMinima, $horario_abertura, $horario_fechamento, $tipoLocal, $id_estabelecimento);
+    mysqli_stmt_bind_param($stmt_update_estabelecimento, 'ssssssssisi', $localizacao, $nome, $descricao, $telefone, $redeSocial, $site, $idadeMinima, $horario_abertura_formatado, $horario_fechamento_formatado, $tipoLocal, $id_estabelecimento);
 
     // Executar a declaração preparada para atualizar o estabelecimento
     if (mysqli_stmt_execute($stmt_update_estabelecimento)) {
@@ -86,7 +91,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "Falha ao ler o conteúdo da imagem.<br>";
         }
     }
-}else {
+} else {
     echo "Método inválido para acessar esta página.";
 }
 ?>

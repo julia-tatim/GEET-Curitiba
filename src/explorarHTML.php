@@ -1,5 +1,6 @@
 <?php
 include_once('config.php');
+session_start();
 
 $where = "";
 
@@ -17,7 +18,11 @@ $sql = "SELECT e.id_estabelecimento, e.nome, e.descricao, i.imagem
 $sql .= $where;
 
 $result = mysqli_query($conn, $sql);
+if (!$result) {
+    die("Erro na consulta SQL: " . mysqli_error($conn));
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -175,8 +180,8 @@ $result = mysqli_query($conn, $sql);
                             <label class="form-check-label cabin2" for="filtro5">Cafés com Opções Veganas</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input filtro" type="checkbox" name="categorias[]" value="Entreterimento" id="filtro6">
-                            <label class="form-check-label cabin2" for="filtro6">Entreterimento</label>
+                            <input class="form-check-input filtro" type="checkbox" name="categorias[]" value="Entretenimento" id="filtro6">
+                            <label class="form-check-label cabin2" for="filtro6">Entretenimento</label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input filtro" type="checkbox" name="categorias[]" value="Pontos Turísticos" id="filtro7">
@@ -201,6 +206,7 @@ $result = mysqli_query($conn, $sql);
                             $descricao = $row['descricao'];
                             $imagem_src = isset($row['imagem']) && !empty($row['imagem']) ? 'data:image;base64,' . base64_encode($row['imagem']) : '';
                             $categorias = ''; 
+
                             echo "<div class='col-md-4 p-3 estabelecimento-card' data-categorias='$categorias'>";
                             echo "<div class='card'>";
                             echo "<div class='text-center'>";
@@ -208,8 +214,8 @@ $result = mysqli_query($conn, $sql);
                             echo "</div>";
                             echo "<div class='card-body'>";
                             echo "<h5 class='card-title cabin2'>$nome</h5>";
-                            
-                            echo "<a href='LocalHTML.php?id=$id_estabelecimento' class='btn btn-outline-light cabin2 color-btn cabin2'>Saiba mais</a>"; echo "<a href='edicaoLocalHTML.php?id=$id_estabelecimento' class='btn btn-outline-light cabin2 color-btn cabin2'>ADM</a>";
+                            echo "<a href='LocalHTML.php?id=$id_estabelecimento' class='btn btn-outline-light cabin2 color-btn cabin2'>Saiba mais</a>"; 
+                            echo "<a href='edicaoLocalHTML.php?id=$id_estabelecimento' class='btn btn-outline-light cabin2 color-btn cabin2'>ADM</a>";
                             echo "</div>";
                             echo "</div>";
                             echo "</div>";
@@ -220,6 +226,7 @@ $result = mysqli_query($conn, $sql);
                     ?>
                 </div>
             </div>
+
         </div>
     </div>
           

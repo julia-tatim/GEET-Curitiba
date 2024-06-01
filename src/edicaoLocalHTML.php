@@ -292,14 +292,14 @@ mysqli_free_result($resultTipos);
                 <div class="row mb-3">
                     <div class="col">
                         <label for="horario_abertura" class="form-label cabin2">Abre às</label>
-                        <input type="time" class="form-control" id="horario_abertura" name="horario_abertura" value="<?php echo $dados['horario_abertura']; ?>">
+                        <input type="time" class="form-control" id="horario_abertura" name="horario_abertura" value="<?php echo 
+                        $dados['horario_abertura']; ?>" required>
                     </div>
                     <div class="col">
-                        <label for="horario_fechamento" class="form-label cabin2">Abre às</label>
-                        <input type="time" class="form-control" id="horario_fechamento" name="horario_fechamento" value="<?php echo $dados['horario_fechamento']; ?>">
+                        <label for="horario_fechamento" class="form-label cabin2">Fecha às</label>
+                        <input type="time" class="form-control" id="horario_fechamento" name="horario_fechamento" value="<?php echo $dados['horario_fechamento']; ?>"  required>
                     </div>
                 </div>
-
 
                 <div class="mb-3">
                     <label for="idadeMinima" class="form-label cabin2">Classificação Indicativa</label>

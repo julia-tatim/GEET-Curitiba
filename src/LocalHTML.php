@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -126,7 +129,7 @@
     <!-- cabeçalho -->
     <div class="container mt-4">
         <div class="row justify-content-center">
-            <div class="col-md-6">
+            <div class="col-md-6 color8">
                 <div class="d-flex flex-column align-items-center">
                 <?php
                     include_once('config.php');
@@ -152,7 +155,7 @@
 
                             // Exibir a imagem se estiver disponível, senão exibir uma mensagem
                             if (!empty($imagem_src)) {
-                                echo '<img src="' . $imagem_src . '" class="img-fluid" alt="Imagem do Local">';
+                                echo '<img src="' . $imagem_src . '" class="img-fluid" alt="Imagem do Local" style="margin-top: 12px;">';
                             } else {
                                 echo '<p>Imagem não disponível</p>';
                             }
@@ -169,7 +172,10 @@
                         <p class="cabin2"><strong>Tipo do Local: </strong><?php echo $dados_estabelecimento['tipo_nome']; ?></p>
                         <p class="cabin2"><strong>Endereço: </strong><?php echo $dados_estabelecimento['localizacao']; ?></p>
                         <p class="cabin2"><strong>Descrição: </strong><?php echo $dados_estabelecimento['descricao']; ?></p>
-                        <p class="cabin2"><strong>Horário de Funcionamento: </strong><?php echo $dados_estabelecimento['horario_abertura']; ?> - <?php echo $dados_estabelecimento['horario_fechamento']; ?>.</p>
+                        <p class="cabin2"><strong>Horário de Funcionamento: </strong>
+                            <?php echo substr($dados_estabelecimento['horario_abertura'], 0, 5); ?> -
+                            <?php echo substr($dados_estabelecimento['horario_fechamento'], 0, 5); ?>.
+                        </p>
                         <p class="cabin2"><strong>Restrição de Idade: </strong><?php echo $dados_estabelecimento['idadeMinima']; ?></p>
                         <p class="cabin2"><strong>Telefone: </strong><?php echo $dados_estabelecimento['telefone']; ?></p>
                         <p class="cabin2"><strong>Rede Social: </strong><a href="#"><?php echo $dados_estabelecimento['rede_social']; ?></a></p>
@@ -177,11 +183,49 @@
                     </div>
                 </div>
             </div>
-        </div>
+
+            <div class="conteiner col-md-6 color8">
+                <h2 class="cabin2" style="margin-top: 12px;">Comentários</h2>
+                <form action="salvarComentario.php" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="estabelecimento_id" value="<?php echo $id_estabelecimento; ?>">
+                    <input type="hidden" name="email" value="<?php echo $email; ?>">
+                    <div class="mb-3">
+                        <label for="textarea" class="form-label cabin2">Deixe seu comentário:</label>
+                        <textarea class="form-control cabin2" id="textarea" rows="3" name="comentario"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary cabin2">Enviar</button>
+                </form>
+
+                <!-- Display Comments -->
+                <div class="mt-4">
+                    <?php
+                        // Fetch comments from the database
+                        $sql_comments = "SELECT c.texto, u.nome, c.horario
+                                        FROM comentario_estabelecimento c
+                                        JOIN usuario u ON c.usuario_email = u.email
+                                        WHERE c.estabelecimento_id = $id_estabelecimento
+                                        ORDER BY c.horario DESC";
+                        $result_comments = $conn->query($sql_comments);
+
+                        if ($result_comments->num_rows > 0) {
+                            while ($comentario = $result_comments->fetch_assoc()) {
+                                echo '<div class="card mt-2">';
+                                echo '<div class="card-body">';
+                                echo '<h5 class="card-title">' . $comentario['nome'] . '</h5>';
+                                echo '<p class="card-text">' . $comentario['texto'] . '</p>';
+                                echo '<p class="text-muted">' . $comentario['horario'] . '</p>';
+                                echo '</div>';
+                                echo '</div>';
+                            }
+                        } else {
+                            echo '<p>Sem comentários ainda.</p>';
+                        }
+                    ?>
+                </div>
+            </div>
+
     </div>
-    
-           
-            
+</div>
         </div>
     </div>
     <!-- Bootstrap JavaScript -->
