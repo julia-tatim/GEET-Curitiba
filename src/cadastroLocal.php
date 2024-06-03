@@ -32,10 +32,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Caminho temporário do arquivo
         $imagem_temp = $_FILES['imagem']['tmp_name'];
 
-        // Abre o arquivo de imagem em modo de leitura binária
         $conteudo_imagem = file_get_contents($imagem_temp);
 
-        // Insere a imagem na tabela 'imagem' como um BLOB
         $sql_imagem = "INSERT INTO imagem (imagem, tipo) VALUES (?, 'Estabelecimento')";
         $stmt_imagem = mysqli_prepare($conn, $sql_imagem);
 
@@ -70,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </script>";
                         exit();
                     } else {
-                        // Insere os dados do estabelecimento na tabela 'estabelecimento' usando instruções preparadas
+
                         $sql_estabelecimento = "INSERT INTO estabelecimento (localizacao, nome, descricao, telefone, rede_social, site, idadeMinima, horario_abertura, horario_fechamento, imagem_id, id_tipo)
                         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 

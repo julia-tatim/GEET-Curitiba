@@ -129,38 +129,31 @@ include_once('config.php');
             <?php
                 include "config.php";
 
-                // Verificar se o usuário está logado
                 if (!isset($_SESSION['email'])) {
-                    // Se não estiver logado, redirecione para a página de login
                     header("Location: login.html");
                     exit();
                 }
 
                 $email = $_SESSION['email'];
 
-                // Consulta para obter a imagem do usuário
                 $query = "SELECT imagem FROM usuario WHERE email = ?";
                 $stmt = mysqli_prepare($conn, $query);
                 mysqli_stmt_bind_param($stmt, 's', $email);
                 mysqli_stmt_execute($stmt);
                 mysqli_stmt_bind_result($stmt, $imagem);
 
-                // Verificar se a consulta retornou algum resultado
                 if (mysqli_stmt_fetch($stmt)) {
-                    // Exibir a imagem do perfil do usuário
                     if ($imagem) {
-                        // Se houver uma imagem, exibi-la
+                        // Se houver uma imagem
                         echo '<a class="navbar-brand m-2" href="meusdados.php"><img src="data:image/jpeg;base64,' . base64_encode($imagem) . '" alt="Perfil do usuário" width="50" height=""></a>';
                     } else {
-                        // Se não houver imagem, exibir uma imagem padrão ou deixar em branco
+                        // Se não houver imagem, exibir uma padrão
                         echo '<a class="navbar-brand m-2" href="meusdados.php"><img src="../image/perfil_padrao.jpg" alt="Perfil do usuário" width="50" height=""></a>';
                     }
                 } else {
-                    // Se a consulta não retornar resultados, exibir uma mensagem de erro ou deixar em branco
                     echo '<a class="navbar-brand m-2" href="meusdados.php"><img src="../image/perfil_padrao.jpg" alt="Perfil do usuário" width="50" height=""></a>';
                 }
 
-                // Fechar a declaração
                 mysqli_stmt_close($stmt);
             ?>
         </div>
@@ -173,11 +166,11 @@ include_once('config.php');
                 <?php
                     include_once('config.php');
 
-                    // Verificar se o parâmetro 'id' foi passado na URL
+                    // Verificar se o 'id' foi passado na URL
                     if (isset($_GET['id'])) {
                         $id_estabelecimento = $_GET['id'];
 
-                        // Consulta para obter os detalhes do estabelecimento pelo ID
+                        // Consulta para obter dados do estabelecimento
                         $sql = "SELECT e.*, i.imagem, t.tipoLocal AS tipo_nome
                                 FROM estabelecimento e
                                 LEFT JOIN imagem i ON e.imagem_id = i.id_imagem
@@ -195,10 +188,11 @@ include_once('config.php');
                             // Verificar se a imagem está disponível
                             $imagem_src = isset($dados_estabelecimento['imagem']) && !empty($dados_estabelecimento['imagem']) ? 'data:image;base64,' . base64_encode($dados_estabelecimento['imagem']) : '';
 
-                            // Exibir a imagem se estiver disponível, senão exibir uma mensagem
+                            // Exibir a imagem se estiver disponível
                             if (!empty($imagem_src)) {
                                 echo '<img src="' . $imagem_src . '" class="img-fluid" alt="Imagem do Local" style="margin-top: 12px;">';
                             } else {
+                                // exibir uma padrao??? !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                                 echo '<p>Imagem não disponível</p>';
                             }
                         } else {
@@ -239,10 +233,9 @@ include_once('config.php');
                     <button type="submit" class="btn btn-primary cabin2">Salvar Comentário</button>
                 </form>
 
-                <!-- Display Comments -->
+                <!-- comentarios -->
                 <div class="mt-4">
                     <?php
-                        // Fetch comments from the database
                         $sql_comments = "SELECT c.texto, u.nome, c.horario
                                         FROM comentario_estabelecimento c
                                         JOIN usuario u ON c.usuario_email = u.email

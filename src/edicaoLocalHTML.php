@@ -162,44 +162,35 @@
             <?php
                 include "config.php";
 
-                // Verificar se o usuário está logado
                 if (!isset($_SESSION['email'])) {
-                    // Se não estiver logado, redirecione para a página de login
                     header("Location: login.html");
                     exit();
                 }
 
                 $email = $_SESSION['email'];
 
-                // Consulta para obter a imagem do usuário
                 $query = "SELECT imagem FROM usuario WHERE email = ?";
                 $stmt = mysqli_prepare($conn, $query);
                 mysqli_stmt_bind_param($stmt, 's', $email);
                 mysqli_stmt_execute($stmt);
                 mysqli_stmt_bind_result($stmt, $imagem);
 
-                // Verificar se a consulta retornou algum resultado
                 if (mysqli_stmt_fetch($stmt)) {
-                    // Exibir a imagem do perfil do usuário
                     if ($imagem) {
-                        // Se houver uma imagem, exibi-la
+                        // Se houver uma imagem
                         echo '<a class="navbar-brand m-2" href="meusdados.php"><img src="data:image/jpeg;base64,' . base64_encode($imagem) . '" alt="Perfil do usuário" width="50" height=""></a>';
                     } else {
-                        // Se não houver imagem, exibir uma imagem padrão ou deixar em branco
+                        // Se não houver imagem, exibir uma padrão
                         echo '<a class="navbar-brand m-2" href="meusdados.php"><img src="../image/perfil_padrao.jpg" alt="Perfil do usuário" width="50" height=""></a>';
                     }
                 } else {
-                    // Se a consulta não retornar resultados, exibir uma mensagem de erro ou deixar em branco
                     echo '<a class="navbar-brand m-2" href="meusdados.php"><img src="../image/perfil_padrao.jpg" alt="Perfil do usuário" width="50" height=""></a>';
                 }
 
-                // Fechar a declaração
                 mysqli_stmt_close($stmt);
             ?>
         </div>
     </nav>
-    <!-- cabeçalho -->
-    <!-- informações atuais -->
     
 <?php
 include_once('config.php');
@@ -212,24 +203,20 @@ if (isset($_GET['id'])) {
     INNER JOIN tipo t ON e.id_tipo = t.id_tipo
     LEFT JOIN imagem i ON e.imagem_id = i.id_imagem
     WHERE e.id_estabelecimento = ?";
-    // Inicializar a declaração preparada
     $stmt = mysqli_prepare($conn, $sql);
 
     if ($stmt === false) {
         die('Erro ao preparar a consulta SQL: ' . mysqli_error($conn));
     }
 
-    // Vincular o parâmetro ao statement
     mysqli_stmt_bind_param($stmt, "i", $id_estabelecimento);
 
-    // Executar a consulta preparada
     $result = mysqli_stmt_execute($stmt);
 
     if ($result === false) {
         die('Erro ao executar a consulta SQL: ' . mysqli_stmt_error($stmt));
     }
 
-    // Obter o resultado da consulta
     $result = mysqli_stmt_get_result($stmt);
 
     if ($result && mysqli_num_rows($result) > 0) {
@@ -244,7 +231,6 @@ if (isset($_GET['id'])) {
         echo "Nenhum estabelecimento encontrado com o ID fornecido.";
     }
 
-    // Fechar a declaração preparada
     mysqli_stmt_close($stmt);
 }
 
@@ -255,10 +241,8 @@ if (!$resultTipos) {
     die('Erro na consulta SQL: ' . mysqli_error($conn));
 }
 
-// Definir um array associativo com os tipos de estabelecimento disponíveis
 $tiposEstabelecimento = [];
 if (mysqli_num_rows($resultTipos) > 0) {
-    // Loop para preencher o array $tiposEstabelecimento
     while ($rowTipo = mysqli_fetch_assoc($resultTipos)) {
         $tiposEstabelecimento[$rowTipo['id_tipo']] = $rowTipo['tipoLocal'];
     }
@@ -266,7 +250,6 @@ if (mysqli_num_rows($resultTipos) > 0) {
     echo "Nenhum tipo de estabelecimento encontrado.";
 }
 
-// Fechar o resultado da consulta
 mysqli_free_result($resultTipos);
 ?>
 

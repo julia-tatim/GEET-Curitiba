@@ -8,7 +8,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $comentario = $_POST['comentario'];
         $usuario_email = $_SESSION['email'];
 
-        // Insert comment into the database
         $sql = "INSERT INTO comentario_estabelecimento (texto, usuario_email, estabelecimento_id) VALUES (?, ?, ?)";
         $stmt = $conn->prepare($sql);
         if ($stmt) {

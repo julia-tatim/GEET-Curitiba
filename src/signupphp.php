@@ -29,9 +29,9 @@ $cryptConfirma = password_hash($confirmaSenha, PASSWORD_BCRYPT);
 
         $id_usuario = $email; // Assume o email como identificador único
         
-        // Verifica se o arquivo foi enviado
+        // Verifica se a imagem foi enviado
         if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] === UPLOAD_ERR_OK && $_FILES['imagem']['size'] > 0) {
-            // Se arquivo enviado com sucesso, processe-o
+            // Se a imagem foi enviada
             $imagem_temp = $_FILES['imagem']['tmp_name'];
             $allowed_types = array('image/jpeg', 'image/png', 'image/gif');
             $max_size = 5 * 1024 * 1024; // 5MB
@@ -89,8 +89,7 @@ $cryptConfirma = password_hash($confirmaSenha, PASSWORD_BCRYPT);
 
             
         } else {
-            // Continue sem tentar salvar uma imagem
-            // Insira os dados do usuário na tabela 'usuario' sem imagem
+            // se a imagem nao foi enviada
             $sql_insert_user = "INSERT INTO usuario (nome, senha, email, data_nascimento, confirmaSenha) VALUES (?, ?, ?, ?, ?)";
             $stmt_insert_user = mysqli_prepare($conn, $sql_insert_user);
             if ($stmt_insert_user) {

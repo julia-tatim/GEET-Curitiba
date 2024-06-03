@@ -44,7 +44,7 @@ if (isset($_POST['submit']) && !empty($_POST['email']) && !empty($_POST['senha']
         if ($senha === $dbSenhaAdmin) { // Certifique-se de usar a mesma lógica de senha (plain text ou hash) para admin
             $_SESSION['email'] = $email;
             $_SESSION['senha'] = $senha;
-            header('Location: cadastroLocal.html'); // Página para administradores
+            header('Location: cadastroLocalhtml.php'); // Página para administradores
             exit();
         } else {
             unset($_SESSION['email']);

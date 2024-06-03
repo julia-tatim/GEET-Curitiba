@@ -188,11 +188,7 @@
             // Calcula a data máxima permitida (10 anos atrás)
             var maxDate = new Date();
             maxDate.setFullYear(maxDate.getFullYear() - 10);
-
-            // Formata a data para o formato YYYY-MM-DD
             var formattedMaxDate = maxDate.toISOString().slice(0, 10);
-
-            // Define a data máxima no campo de data de nascimento
             document.getElementById("birthdate").max = formattedMaxDate;
     </script>
 </body>

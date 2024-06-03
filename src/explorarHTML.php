@@ -17,7 +17,7 @@ if (isset($_GET['categorias']) && !empty($_GET['categorias'])) {
     $where = " WHERE ";
     $where .= "e.id_tipo IN (SELECT id_tipo FROM tipo WHERE tipoLocal IN ('" . implode("','", $categorias) . "'))";
 }
-// Monta a consulta SQL com a cláusula WHERE
+// Monta a consulta SQL
 $sql = "SELECT e.id_estabelecimento, e.nome, e.descricao, i.imagem 
         FROM estabelecimento e
         LEFT JOIN imagem i ON e.imagem_id = i.id_imagem";
@@ -154,38 +154,31 @@ if (!$result) {
             <?php
                 include "config.php";
 
-                // Verificar se o usuário está logado
                 if (!isset($_SESSION['email'])) {
-                    // Se não estiver logado, redirecione para a página de login
                     header("Location: login.html");
                     exit();
                 }
 
                 $email = $_SESSION['email'];
 
-                // Consulta para obter a imagem do usuário
                 $query = "SELECT imagem FROM usuario WHERE email = ?";
                 $stmt = mysqli_prepare($conn, $query);
                 mysqli_stmt_bind_param($stmt, 's', $email);
                 mysqli_stmt_execute($stmt);
                 mysqli_stmt_bind_result($stmt, $imagem);
 
-                // Verificar se a consulta retornou algum resultado
                 if (mysqli_stmt_fetch($stmt)) {
-                    // Exibir a imagem do perfil do usuário
                     if ($imagem) {
-                        // Se houver uma imagem, exibi-la
+                        // Se houver uma imagem
                         echo '<a class="navbar-brand m-2" href="meusdados.php"><img src="data:image/jpeg;base64,' . base64_encode($imagem) . '" alt="Perfil do usuário" width="50" height=""></a>';
                     } else {
-                        // Se não houver imagem, exibir uma imagem padrão ou deixar em branco
+                        // Se não houver imagem, exibir uma padrão
                         echo '<a class="navbar-brand m-2" href="meusdados.php"><img src="../image/perfil_padrao.jpg" alt="Perfil do usuário" width="50" height=""></a>';
                     }
                 } else {
-                    // Se a consulta não retornar resultados, exibir uma mensagem de erro ou deixar em branco
                     echo '<a class="navbar-brand m-2" href="meusdados.php"><img src="../image/perfil_padrao.jpg" alt="Perfil do usuário" width="50" height=""></a>';
                 }
 
-                // Fechar a declaração
                 mysqli_stmt_close($stmt);
             ?>
         </div>
