@@ -34,7 +34,7 @@ CREATE TABLE usuario (
     nome VARCHAR(255),
     senha VARCHAR(255),
     data_nascimento DATE,
-    imagem BLOB,
+    imagem LONGBLOB,
     confirmaSenha VARCHAR(255)
 );
 
@@ -155,42 +155,3 @@ END;
 DELIMITER ;
 
 
-
-DELIMITER //
-CREATE TABLE usuario_auditoria (
-    acao varchar(10),
-    nome varchar(50),
-    senha varchar(50),
-    email varchar(50),
-    data_nascimento date,
-    data_hora timestamp
-);
-DELIMITER //
-CREATE TRIGGER delete_usuario_auditoria_trigger
-AFTER DELETE ON usuario
-FOR EACH ROW
-BEGIN
-	DELETE FROM usuario_comenta WHERE fk_usuario_email = OLD.email;
-    DELETE FROM favorita WHERE fk_usuario_email = OLD.email;
-    DELETE FROM favorito WHERE fk_usuario_email = OLD.email;
-    INSERT INTO usuario_auditoria (acao, nome, senha, email, data_nascimento, data_hora)
-    VALUES ('DELETE', OLD.nome, OLD.senha, OLD.email, OLD.data_nascimento, NOW());
-END //
-CREATE TRIGGER update_usuario_auditoria_trigger
-AFTER UPDATE ON usuario
-FOR EACH ROW
-BEGIN
-	UPDATE usuario_comenta SET fk_usuario_email = NEW.email WHERE fk_usuario_email = OLD.email;
-    UPDATE favorita SET fk_usuario_email = NEW.email WHERE fk_usuario_email = OLD.email;
-    UPDATE favorito SET fk_usuario_email = NEW.email WHERE fk_usuario_email = OLD.email;
-    INSERT INTO usuario_auditoria (acao, nome, senha, email, data_nascimento, data_hora)
-    VALUES ('UPDATE', NEW.nome, NEW.senha, NEW.email, NEW.data_nascimento, NOW());
-END //
-CREATE TRIGGER insert_usuario_auditoria_trigger
-AFTER INSERT ON usuario
-FOR EACH ROW
-BEGIN
-    INSERT INTO usuario_auditoria (acao, nome, senha, email, data_nascimento, data_hora)
-    VALUES ('INSERT', NEW.nome, NEW.senha, NEW.email, NEW.data_nascimento, NOW());
-END //
-*/

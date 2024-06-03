@@ -3,7 +3,7 @@ include_once('config.php');
 
 // Verifica se o formulário foi submetido
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    
+
     $id_estabelecimento = $_POST['id_estabelecimento'];
     $nome = $_POST['nome'] ?? '';
     $descricao = $_POST['descricao'] ?? '';
@@ -16,11 +16,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $site = $_POST['site'] ?? '';
     $tipoLocal = $_POST['tipoLocal'] ?? '';
 
-
-
-    // Formatando os valores para salvar apenas hora e minuto
-    $horario_abertura_formatado = date('H:i', strtotime($_POST['horario_abertura']));
-    $horario_fechamento_formatado = date('H:i', strtotime($_POST['horario_fechamento']));
+    // Formatando os valores para salvar no formato hh:mm:ss
+    $horario_abertura_formatado = date('H:i:s', strtotime($horario_abertura));
+    $horario_fechamento_formatado = date('H:i:s', strtotime($horario_fechamento));
 
     // Preparar consulta para atualizar os dados do estabelecimento
     $sql_update_estabelecimento = "UPDATE estabelecimento SET localizacao=?, nome=?, descricao=?, telefone=?, rede_social=?, site=?, idadeMinima=?, horario_abertura=?, horario_fechamento=?, id_tipo=? WHERE id_estabelecimento=?";
@@ -34,8 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Executar a declaração preparada para atualizar o estabelecimento
     if (mysqli_stmt_execute($stmt_update_estabelecimento)) {
-        echo '<script>alert("Dados do estabelecimento atualizados com sucesso!");window.location.href = "explorarHTML.php";
-        </script>';
+        echo '<script>alert("Dados do estabelecimento atualizados com sucesso!");window.location.href = "explorarHTML.php";</script>';
     } else {
         echo "Erro ao atualizar os dados do estabelecimento: " . mysqli_stmt_error($stmt_update_estabelecimento);
         exit; // Encerrar o script em caso de erro
@@ -95,3 +92,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "Método inválido para acessar esta página.";
 }
 ?>
+

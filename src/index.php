@@ -110,7 +110,7 @@
     <!-- cabeçalho -->
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="index.html"><img src="../image\logo.svg" alt="Bootstrap" width="100" height=""></a>
+            <a class="navbar-brand" href="index.php"><img src="../image\logo.svg" alt="Bootstrap" width="100" height=""></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -131,7 +131,44 @@
                 <input class="form-control me-2 cabin2" type="search" placeholder="Pesquisar" aria-label="Pesquisar">
                 <button class="btn btn-outline-dark cabin2" type="submit">Buscar</button>
             </form>
-            <a class="navbar-brand m-2" href="meusdados.php"><img src="..\image\perfil.svg" alt="Bootstrap" width="50" height=""></a>
+            <!-- Imagem do usuario -->
+            <?php
+                include "config.php";
+
+                // Verificar se o usuário está logado
+                if (!isset($_SESSION['email'])) {
+                    // Se não estiver logado, redirecione para a página de login
+                    header("Location: login.html");
+                    exit();
+                }
+
+                $email = $_SESSION['email'];
+
+                // Consulta para obter a imagem do usuário
+                $query = "SELECT imagem FROM usuario WHERE email = ?";
+                $stmt = mysqli_prepare($conn, $query);
+                mysqli_stmt_bind_param($stmt, 's', $email);
+                mysqli_stmt_execute($stmt);
+                mysqli_stmt_bind_result($stmt, $imagem);
+
+                // Verificar se a consulta retornou algum resultado
+                if (mysqli_stmt_fetch($stmt)) {
+                    // Exibir a imagem do perfil do usuário
+                    if ($imagem) {
+                        // Se houver uma imagem, exibi-la
+                        echo '<a class="navbar-brand m-2" href="meusdados.php"><img src="data:image/jpeg;base64,' . base64_encode($imagem) . '" alt="Perfil do usuário" width="50" height=""></a>';
+                    } else {
+                        // Se não houver imagem, exibir uma imagem padrão ou deixar em branco
+                        echo '<a class="navbar-brand m-2" href="meusdados.php"><img src="../image/perfil_padrao.jpg" alt="Perfil do usuário" width="50" height=""></a>';
+                    }
+                } else {
+                    // Se a consulta não retornar resultados, exibir uma mensagem de erro ou deixar em branco
+                    echo '<a class="navbar-brand m-2" href="meusdados.php"><img src="../image/perfil_padrao.jpg" alt="Perfil do usuário" width="50" height=""></a>';
+                }
+
+                // Fechar a declaração
+                mysqli_stmt_close($stmt);
+            ?>
         </div>
     </nav>
     <!-- cabeçalho -->

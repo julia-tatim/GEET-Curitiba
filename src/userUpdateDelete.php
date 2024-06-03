@@ -5,56 +5,73 @@ include_once('config.php');
 //UPDATE
 if (isset($_POST['update'])) {
 
-        $email_antigo = $_SESSION['email']; 
-        $email_novo = $_POST['email']; 
-        $nome = $_POST['nome']; 
-        $senha = $_POST['senha']; 
-        $confirmaSenha = $_POST['confirmaSenha']; 
-        $data_nascimento = $_POST['data_nascimento']; 
-        
-        $sqlUpdate = "UPDATE usuario SET nome='$nome', data_nascimento='$data_nascimento' WHERE email='$email_antigo'";
-        $resultUpdate = $conn->query($sqlUpdate);
-        
-        $crypt = password_hash($senha, PASSWORD_BCRYPT);
-        $cryptConfirma = password_hash($confirmaSenha, PASSWORD_BCRYPT);
+    $email_antigo = $_SESSION['email']; 
+    $email_novo = $_POST['email']; 
+    $nome = $_POST['nome']; 
+    $senha = $_POST['senha']; 
+    $confirmaSenha = $_POST['confirmaSenha']; 
+    $data_nascimento = $_POST['data_nascimento']; 
+    $imagem = $_FILES['imagem']['tmp_name'];
+    $imagem_data = null;
 
-        //tem erro aqui - se não mudar nada, está ativando o echo das senhas não coincidem 
-        if ($senha !== $confirmaSenha) {
-            echo 'ERRO';//mandar mensagem as senhas não coincidem
-            exit();
-        } else {
- 
-            $sqlSenha = "UPDATE usuario SET senha='$crypt', confirmaSenha='$cryptConfirma' WHERE email='$email_antigo'";
-            $resultSenha = $conn->query($sqlSenha);
-        }
-        
-        if ($email_antigo!== $email_novo) {
+    if ($imagem) {
+        $imagem_data = file_get_contents($imagem);
+    }
 
-            $sqlCheckEmail = "SELECT COUNT(*) AS count FROM usuario WHERE email='$email_novo'";
-            $resultCheckEmail = $conn->query($sqlCheckEmail);
-            $row = $resultCheckEmail->fetch_assoc();
-            $emailExistente = $row['count'];
-            //aqui tem erro tbm (o alerto do email já utilizado n aparece)
-            if ($emailExistente > 0) {
-                echo '<script>alert("Este email já está sendo utilizado.");</script>';
-            } else {
-
-                $sqlEmail = "UPDATE usuario SET email='$email_novo' WHERE email='$email_antigo'";
-
-                $resultEmail = $conn->query($sqlEmail); 
-
-                if ($resultEmail) {
-                    $_SESSION['email'] = $email_novo;
-                    echo '<script>alert("Email editado com sucesso.");</script>';//esse não aparece tbm
-                } else {
-                    echo "Erro ao editar usuário: " . $conn->error;
-                }
-                header("Location: meusdados.php");
-                exit();
-            }
-        }
-        header("Location: meusdados.php");
+    if ($senha !== $confirmaSenha) {
+        echo '<script>alert("As senhas não coincidem.");</script>';
         exit();
+    } else {
+        $crypt = password_hash($senha, PASSWORD_BCRYPT);
+
+        $sqlSenha = "UPDATE usuario SET senha=? WHERE email=?";
+        $stmtSenha = mysqli_prepare($conn, $sqlSenha);
+        mysqli_stmt_bind_param($stmtSenha, 'ss', $crypt, $email_antigo);
+        mysqli_stmt_execute($stmtSenha);
+    }
+
+    if ($email_antigo !== $email_novo) {
+        $sqlCheckEmail = "SELECT COUNT(*) AS count FROM usuario WHERE email=?";
+        $stmtCheckEmail = mysqli_prepare($conn, $sqlCheckEmail);
+        mysqli_stmt_bind_param($stmtCheckEmail, 's', $email_novo);
+        mysqli_stmt_execute($stmtCheckEmail);
+        $resultCheckEmail = mysqli_stmt_get_result($stmtCheckEmail);
+        $row = mysqli_fetch_assoc($resultCheckEmail);
+        $emailExistente = $row['count'];
+        if ($emailExistente > 0) {
+            echo '<script>alert("Este email já está sendo utilizado.");</script>';
+        } else {
+            $sqlEmail = "UPDATE usuario SET email=? WHERE email=?";
+            $stmtEmail = mysqli_prepare($conn, $sqlEmail);
+            mysqli_stmt_bind_param($stmtEmail, 'ss', $email_novo, $email_antigo);
+            mysqli_stmt_execute($stmtEmail);
+
+            if (mysqli_stmt_affected_rows($stmtEmail) > 0) {
+                $_SESSION['email'] = $email_novo;
+                echo '<script>alert("Email editado com sucesso.");</script>';
+            } else {
+                echo "Erro ao editar usuário: " . $conn->error;
+            }
+            header("Location: meusdados.php");
+            exit();
+        }
+    }
+
+    $sqlUpdate = "UPDATE usuario SET nome=?, data_nascimento=? WHERE email=?";
+    $stmtUpdate = mysqli_prepare($conn, $sqlUpdate);
+    mysqli_stmt_bind_param($stmtUpdate, 'sss', $nome, $data_nascimento, $email_antigo);
+    mysqli_stmt_execute($stmtUpdate);
+
+    if ($imagem_data) {
+        $sqlImagem = "UPDATE usuario SET imagem=? WHERE email=?";
+        $stmtImagem = mysqli_prepare($conn, $sqlImagem);
+        mysqli_stmt_bind_param($stmtImagem, 'bs', $imagem_data, $email_antigo);
+        mysqli_stmt_send_long_data($stmtImagem, 0, $imagem_data);
+        mysqli_stmt_execute($stmtImagem);
+    }
+
+    header("Location: meusdados.php");
+    exit();
 
 //DELETE
 } elseif (isset($_POST['delete'])) {
@@ -64,21 +81,20 @@ if (isset($_POST['update'])) {
         $email = $_POST['email'];
 
         $sql = "DELETE FROM usuario WHERE email = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $email);
+        $stmt = mysqli_prepare($conn, $sql);
+        mysqli_stmt_bind_param($stmt, "s", $email);
 
-        if ($stmt->execute()) {
-            echo '<script>alert("Usuário deletado com sucesso.");</script>'; //esse não ta aparecendo tbm
+        if (mysqli_stmt_execute($stmt)) {
+            echo '<script>alert("Usuário deletado com sucesso.");</script>';
             unset($_SESSION['email']);
             unset($_SESSION['senha']);
-         
         } else {
             $msg = "Erro ao deletar: " . $conn->error;
         }
-        
+
         $stmt->close();
         $conn->close();
-        header("Location:login.html");
+        header("Location: login.html");
         exit();
 
     } else {
@@ -91,5 +107,4 @@ if (isset($_POST['update'])) {
     header('Location: login.html');
     exit();
 }
-
 ?>

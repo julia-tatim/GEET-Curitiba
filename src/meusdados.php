@@ -1,5 +1,4 @@
 <?php
-
 include_once('config.php');
 
 session_start();
@@ -8,29 +7,35 @@ if((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true)
     unset($_SESSION['email']);
     unset($_SESSION['senha']);
     header('Location: login.html');
+    exit();
 }
 
-    $email = $_SESSION['email'];
+$email = $_SESSION['email'];
+$imagem_src = '';
 
-    $sql = "SELECT nome, data_nascimento, confirmaSenha, senha FROM usuario WHERE email = '$email'";
-    $result = mysqli_query($conn, $sql);
+$sql = "SELECT nome, data_nascimento, confirmaSenha, senha, imagem FROM usuario WHERE email = ?";
+$stmt = mysqli_prepare($conn, $sql);
+mysqli_stmt_bind_param($stmt, 's', $email);
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
 
-    if (mysqli_num_rows($result) > 0) {
-        // Fetch the data
-        $row = mysqli_fetch_assoc($result);
-        $nome = $row['nome'];
-        $dataNascimento = $row['data_nascimento'];
-        $confirmaSenha = $row["confirmaSenha"];
-        $senha = $row["senha"];
-    } else {
-        // Handle if no user found
-        $nome = "Nome não encontrado";
-        $dataNascimento = "Data de Nascimento não encontrada";
-        $confirmaSenha = "Confirmação de senha não encontrada";
-        $senha = "Senha não encontrada";
+if (mysqli_num_rows($result) > 0) {
+    $row = mysqli_fetch_assoc($result);
+    $nome = $row['nome'];
+    $dataNascimento = $row['data_nascimento'];
+    $confirmaSenha = $row['confirmaSenha'];
+    $senha = $row['senha'];
+    if (!empty($row['imagem'])) {
+        $imagem_base64 = base64_encode($row['imagem']);
+        $imagem_src = 'data:image;base64,' . $imagem_base64;
     }
+} else {
+    $nome = "Nome não encontrado";
+    $dataNascimento = "Data de Nascimento não encontrada";
+    $confirmaSenha = "Confirmação de senha não encontrada";
+    $senha = "Senha não encontrada";
+}
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -138,6 +143,16 @@ if((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true)
         background-color: #ecf0f1;;
     }
 
+.cabin4 {
+    font-family: "Cabin", sans-serif;
+    display: inline;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+    font-variation-settings:
+      "wdth" 100;
+      color: #fff;
+}
     </style>
 </head>
 <body>
@@ -151,41 +166,95 @@ if((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true)
             <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
               <ul class="navbar-nav d-flex justify-content-around w-100">
                   <li class="nav-item">
-                      <a class="nav-link text-dark cabin2" aria-current="page" href="explorar.html">Explorar</a>
+                      <a class="nav-link text-dark cabin2" aria-current="page" href="explorarHTML.php">Explorar</a>
                   </li>
                   <li class="nav-item">
                       <a class="nav-link text-dark cabin2" aria-current="page" href="#">Eventos</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link text-dark cabin2" aria-current="page" href="index.html#contato">Contato</a>
+                      <a class="nav-link text-dark cabin2" aria-current="page" href="index.php#contato">Contato</a>
                   </li>
               </ul>
           </div>
-            <form class="d-flex">
+          <form class="d-flex">
                 <input class="form-control me-2 cabin2" type="search" placeholder="Pesquisar" aria-label="Pesquisar">
                 <button class="btn btn-outline-dark cabin2" type="submit">Buscar</button>
             </form>
-            <a class="navbar-brand m-2" href="login.html"><img src="..\image\perfil.svg" alt="Bootstrap" width="50" height=""></a>
+            <!-- Imagem do usuario -->
+            <?php
+                include "config.php";
+
+                // Verificar se o usuário está logado
+                if (!isset($_SESSION['email'])) {
+                    // Se não estiver logado, redirecione para a página de login
+                    header("Location: login.html");
+                    exit();
+                }
+
+                $email = $_SESSION['email'];
+
+                // Consulta para obter a imagem do usuário
+                $query = "SELECT imagem FROM usuario WHERE email = ?";
+                $stmt = mysqli_prepare($conn, $query);
+                mysqli_stmt_bind_param($stmt, 's', $email);
+                mysqli_stmt_execute($stmt);
+                mysqli_stmt_bind_result($stmt, $imagem);
+
+                // Verificar se a consulta retornou algum resultado
+                if (mysqli_stmt_fetch($stmt)) {
+                    // Exibir a imagem do perfil do usuário
+                    if ($imagem) {
+                        // Se houver uma imagem, exibi-la
+                        echo '<a class="navbar-brand m-2" href="meusdados.php"><img src="data:image/jpeg;base64,' . base64_encode($imagem) . '" alt="Perfil do usuário" width="50" height=""></a>';
+                    } else {
+                        // Se não houver imagem, exibir uma imagem padrão ou deixar em branco
+                        echo '<a class="navbar-brand m-2" href="meusdados.php"><img src="../image/perfil_padrao.jpg" alt="Perfil do usuário" width="50" height=""></a>';
+                    }
+                } else {
+                    // Se a consulta não retornar resultados, exibir uma mensagem de erro ou deixar em branco
+                    echo '<a class="navbar-brand m-2" href="meusdados.php"><img src="../image/perfil_padrao.jpg" alt="Perfil do usuário" width="50" height=""></a>';
+                }
+
+                // Fechar a declaração
+                mysqli_stmt_close($stmt);
+            ?>
         </div>
     </nav>
-    <!-- cabeçalho -->+
+    <!-- cabeçalho -->
 
     <div class="container">
         <div class="row">
             <div class="col-md-6 mx-auto mt-5 bg-light p-5" style="border-radius: 20px;">
                 <!-- Seu conteúdo aqui -->
-                <form method="POST" action="userUpdateDelete.php">
+                <form method="POST" action="userUpdateDelete.php" enctype="multipart/form-data">
+
+                    <div class="form-group">
+                        <p class="cabin2">Imagem perfil:</p>
+                        <?php
+                        if (!empty($imagem_src)) {
+                            echo "<img src='$imagem_src' class='cabin5' style='max-width: 100%;' alt='Imagem do estabelecimento'>";
+                        } else {
+                            echo "<p>Imagem não selecionada</p>";
+                        }
+                        ?>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="imagem" class="form-label cabin2">Nova Imagem de Perfil</label></br>                
+                        <input type="file" class="form-control cabin2 corfundo" name="imagem" id="imagem" accept="image/*">
+                    </div>
+
                     <div class="form-group">
                         <label for="inputNome" class="cabin2">Nome</label>
                         <input type="text" class="form-control cabin2 corfundo" name="nome" id="inputNome" value="<?php echo $nome; ?>">
                     </div>
                     <div class="form-group">
                         <label for="inputSenha4" class="cabin2">Senha</label>
-                        <input type="password" class="form-control cabin2 corfundo" name="senha" id="inputSenha4" value="<?php echo $senha; ?>">
+                        <input type="password" class="form-control cabin2 corfundo" name="senha" id="inputSenha4" >
                     </div>
                     <div class="form-group">
                         <label for="inputSenha4" class="cabin2">Confirme sua senha</label>
-                        <input type="password" class="form-control cabin2 corfundo" name="confirmaSenha" id="confirmaSenha" value="<?php echo $confirmaSenha; ?>">
+                        <input type="password" class="form-control cabin2 corfundo" name="confirmaSenha" id="confirmaSenha" >
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
@@ -193,9 +262,14 @@ if((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true)
                             <input type="email" class="form-control cabin2 corfundo" name="email" id="inputEmail4" value="<?php echo $email; ?>">
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="inputNascimento" class="cabin2">Data de Nascimento 2</label>
-                            <input type="date" class="form-control cabin2 corfundo" name="data_nascimento" id="inputNascimento" value="<?php echo $dataNascimento; ?>">
+                            <label for="inputNascimento" class="cabin2">Data de Nascimento:</label>
+                            <input type="date" class="form-control cabin2 corfundo" id="inputNascimento" name="data_nascimento"     
+                                required min="1910-01-01"  
+                                max="<?php echo date('Y-m-d', strtotime('-10 years')); ?>" 
+                                title="Insira uma data de nascimento válida (mínimo 10 anos)" 
+                                value="<?php echo $dataNascimento; ?>">
                         </div>
+
                     </div>
                     <button type="submit" class="btn btn-outline-light cabin2 color-btn cabin2 mr-2 "name="update" id="update">Editar</button>
                     <button type="submit" class="btn btn-outline-light cabin2 color-btn cabin2 color-btn3 mr-2" name="delete" id="delete">Deletar</button>

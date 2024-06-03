@@ -150,15 +150,52 @@
                       <a class="nav-link text-dark cabin2" aria-current="page" href="#">Eventos</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link text-dark cabin2" aria-current="page" href="index.html#contato">Contato</a>
+                      <a class="nav-link text-dark cabin2" aria-current="page" href="index.php#contato">Contato</a>
                   </li>
               </ul>
-          </div>
+            </div>
             <form class="d-flex">
                 <input class="form-control me-2 cabin2" type="search" placeholder="Pesquisar" aria-label="Pesquisar">
-                <button class="btn btn-outline-dark cabin3" type="submit" >Buscar</button>
+                <button class="btn btn-outline-dark cabin2" type="submit">Buscar</button>
             </form>
-            <a class="navbar-brand m-2" href="login.html"><img src="..\image\perfil.svg" alt="Bootstrap" width="50" height=""></a>
+            <!-- Imagem do usuario -->
+            <?php
+                include "config.php";
+
+                // Verificar se o usuário está logado
+                if (!isset($_SESSION['email'])) {
+                    // Se não estiver logado, redirecione para a página de login
+                    header("Location: login.html");
+                    exit();
+                }
+
+                $email = $_SESSION['email'];
+
+                // Consulta para obter a imagem do usuário
+                $query = "SELECT imagem FROM usuario WHERE email = ?";
+                $stmt = mysqli_prepare($conn, $query);
+                mysqli_stmt_bind_param($stmt, 's', $email);
+                mysqli_stmt_execute($stmt);
+                mysqli_stmt_bind_result($stmt, $imagem);
+
+                // Verificar se a consulta retornou algum resultado
+                if (mysqli_stmt_fetch($stmt)) {
+                    // Exibir a imagem do perfil do usuário
+                    if ($imagem) {
+                        // Se houver uma imagem, exibi-la
+                        echo '<a class="navbar-brand m-2" href="meusdados.php"><img src="data:image/jpeg;base64,' . base64_encode($imagem) . '" alt="Perfil do usuário" width="50" height=""></a>';
+                    } else {
+                        // Se não houver imagem, exibir uma imagem padrão ou deixar em branco
+                        echo '<a class="navbar-brand m-2" href="meusdados.php"><img src="../image/perfil_padrao.jpg" alt="Perfil do usuário" width="50" height=""></a>';
+                    }
+                } else {
+                    // Se a consulta não retornar resultados, exibir uma mensagem de erro ou deixar em branco
+                    echo '<a class="navbar-brand m-2" href="meusdados.php"><img src="../image/perfil_padrao.jpg" alt="Perfil do usuário" width="50" height=""></a>';
+                }
+
+                // Fechar a declaração
+                mysqli_stmt_close($stmt);
+            ?>
         </div>
     </nav>
     <!-- cabeçalho -->
@@ -275,29 +312,33 @@ mysqli_free_result($resultTipos);
                 
                 <div class="mb-3">
                     <label for="descricao" class="form-label cabin2">Descrição</label>
-                    <textarea class="form-control" id="descricao" name="descricao" rows="3" required minlength="50"><?php echo $dados['descricao']; ?></textarea>
+                    <textarea class="form-control" id="descricao" name="descricao" rows="3" required minlength="50" title="Descrição muito curta, mínimo 30 palavras"><?php echo $dados['descricao']; ?></textarea>
                 </div>
 
                 <div class="row mb-3">
                     <div class="col">
                         <label for="localizacao" class="form-label cabin2">Endereço</label>
-                        <input type="text" class="form-control" id="localizacao" name="localizacao" required pattern="^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{8,}$" value="<?php echo $dados['localizacao']; ?>">
+                        <input type="text" class="form-control" id="localizacao" name="localizacao" 
+                            required pattern="^[A-Za-zÀ-ÖØ-öø-ÿ\s]+,\s*\d+$" 
+                            title="Insira um endereço válido, por exemplo: Rua, 123" 
+                            value="<?php echo $dados['localizacao']; ?>">
                     </div>
                     <div class="col">
                         <label for="telefone" class="form-label cabin2">Telefone</label>
-                        <input type="tel" class="form-control" id="telefone" name="telefone" required pattern="^\d{10,}$" value="<?php echo $dados['telefone']; ?>">
+                        <input type="tel" class="form-control" id="telefone" name="telefone"
+                            required pattern="^\d{2}\s\d{5}-\d{4}$"  
+                            title="Insira um número válido, por exemplo: 41 99999-9999"
+                            value="<?php echo $dados['telefone']; ?>">
                     </div>
                 </div>
-
                 <div class="row mb-3">
                     <div class="col">
                         <label for="horario_abertura" class="form-label cabin2">Abre às</label>
-                        <input type="time" class="form-control" id="horario_abertura" name="horario_abertura" value="<?php echo 
-                        $dados['horario_abertura']; ?>" required>
+                        <input type="time" class="form-control" id="horario_abertura" name="horario_abertura" value="<?php echo substr($dados['horario_abertura'], 0, 5); ?>" required>
                     </div>
                     <div class="col">
                         <label for="horario_fechamento" class="form-label cabin2">Fecha às</label>
-                        <input type="time" class="form-control" id="horario_fechamento" name="horario_fechamento" value="<?php echo $dados['horario_fechamento']; ?>"  required>
+                        <input type="time" class="form-control" id="horario_fechamento" name="horario_fechamento" value="<?php echo substr($dados['horario_fechamento'], 0, 5); ?>" required>
                     </div>
                 </div>
 

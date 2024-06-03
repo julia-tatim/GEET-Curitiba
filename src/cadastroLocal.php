@@ -25,10 +25,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         "pontos_turisticos cabin" => 7
     ];
     $tipoSelecionado = $_POST['tipoLocal'];
-    if (!isset($tipoMapping[$tipoSelecionado])) {
-        echo '<script>alert("Tipo de local inválido."); window.location.href = "cadastroLocal.html";</script>';
-        exit();
-    }
     $id_tipo = $tipoMapping[$tipoSelecionado];
 
     // Verifica se as imagens foram enviadas
@@ -58,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if ($result_check_nome && mysqli_num_rows($result_check_nome) > 0) {
                     echo "<script>
                         alert('O nome já está em uso. Por favor, insira outro nome.');
-                        window.location.href = 'cadastroLocal.html';
+                        window.location.href = 'cadastroLocalhtml.php';
                     </script>";
                 } else {
                     $sql_check_fone = "SELECT * FROM estabelecimento WHERE telefone = ?";
@@ -70,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     if ($result_check_fone && mysqli_num_rows($result_check_fone) > 0) {
                         echo "<script>
                             alert('O telefone já está em uso. Por favor, insira outro telefone.');
-                            window.location.href = 'cadastroLocal.html';
+                            window.location.href = 'cadastroLocalhtml.php';
                         </script>";
                         exit();
                     } else {
@@ -85,7 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             echo '<script>alert("Estabelecimento registrado com sucesso."); window.location.href = "explorarHTML.php";</script>';
                             exit();
                         } else {
-                            echo '<script>alert("Erro ao registrar estabelecimento."); window.location.href = "cadastroLocal.html";</script>';
+                            echo '<script>alert("Erro ao registrar estabelecimento."); window.location.href = "cadastroLocalhtml.php";</script>';
                             exit();
                         }
 
@@ -105,7 +101,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "Erro ao preparar a consulta de inserção de imagem: " . mysqli_error($conn);
         }
     } else {
-        echo '<script>alert("Por favor, selecione pelo menos uma imagem."); window.location.href = "cadastroLocal.html";</script>';
+        echo '<script>alert("Por favor, selecione pelo menos uma imagem."); window.location.href = "cadastroLocalhtml.php";</script>';
         exit();
     }
 

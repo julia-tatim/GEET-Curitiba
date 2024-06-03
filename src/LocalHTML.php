@@ -1,6 +1,8 @@
 <?php
-    session_start();
+session_start();
+include_once('config.php');
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -102,7 +104,7 @@
     <!-- cabeçalho -->
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="index.html"><img src="../image\logo.svg" alt="Bootstrap" width="100" height=""></a>
+            <a class="navbar-brand" href="index.php"><img src="../image\logo.svg" alt="Bootstrap" width="100" height=""></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" style="border-color: black;">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -115,15 +117,52 @@
                       <a class="nav-link text-dark cabin2" aria-current="page" href="#">Eventos</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link text-dark cabin2" aria-current="page" href="index.html#contato">Contato</a>
+                      <a class="nav-link text-dark cabin2" aria-current="page" href="index.php#contato">Contato</a>
                   </li>
               </ul>
           </div>
-            <form class="d-flex">
+          <form class="d-flex">
                 <input class="form-control me-2 cabin2" type="search" placeholder="Pesquisar" aria-label="Pesquisar">
                 <button class="btn btn-outline-dark cabin2" type="submit">Buscar</button>
             </form>
-            <a class="navbar-brand m-2" href="login.html"><img src="..\image\perfil.svg" alt="Bootstrap" width="50" height=""></a>
+            <!-- Imagem do usuario -->
+            <?php
+                include "config.php";
+
+                // Verificar se o usuário está logado
+                if (!isset($_SESSION['email'])) {
+                    // Se não estiver logado, redirecione para a página de login
+                    header("Location: login.html");
+                    exit();
+                }
+
+                $email = $_SESSION['email'];
+
+                // Consulta para obter a imagem do usuário
+                $query = "SELECT imagem FROM usuario WHERE email = ?";
+                $stmt = mysqli_prepare($conn, $query);
+                mysqli_stmt_bind_param($stmt, 's', $email);
+                mysqli_stmt_execute($stmt);
+                mysqli_stmt_bind_result($stmt, $imagem);
+
+                // Verificar se a consulta retornou algum resultado
+                if (mysqli_stmt_fetch($stmt)) {
+                    // Exibir a imagem do perfil do usuário
+                    if ($imagem) {
+                        // Se houver uma imagem, exibi-la
+                        echo '<a class="navbar-brand m-2" href="meusdados.php"><img src="data:image/jpeg;base64,' . base64_encode($imagem) . '" alt="Perfil do usuário" width="50" height=""></a>';
+                    } else {
+                        // Se não houver imagem, exibir uma imagem padrão ou deixar em branco
+                        echo '<a class="navbar-brand m-2" href="meusdados.php"><img src="../image/perfil_padrao.jpg" alt="Perfil do usuário" width="50" height=""></a>';
+                    }
+                } else {
+                    // Se a consulta não retornar resultados, exibir uma mensagem de erro ou deixar em branco
+                    echo '<a class="navbar-brand m-2" href="meusdados.php"><img src="../image/perfil_padrao.jpg" alt="Perfil do usuário" width="50" height=""></a>';
+                }
+
+                // Fechar a declaração
+                mysqli_stmt_close($stmt);
+            ?>
         </div>
     </nav>
     <!-- cabeçalho -->
@@ -143,8 +182,11 @@
                                 FROM estabelecimento e
                                 LEFT JOIN imagem i ON e.imagem_id = i.id_imagem
                                 LEFT JOIN tipo t ON e.id_tipo = t.id_tipo
-                                WHERE e.id_estabelecimento = $id_estabelecimento";
-                        $result = $conn->query($sql);
+                                WHERE e.id_estabelecimento = ?";
+                        $stmt = $conn->prepare($sql);
+                        $stmt->bind_param('i', $id_estabelecimento);
+                        $stmt->execute();
+                        $result = $stmt->get_result();
 
                         if ($result->num_rows > 0) {
                             // Exibir os detalhes do estabelecimento
@@ -168,18 +210,19 @@
                 ?>
                     <!-- Informações -->
                     <div class="conteiner col-md-12">
-                        <h2 class="cabin2"><?php echo $dados_estabelecimento['nome']; ?></h2>
-                        <p class="cabin2"><strong>Tipo do Local: </strong><?php echo $dados_estabelecimento['tipo_nome']; ?></p>
-                        <p class="cabin2"><strong>Endereço: </strong><?php echo $dados_estabelecimento['localizacao']; ?></p>
-                        <p class="cabin2"><strong>Descrição: </strong><?php echo $dados_estabelecimento['descricao']; ?></p>
+                        <h2 class="cabin2"><?php echo htmlspecialchars($dados_estabelecimento['nome']); ?></h2>
+                        <p class="cabin2"><strong>Tipo do Local: </strong><?php echo htmlspecialchars($dados_estabelecimento['tipo_nome']); ?></p>
+                        <p class="cabin2"><strong>Endereço: </strong><?php echo htmlspecialchars($dados_estabelecimento['localizacao']); ?></p>
+                        <p class="cabin2"><strong>Descrição: </strong><?php echo htmlspecialchars($dados_estabelecimento['descricao']); ?></p>
                         <p class="cabin2"><strong>Horário de Funcionamento: </strong>
-                            <?php echo substr($dados_estabelecimento['horario_abertura'], 0, 5); ?> -
-                            <?php echo substr($dados_estabelecimento['horario_fechamento'], 0, 5); ?>.
+                            <?php echo date('H:i', strtotime($dados_estabelecimento['horario_abertura'])); ?> -
+                            <?php echo date('H:i', strtotime($dados_estabelecimento['horario_fechamento'])); ?>.
                         </p>
-                        <p class="cabin2"><strong>Restrição de Idade: </strong><?php echo $dados_estabelecimento['idadeMinima']; ?></p>
-                        <p class="cabin2"><strong>Telefone: </strong><?php echo $dados_estabelecimento['telefone']; ?></p>
-                        <p class="cabin2"><strong>Rede Social: </strong><a href="#"><?php echo $dados_estabelecimento['rede_social']; ?></a></p>
-                        <p class="cabin2"><strong>Site: </strong><a href="<?php echo $dados_estabelecimento['site']; ?>"><?php echo $dados_estabelecimento['site']; ?></a></p>
+
+                        <p class="cabin2"><strong>Restrição de Idade: </strong><?php echo htmlspecialchars($dados_estabelecimento['idadeMinima']); ?></p>
+                        <p class="cabin2"><strong>Telefone: </strong><?php echo htmlspecialchars($dados_estabelecimento['telefone']); ?></p>
+                        <p class="cabin2"><strong>Rede Social: </strong><a href="#"><?php echo htmlspecialchars($dados_estabelecimento['rede_social']); ?></a></p>
+                        <p class="cabin2"><strong>Site: </strong><a href="<?php echo htmlspecialchars($dados_estabelecimento['site']); ?>"><?php echo htmlspecialchars($dados_estabelecimento['site']); ?></a></p>
                     </div>
                 </div>
             </div>
@@ -188,12 +231,12 @@
                 <h2 class="cabin2" style="margin-top: 12px;">Comentários</h2>
                 <form action="salvarComentario.php" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="estabelecimento_id" value="<?php echo $id_estabelecimento; ?>">
-                    <input type="hidden" name="email" value="<?php echo $email; ?>">
+                    <input type="hidden" name="email" value="<?php echo htmlspecialchars($_SESSION['email']); ?>">
                     <div class="mb-3">
                         <label for="textarea" class="form-label cabin2">Deixe seu comentário:</label>
                         <textarea class="form-control cabin2" id="textarea" rows="3" name="comentario"></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary cabin2">Enviar</button>
+                    <button type="submit" class="btn btn-primary cabin2">Salvar Comentário</button>
                 </form>
 
                 <!-- Display Comments -->
@@ -203,16 +246,19 @@
                         $sql_comments = "SELECT c.texto, u.nome, c.horario
                                         FROM comentario_estabelecimento c
                                         JOIN usuario u ON c.usuario_email = u.email
-                                        WHERE c.estabelecimento_id = $id_estabelecimento
+                                        WHERE c.estabelecimento_id = ?
                                         ORDER BY c.horario DESC";
-                        $result_comments = $conn->query($sql_comments);
+                        $stmt_comments = $conn->prepare($sql_comments);
+                        $stmt_comments->bind_param('i', $id_estabelecimento);
+                        $stmt_comments->execute();
+                        $result_comments = $stmt_comments->get_result();
 
                         if ($result_comments->num_rows > 0) {
                             while ($comentario = $result_comments->fetch_assoc()) {
                                 echo '<div class="card mt-2">';
                                 echo '<div class="card-body">';
-                                echo '<h5 class="card-title">' . $comentario['nome'] . '</h5>';
-                                echo '<p class="card-text">' . $comentario['texto'] . '</p>';
+                                echo '<h5 class="card-title">' . htmlspecialchars($comentario['nome']) . '</h5>';
+                                echo '<p class="card-text">' . htmlspecialchars($comentario['texto']) . '</p>';
                                 echo '<p class="text-muted">' . $comentario['horario'] . '</p>';
                                 echo '</div>';
                                 echo '</div>';
@@ -223,7 +269,7 @@
                     ?>
                 </div>
             </div>
-
+        </div>
     </div>
 </div>
         </div>
