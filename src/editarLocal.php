@@ -17,21 +17,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $tipoLocal = $_POST['tipoLocal'] ?? '';
 
     // Formatando os valores para salvar no formato hh:mm:ss
+    // Formatação dos horários
     $horario_abertura_formatado = date('H:i:s', strtotime($horario_abertura));
     $horario_fechamento_formatado = date('H:i:s', strtotime($horario_fechamento));
 
-    $sql_update_estabelecimento = "UPDATE estabelecimento SET localizacao=?, nome=?, descricao=?, telefone=?, rede_social=?, site=?, idadeMinima=?, horario_abertura=?, horario_fechamento=?, id_tipo=? WHERE id_estabelecimento=?";
-    $stmt_update_estabelecimento = mysqli_prepare($conn, $sql_update_estabelecimento);
+    // Construção da query de atualização
+    $sql_update_estabelecimento = "
+        UPDATE estabelecimento 
+        SET 
+            localizacao='$localizacao', 
+            nome='$nome', 
+            descricao='$descricao', 
+            telefone='$telefone', 
+            rede_social='$redeSocial', 
+            site='$site', 
+            idadeMinima='$idadeMinima', 
+            horario_abertura='$horario_abertura_formatado', 
+            horario_fechamento='$horario_fechamento_formatado', 
+            id_tipo='$tipoLocal' 
+        WHERE 
+            id_estabelecimento='$id_estabelecimento'
+    ";
 
-    if (!$stmt_update_estabelecimento) {
-        die("Falha ao preparar a consulta de atualização do estabelecimento: " . mysqli_error($conn));
-    }
-    mysqli_stmt_bind_param($stmt_update_estabelecimento, 'ssssssssisi', $localizacao, $nome, $descricao, $telefone, $redeSocial, $site, $idadeMinima, $horario_abertura_formatado, $horario_fechamento_formatado, $tipoLocal, $id_estabelecimento);
+    // Execução da query
+    $result = mysqli_query($conn, $sql_update_estabelecimento);
 
-    if (mysqli_stmt_execute($stmt_update_estabelecimento)) {
-        echo '<script>alert("Dados do estabelecimento atualizados com sucesso!");window.location.href = "explorarHTML.php";</script>';
+    // Verificação do resultado
+    if ($result) {
+        echo '<script>
+                alert("Dados do estabelecimento atualizados com sucesso!");
+                window.location.href = "explorarHTML.php";
+            </script>';
     } else {
-        echo "Erro ao atualizar os dados do estabelecimento: " . mysqli_stmt_error($stmt_update_estabelecimento);
+        echo "Erro ao atualizar os dados do estabelecimento: " . mysqli_error($conn);
         exit;
     }
 

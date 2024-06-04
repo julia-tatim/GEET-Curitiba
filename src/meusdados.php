@@ -78,7 +78,7 @@ if (mysqli_num_rows($result) > 0) {
             background-color: #F1835E;
             box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
         }
-        .color-bt3n:hover {
+        .color-btn3:hover {
         background-color: rgb(104, 104, 104);
         color: #fff; 
         }
@@ -87,6 +87,18 @@ if (mysqli_num_rows($result) > 0) {
         background-color: #F1835E;
         color: #fff
         }
+
+        .color-btn4 {
+            color: white;
+            border-color: red;
+            background-color: red;
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+        }
+        .color-btn4:hover {
+        background-color: #800000;
+        color: #fff; 
+        }
+        
 
         .cabin {
         font-family: "Cabin", sans-serif;
@@ -153,6 +165,31 @@ if (mysqli_num_rows($result) > 0) {
       "wdth" 100;
       color: #fff;
 }
+
+.imagem-perfil {
+    width: 70%;
+    height: auto; /* ou qualquer valor desejado */
+    aspect-ratio: 1 / 1; /* para garantir que a imagem seja exibida em uma proporção de 1:1 (quadrada) */
+    object-fit: cover; /* para garantir que a imagem mantenha suas proporções */
+    border-radius: 50%; /* para fazer a imagem ficar redonda */
+}
+.imagemPerfil {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%; /* ou qualquer outra largura desejada */
+    height: 100%; /* ou qualquer outra altura desejada */
+}
+
+.rounded-circle {
+    width: 50px;
+    height: auto; 
+    aspect-ratio: 1 / 1; 
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+
     </style>
 </head>
 <body>
@@ -200,13 +237,13 @@ if (mysqli_num_rows($result) > 0) {
                 if (mysqli_stmt_fetch($stmt)) {
                     if ($imagem) {
                         // Se houver uma imagem
-                        echo '<a class="navbar-brand m-2" href="meusdados.php"><img src="data:image/jpeg;base64,' . base64_encode($imagem) . '" alt="Perfil do usuário" width="50" height=""></a>';
+                        echo '<a class="navbar-brand m-2" href="meusdados.php"><img src="data:image/jpeg;base64,' . base64_encode($imagem) . '" alt="Perfil do usuário" width="50" height="" class="rounded-circle"></a>';
                     } else {
                         // Se não houver imagem, exibir uma padrão
-                        echo '<a class="navbar-brand m-2" href="meusdados.php"><img src="../image/perfil_padrao.jpg" alt="Perfil do usuário" width="50" height=""></a>';
+                        echo '<a class="navbar-brand m-2" href="meusdados.php"><img src="../image/perfil_padrao.jpg" alt="Perfil do usuário" width="50" height="" class="rounded-circle"></a>';
                     }
                 } else {
-                    echo '<a class="navbar-brand m-2" href="meusdados.php"><img src="../image/perfil_padrao.jpg" alt="Perfil do usuário" width="50" height=""></a>';
+                    echo '<a class="navbar-brand m-2" href="meusdados.php"><img src="../image/perfil_padrao.jpg" alt="Perfil do usuário" width="50" height="" class="rounded-circle"></a>';
                 }
 
                 mysqli_stmt_close($stmt);
@@ -221,11 +258,11 @@ if (mysqli_num_rows($result) > 0) {
                 <!-- Seu conteúdo aqui -->
                 <form method="POST" action="userUpdateDelete.php" enctype="multipart/form-data">
 
-                    <div class="form-group">
+                    <div class="form-group d-flex justify-content-center align-items-centerp">
                         <p class="cabin2">Imagem perfil:</p>
                         <?php
                         if (!empty($imagem_src)) {
-                            echo "<img src='$imagem_src' class='cabin5' style='max-width: 100%;' alt='Imagem do estabelecimento'>";
+                            echo "<img src='$imagem_src' class='imagem-perfil cabin5' style='max-width: 100%;' alt='Imagem'>";
                         } else {
                             echo "<p>Imagem não selecionada</p>";
                         }
@@ -266,7 +303,10 @@ if (mysqli_num_rows($result) > 0) {
                     </div>
                     <button type="submit" class="btn btn-outline-light cabin2 color-btn cabin2 mr-2 "name="update" id="update">Editar</button>
                     <button type="submit" class="btn btn-outline-light cabin2 color-btn cabin2 color-btn3 mr-2" name="delete" id="delete">Deletar</button>
-                    <button type="submit" class="btn btn-outline-light cabin2 color-btn cabin2 " name="logout" id="logout">Deslogar</button>
+                    <div class="float-right">
+                       <button type="submit" class="btn btn-outline-light cabin2 color-btn4 cabin2 " name="logout" id="logout">Deslogar</button> 
+                    </div>
+                    
                 </form>
             </div>
         </div>
@@ -279,4 +319,3 @@ if (mysqli_num_rows($result) > 0) {
     
 </body>
 </html>
-

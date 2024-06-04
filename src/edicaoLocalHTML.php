@@ -1,3 +1,15 @@
+<?php
+// Iniciar o buffer de saída no início do arquivo
+ob_start();
+session_start();
+include "config.php";
+
+if (!isset($_SESSION['email'])) {
+    // Certifique-se de que nenhuma saída foi enviada antes desta chamada ao header
+    header("Location: login.html");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -130,7 +142,13 @@
     .btnn:hover {
             color: #fff; 
         }
-
+.rounded-circle {
+    width: 50px;
+    height: auto; 
+    aspect-ratio: 1 / 1; 
+    object-fit: cover;
+    border-radius: 50%;
+}
     </style>
 </head>
 <body>
@@ -162,11 +180,6 @@
             <?php
                 include "config.php";
 
-                if (!isset($_SESSION['email'])) {
-                    header("Location: login.html");
-                    exit();
-                }
-
                 $email = $_SESSION['email'];
 
                 $query = "SELECT imagem FROM usuario WHERE email = ?";
@@ -178,13 +191,13 @@
                 if (mysqli_stmt_fetch($stmt)) {
                     if ($imagem) {
                         // Se houver uma imagem
-                        echo '<a class="navbar-brand m-2" href="meusdados.php"><img src="data:image/jpeg;base64,' . base64_encode($imagem) . '" alt="Perfil do usuário" width="50" height=""></a>';
+                        echo '<a class="navbar-brand m-2" href="meusdados.php"><img src="data:image/jpeg;base64,' . base64_encode($imagem) . '" alt="Perfil do usuário" width="50" height="" class="rounded-circle"></a>';
                     } else {
                         // Se não houver imagem, exibir uma padrão
-                        echo '<a class="navbar-brand m-2" href="meusdados.php"><img src="../image/perfil_padrao.jpg" alt="Perfil do usuário" width="50" height=""></a>';
+                        echo '<a class="navbar-brand m-2" href="meusdados.php"><img src="../image/perfil_padrao.jpg" alt="Perfil do usuário" width="50" height="" class="rounded-circle"></a>';
                     }
                 } else {
-                    echo '<a class="navbar-brand m-2" href="meusdados.php"><img src="../image/perfil_padrao.jpg" alt="Perfil do usuário" width="50" height=""></a>';
+                    echo '<a class="navbar-brand m-2" href="meusdados.php"><img src="../image/perfil_padrao.jpg" alt="Perfil do usuário" width="50" height="" class="rounded-circle"></a>';
                 }
 
                 mysqli_stmt_close($stmt);

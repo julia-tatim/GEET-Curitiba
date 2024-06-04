@@ -96,7 +96,13 @@ include_once('config.php');
     strong{
         color: #1E659B;
     }
-
+    .rounded-circle {
+    width: 50px;
+    height: auto; 
+    aspect-ratio: 1 / 1; 
+    object-fit: cover;
+    border-radius: 50%;
+    }
 
     </style>
 </head>
@@ -145,13 +151,13 @@ include_once('config.php');
                 if (mysqli_stmt_fetch($stmt)) {
                     if ($imagem) {
                         // Se houver uma imagem
-                        echo '<a class="navbar-brand m-2" href="meusdados.php"><img src="data:image/jpeg;base64,' . base64_encode($imagem) . '" alt="Perfil do usuário" width="50" height=""></a>';
+                        echo '<a class="navbar-brand m-2" href="meusdados.php"><img src="data:image/jpeg;base64,' . base64_encode($imagem) . '" alt="Perfil do usuário" width="50" height="" class="rounded-circle"></a>';
                     } else {
                         // Se não houver imagem, exibir uma padrão
-                        echo '<a class="navbar-brand m-2" href="meusdados.php"><img src="../image/perfil_padrao.jpg" alt="Perfil do usuário" width="50" height=""></a>';
+                        echo '<a class="navbar-brand m-2" href="meusdados.php"><img src="../image/perfil_padrao.jpg" alt="Perfil do usuário" width="50" height="" class="rounded-circle"></a>';
                     }
                 } else {
-                    echo '<a class="navbar-brand m-2" href="meusdados.php"><img src="../image/perfil_padrao.jpg" alt="Perfil do usuário" width="50" height=""></a>';
+                    echo '<a class="navbar-brand m-2" href="meusdados.php"><img src="../image/perfil_padrao.jpg" alt="Perfil do usuário" width="50" height="" class="rounded-circle"></a>';
                 }
 
                 mysqli_stmt_close($stmt);
@@ -210,7 +216,7 @@ include_once('config.php');
                         <p class="cabin2"><strong>Descrição: </strong><?php echo htmlspecialchars($dados_estabelecimento['descricao']); ?></p>
                         <p class="cabin2"><strong>Horário de Funcionamento: </strong>
                             <?php echo date('H:i', strtotime($dados_estabelecimento['horario_abertura'])); ?> -
-                            <?php echo date('H:i', strtotime($dados_estabelecimento['horario_fechamento'])); ?>.
+                            <?php echo date('H:i', strtotime($dados_estabelecimento['horario_fechamento'])); ?>
                         </p>
 
                         <p class="cabin2"><strong>Restrição de Idade: </strong><?php echo htmlspecialchars($dados_estabelecimento['idadeMinima']); ?></p>
