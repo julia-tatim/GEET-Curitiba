@@ -113,9 +113,7 @@
     object-fit: cover;
     border-radius: 50%;
 }
-    </style>
-
-    .tam{
+.tam{
         width: 60%;
         height: auto;
     }

@@ -48,6 +48,8 @@ $cryptConfirma = password_hash($confirmaSenha, PASSWORD_BCRYPT);
             
             $conteudo_imagem = file_get_contents($imagem_temp);
             
+
+            // INSERT PARA USUARIO
             $sql_insert_user = "INSERT INTO usuario (nome, senha, email, data_nascimento, confirmaSenha) VALUES (?, ?, ?, ?, ?)";
             $stmt_insert_user = mysqli_prepare($conn, $sql_insert_user);
 
@@ -90,6 +92,7 @@ $cryptConfirma = password_hash($confirmaSenha, PASSWORD_BCRYPT);
             
         } else {
             // se a imagem nao foi enviada
+            // OUTRO INSERT DE USUARIO
             $sql_insert_user = "INSERT INTO usuario (nome, senha, email, data_nascimento, confirmaSenha) VALUES (?, ?, ?, ?, ?)";
             $stmt_insert_user = mysqli_prepare($conn, $sql_insert_user);
             if ($stmt_insert_user) {

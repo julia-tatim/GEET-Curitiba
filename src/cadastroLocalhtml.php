@@ -114,13 +114,13 @@
             color: #fff; /* Ou a cor desejada ao passar o mouse */
         }
 
-.rounded-circle {
-    width: 50px;
-    height: auto; 
-    aspect-ratio: 1 / 1; 
-    object-fit: cover;
-    border-radius: 50%;
-}
+    .rounded-circle {
+        width: 50px;
+        height: auto; 
+        aspect-ratio: 1 / 1; 
+        object-fit: cover;
+        border-radius: 50%;
+    }
     </style>
     
 </head>
