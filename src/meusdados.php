@@ -262,17 +262,38 @@ if (mysqli_num_rows($result) > 0) {
                                 title="Insira uma data de nascimento válida (mínimo 10 anos)" 
                                 value="<?php echo $dataNascimento; ?>">
                         </div>
-
                     </div>
                     <button type="submit" class="btn btn-outline-light cabin2 color-btn cabin2 mr-2 "name="update" id="update">Editar</button>
-                    <button type="submit" class="btn btn-outline-light cabin2 color-btn cabin2 color-btn3 mr-2" name="delete" id="delete">Deletar</button>
+                    <button type="button" class="btn btn-outline-light cabin2 color-btn cabin2 color-btn3 mr-2" data-bs-toggle="modal" data-bs-target="#ConfirmarExclusao">Deletar</button>
                     <button type="submit" class="btn btn-outline-light cabin2 color-btn cabin2 " name="logout" id="logout">Deslogar</button>
                 </form>
             </div>
         </div>
     </div>
+    <!-- confirmar exclusão -->
+    <div class="modal fade" id="ConfirmarExclusao" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="modal-title">Deseja mesmo excluir sua conta?</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <p>Você está prestes a excluir sua conta permanentemente. Tem certeza que deseja prosseguir?</p>
+                  <p>Clique em 'Confirmar' para excluir ou 'Cancelar' para manter.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
 
-
+                    <form action="userUpdateDelete.php" method="POST">
+                        <input type="hidden" name="email" value="<?php echo $email; ?>">
+                        <button type="submit" class="btn btn-danger" name="delete">Confirmar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- confirmar exclusão -->
           
     <!-- Bootstrap JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
