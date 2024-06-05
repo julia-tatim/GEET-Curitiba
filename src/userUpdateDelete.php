@@ -28,8 +28,30 @@ if (isset($_POST['update'])) {
     }
 
     if ($senha !== $confirmaSenha) {
-        echo '<script>alert("As senhas não coincidem.");</script>';
-        exit();
+        echo '<!DOCTYPE html>
+        <html lang="pt-br">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Usuário Update</title>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+        </head>
+        <body>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+            <script>
+            Swal.fire({
+                icon: "error",
+                title: "As senhas não coincidem.",
+                text: "Por favor, tente novamente.",
+                confirmButtonColor: "#1E659B"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "userUpdateDelete.php";
+                }
+            });
+        </script>
+        </body>
+        </html>';
     } else {
         $crypt = password_hash($senha, PASSWORD_BCRYPT);
 
@@ -48,7 +70,30 @@ if (isset($_POST['update'])) {
         $row = mysqli_fetch_assoc($resultCheckEmail);
         $emailExistente = $row['count'];
         if ($emailExistente > 0) {
-            echo '<script>alert("Este email já está sendo utilizado.");</script>';
+            echo '<!DOCTYPE html>
+            <html lang="pt-br">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Usuário Update</title>
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+            </head>
+            <body>
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+                <script>
+                Swal.fire({
+                    icon: "error",
+                    title: "Email já esta sendo utilizado!",
+                    confirmButtonColor: "#1E659B"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "meusdados.html";
+                    }
+                });
+            </script>
+            </body>
+            </html>';
+            exit();
         } else {
             $sqlEmail = "UPDATE usuario SET email=? WHERE email=?";
             $stmtEmail = mysqli_prepare($conn, $sqlEmail);
@@ -57,7 +102,30 @@ if (isset($_POST['update'])) {
 
             if (mysqli_stmt_affected_rows($stmtEmail) > 0) {
                 $_SESSION['email'] = $email_novo;
-                echo '<script>alert("Email editado com sucesso.");</script>';
+                echo '<!DOCTYPE html>
+                <html lang="pt-br">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Usuário Update</title>
+                    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+                </head>
+                <body>
+                    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+                    <script>
+                    Swal.fire({
+                        icon: "success",
+                        title: "Email editado com sucesso.",
+                        confirmButtonColor: "#1E659B"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = "meusdados.html";
+                        }
+                    });
+                </script>
+                </body>
+                </html>';
+                exit();
             } else {
                 echo "Erro ao editar usuário: " . $conn->error;
             }

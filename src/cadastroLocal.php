@@ -50,10 +50,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $result_check_nome = mysqli_stmt_get_result($stmt_check_nome);
 
                 if ($result_check_nome && mysqli_num_rows($result_check_nome) > 0) {
-                    echo "<script>
-                        alert('O nome já está em uso. Por favor, insira outro nome.');
-                        window.location.href = 'cadastroLocalhtml.php';
-                    </script>";
+                    echo '<!DOCTYPE html>
+                        <html lang="pt-br">
+                        <head>
+                            <meta charset="UTF-8">
+                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                            <title>Cadastro Local</title>
+                            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+                        </head>
+                        <body>
+                            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+                            <script>
+                            Swal.fire({
+                                icon: "error",
+                                title: "O nome já está em uso.",
+                                text: "Por favor, insira outro nome.",
+                                confirmButtonColor: "#1E659B"
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.href = "cadastroLocalhtml.php";
+                                }
+                            });
+                        </script>
+                        </body>
+                        </html>';
+                    exit();
                 } else {
                     $sql_check_fone = "SELECT * FROM estabelecimento WHERE telefone = ?";
                     $stmt_check_fone = mysqli_prepare($conn, $sql_check_fone);
@@ -62,10 +83,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $result_check_fone = mysqli_stmt_get_result($stmt_check_fone);
 
                     if ($result_check_fone && mysqli_num_rows($result_check_fone) > 0) {
-                        echo "<script>
-                            alert('O telefone já está em uso. Por favor, insira outro telefone.');
-                            window.location.href = 'cadastroLocalhtml.php';
-                        </script>";
+                        echo '<!DOCTYPE html>
+                        <html lang="pt-br">
+                        <head>
+                            <meta charset="UTF-8">
+                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                            <title>Cadastro Local</title>
+                            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+                        </head>
+                        <body>
+                            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+                            <script>
+                            Swal.fire({
+                                icon: "error",
+                                title: "O telefone já está em uso.",
+                                text: "Por favor, insira outro telefone.",
+                                confirmButtonColor: "#1E659B"
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.href = "cadastroLocalhtml.php";
+                                }
+                            });
+                        </script>
+                        </body>
+                        </html>';
                         exit();
                     } else {
 
@@ -81,11 +122,57 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         mysqli_stmt_bind_param($stmt, "ssssssssssi", $localizacao, $nome, $descricao, $telefone, $redeSocial, $site, $idadeMim, $horario_abertura, $horario_fechamento, $id_imagem, $id_tipo);
 
                         if (mysqli_stmt_execute($stmt)) {
-                            echo '<script>alert("Estabelecimento registrado com sucesso."); window.location.href = "explorarHTML.php";</script>';
+                            echo '<!DOCTYPE html>
+                                <html lang="pt-br">
+                                <head>
+                                    <meta charset="UTF-8">
+                                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                                    <title>Cadastro Local</title>
+                                    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+                                </head>
+                                <body>
+                                    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+                                    <script>
+                                    Swal.fire({
+                                        icon: "success",
+                                        title: "Estabelecimento registrado com sucesso.",
+                                        confirmButtonColor: "#1E659B"
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            window.location.href = "cadastroLocalhtml.php";
+                                        }
+                                    });
+                                </script>
+                                </body>
+                                </html>';
+                            exit();
+                            echo '<script>alert(""); window.location.href = "explorarHTML.php";</script>';
                             exit();
                         } else {
-                            echo '<script>alert("Erro ao registrar estabelecimento."); window.location.href = "cadastroLocalhtml.php";</script>';
-                            exit();
+                            echo '<!DOCTYPE html>
+                        <html lang="pt-br">
+                        <head>
+                            <meta charset="UTF-8">
+                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                            <title>Cadastro Local</title>
+                            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+                        </head>
+                        <body>
+                            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+                            <script>
+                            Swal.fire({
+                                icon: "error",
+                                title: "Erro ao registrar estabelecimento.",
+                                confirmButtonColor: "#1E659B"
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.href = "cadastroLocalhtml.php";
+                                }
+                            });
+                        </script>
+                        </body>
+                        </html>';
+                        exit();
                         }
 
                         mysqli_stmt_close($stmt);
@@ -104,8 +191,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "Erro ao preparar a consulta de inserção de imagem: " . mysqli_error($conn);
         }
     } else {
-        echo '<script>alert("Por favor, selecione pelo menos uma imagem."); window.location.href = "cadastroLocalhtml.php";</script>';
-        exit();
+        echo '<!DOCTYPE html>
+                <html lang="pt-br">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Cadastro Local</title>
+                    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+                </head>
+                <body>
+                    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+                    <script>
+                    Swal.fire({
+                        icon: "error",
+                        title: "Nenhuma imagem selecionada.",
+                        text: "Por favor, selecione pelo menos uma imagem.",
+                        confirmButtonColor: "#1E659B"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = "cadastroLocalhtml.php";
+                        }
+                    });
+                </script>
+                </body>
+                </html>';
+            exit();
     }
 
     // Fechar a conexão com o banco de dados

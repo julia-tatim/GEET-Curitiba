@@ -44,10 +44,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Verificação do resultado
     if ($result) {
-        echo '<script>
-                alert("Dados do estabelecimento atualizados com sucesso!");
-                window.location.href = "explorarHTML.php";
-            </script>';
+        echo '<!DOCTYPE html>
+                <html lang="pt-br">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Local Update</title>
+                    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+                </head>
+                <body>
+                    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+                    <script>
+                    Swal.fire({
+                        icon: "success",
+                        title: "Dados do estabelecimento atualizados com sucesso!",
+                        confirmButtonColor: "#1E659B"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = "explorarHTML.php";
+                        }
+                    });
+                </script>
+                </body>
+                </html>';
+            exit();
     } else {
         echo "Erro ao atualizar os dados do estabelecimento: " . mysqli_error($conn);
         exit;
@@ -82,7 +102,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 mysqli_stmt_bind_param($stmt_update_imagem, 'si', $imagem, $imagem_id);
 
                 if (mysqli_stmt_execute($stmt_update_imagem)) {
-                    echo '<script>alert("Imagem atualizada com sucesso!");</script>';
+                    echo '<!DOCTYPE html>
+                        <html lang="pt-br">
+                        <head>
+                            <meta charset="UTF-8">
+                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                            <title>Local Update</title>
+                            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+                        </head>
+                        <body>
+                            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+                            <script>
+                            Swal.fire({
+                                icon: "success",
+                                title: "Imagem atualizada com sucesso!",
+                                confirmButtonColor: "#1E659B"
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.href = "edicaoLocalHTML.php";
+                                }
+                            });
+                        </script>
+                        </body>
+                        </html>';
+                    exit();
                 } else {
                     echo "Erro ao atualizar a imagem: " . mysqli_stmt_error($stmt_update_imagem);
                 }

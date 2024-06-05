@@ -34,7 +34,30 @@ if (isset($_POST['submit']) && !empty($_POST['email']) && !empty($_POST['senha']
         } else {
             unset($_SESSION['email']);
             unset($_SESSION['senha']);
-            echo '<script>alert("Usuário não encontrado ou credenciais inválidas. Por favor, tente novamente."); window.location.href = "login.html";</script>';
+            echo '<!DOCTYPE html>
+            <html lang="pt-br">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Usuário Login</title>
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+            </head>
+            <body>
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+                <script>
+                Swal.fire({
+                    icon: "error",
+                    title: "Usuário não encontrado ou credenciais inválidas.",
+                    text: "Por favor, tente novamente.",
+                    confirmButtonColor: "#1E659B"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "login.html";
+                    }
+                });
+            </script>
+            </body>
+            </html>';
             exit();
         }
     }
@@ -44,18 +67,64 @@ if (isset($_POST['submit']) && !empty($_POST['email']) && !empty($_POST['senha']
         if ($senha === $dbSenhaAdmin) { // Certifique-se de usar a mesma lógica de senha (plain text ou hash) para admin
             $_SESSION['email'] = $email;
             $_SESSION['senha'] = $senha;
-            header('Location: cadastroLocalhtml.php'); // Página para administradores
+            header('Location: paginaADM.php'); // Página para administradores
             exit();
         } else {
             unset($_SESSION['email']);
             unset($_SESSION['senha']);
-            echo '<script>alert("Administrador não encontrado ou credenciais inválidas. Por favor, tente novamente."); window.location.href = "login.html";</script>';
+            echo '<!DOCTYPE html>
+            <html lang="pt-br">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Admin Login</title>
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+            </head>
+            <body>
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+                <script>
+                Swal.fire({
+                    icon: "error",
+                    title: "Administrador não encontrado ou credenciais inválidas.",
+                    text: "Por favor, tente novamente.",
+                    confirmButtonColor: "#1E659B"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "login.html";
+                    }
+                });
+            </script>
+            </body>
+            </html>';
             exit();
         }
     }
 
     // Se não encontrou em nenhuma das tabelas
-    echo '<script>alert("Usuário ou administrador não encontrado ou credenciais inválidas. Por favor, tente novamente."); window.location.href = "login.html";</script>';
+    echo '<!DOCTYPE html>
+        <html lang="pt-br">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Usuário Login</title>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+        </head>
+        <body>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+            <script>
+            Swal.fire({
+                icon: "error",
+                title: "Usuário ou administrador não encontrado ou credenciais inválidas.",
+                text: "Por favor, tente novamente.",
+                confirmButtonColor: "#1E659B"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "login.html";
+                }
+            });
+        </script>
+        </body>
+        </html>';
     exit();
 }
 else {
