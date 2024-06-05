@@ -29,6 +29,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Cabin:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     
     
     <style>
@@ -286,11 +287,81 @@
 }
 
 .cardBackground {
-  background-image: url('../image/imagemContato2.png'); 
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   height: 600px;
+}
+
+.inputContato {
+    border-radius: 50px;
+    padding-left: 45px; 
+}
+.inputContato2 {
+    border-radius: 25px;
+    padding-left: 45px; 
+}
+.espaçoLetraInput {
+            padding-left: px;
+            margin-bottom: 2px;
+        }
+        .espaçoLetraInput2 {
+            padding-left: 25px;
+        }
+        .esp {
+            padding: 12px;
+        }
+        .corInput {
+            color: #9e9e9e;
+        }
+        .corInput::placeholder {
+            color: #9e9e9e;
+        }
+        .corInput2 {
+            color: #333;
+            padding-bottom: 20px;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+        }
+        
+        .inputContato, .inputContato2 {
+            width: 100%; 
+            margin: 0; 
+            box-sizing: border-box; 
+        }
+
+       
+        form {
+            width: 100%; 
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 15px; 
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9e9e9e;
+        }
+
+        .input-container {
+            position: relative;
+        }
+
+        .input-container input {
+    padding-left: 35px; 
+}
+
+.input-container textarea {
+    padding-left: 35px; 
+}
+.cardBackground {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; 
+  background-size: cover;
 }
    
    </style>
@@ -550,51 +621,59 @@
     <!-- carrossel de destaques -->
 
     <!-- contato -->
-
+    <!-- <img src="../image/emBaixo.svg" alt="" class="img-fluid w-100"> -->
     
-    <div class="cardBackground">
+    <div class="cardBackground img-fluid w-100" style="background-image: url('../image/imagemContato2.png');">
         <div class="container my-5">
             <div class="row justify-content-center">
-              <div class="col-lg-8">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="row">
-                      <div class="col-md-4 d-flex align-items-center justify-content-center">
-                        <img src="../image/carinha.png" alt="Descrição da Imagem" class="img-fluid">
-                      </div>
-                      <div class="col-md-8">
-                        <form>
-                            <div class="mb-3">
-                              <h3>Entre em Contato</h3>
-                              <label for="name" class="form-label">Nome</label>
-                              <input type="text" class="form-control" id="name" placeholder="Digite seu nome" required>
+                <div class="col-lg-8">
+                    <div class="card" style="background-color: #ddd9d9; border-radius: 20px;">
+                        <div class="card-body">
+                            <!-- Início da Row -->
+                            <div class="row">
+                                <!-- Coluna da Imagem e Descrição -->
+                                <div class="col-md-6 d-flex align-items-center justify-content-center flex-column">
+                                    <img src="../image/carinha.png" alt="Descrição da Imagem" class="img-fluid mb-3">
+                                    <h4 style="font-size: medium;" class="cabin2">Quem Somos</h4>
+                                    <p style="font-size: small;" class="cabin2">GEET Curitiba é um projeto universitário de alunos do 3º período de Sistemas de Informação, que visa divulgar e ajudar a localizar pontos turísticos, estabelecimentos e eventos em Curitiba. GEET significa Gastronomia, Entretenimento, Eventos e Turismo.</p>
+                                </div>
+                                <!-- Coluna do Formulário -->
+                                <div class="col-md-6 d-flex align-items-center">
+                                    <form class="form-centralizado">
+                                        <div class="mb-3">
+                                            <h3 class="espaçoLetraInput corInput2">Entre em Contato</h3>
+                                            <label for="name" class="form-label cabin2 espaçoLetraInput corInput">Nome</label>
+                                            <div class="input-container">
+                                                <i class="fas fa-user input-icon"></i>
+                                                <input type="text" class="form-control inputContato cabin2 espaçoLetraInput corInput esp" id="name" placeholder="Digite seu nome" required>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="email" class="form-label cabin2 espaçoLetraInput corInput">Email</label>
+                                            <div class="input-container">
+                                                <i class="fas fa-envelope input-icon"></i>
+                                                <input type="email" class="form-control inputContato cabin2 espaçoLetraInput corInput esp" id="email" placeholder="Digite seu email" required>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="message" class="form-label cabin2 espaçoLetraInput corInput">Mensagem</label>
+                                                <textarea class="form-control inputContato2 cabin2 espaçoLetraInput corInput esp" id="message" rows="3" placeholder="Digite sua mensagem" required></textarea>
+                                        </div>
+                                        <div class="d-grid">
+                                            <button type="submit" class="btn btn-primary color-btn inputContato cabin2 esp">Enviar Email</button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
-                            <div class="mb-3">
-                              <label for="email" class="form-label">Email</label>
-                              <input type="email" class="form-control" id="email" placeholder="Digite seu email" required>
-                            </div>
-                            <div class="mb-3">
-                              <label for="subject" class="form-label">Assunto</label>
-                              <input type="text" class="form-control" id="subject" placeholder="Digite o assunto" required>
-                            </div>
-                            <div class="mb-3">
-                              <label for="message" class="form-label">Mensagem</label>
-                              <textarea class="form-control" id="message" rows="3" placeholder="Digite sua mensagem" required></textarea>
-                            </div>
-                            <div class="d-grid">
-                              <button type="submit" class="btn btn-primary">Enviar Email</button>
-                            </div>
-                          </form>
-                      </div>
+                            <!-- Fim da Row -->
+                        </div>
                     </div>
-                  </div>
                 </div>
-              </div>
             </div>
-          </div>
+        </div>
     </div>
       
-        <!-- contato -->
+<!-- contato -->
       </div>
     </div>
   </div>
