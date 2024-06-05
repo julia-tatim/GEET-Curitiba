@@ -2,9 +2,18 @@
 session_start();
 include_once('config.php');
 
-//UPDATE
-if (isset($_POST['update'])) {
+function safeRedirect($url) {
+    if (!headers_sent()) {
+        header("Location: $url");
+        exit();
+    } else {
+        echo "<script>window.location.href='$url';</script>";
+        exit();
+    }
+}
 
+// UPDATE
+if (isset($_POST['update'])) {
     $email_antigo = $_SESSION['email']; 
     $email_novo = $_POST['email']; 
     $nome = $_POST['nome']; 
@@ -52,8 +61,7 @@ if (isset($_POST['update'])) {
             } else {
                 echo "Erro ao editar usuário: " . $conn->error;
             }
-            header("Location: meusdados.php");
-            exit();
+            safeRedirect("meusdados.php");
         }
     }
 
@@ -70,15 +78,20 @@ if (isset($_POST['update'])) {
         mysqli_stmt_execute($stmtImagem);
     }
 
-    header("Location: meusdados.php");
-    exit();
+    safeRedirect("meusdados.php");
 
-//DELETE
+// DELETE
 } elseif (isset($_POST['delete']) && $_POST['delete'] === 'true') {
 
-    if (!empty($_POST['email'])) {
-        
-        $email = $_POST['email'];
+    $email = $_SESSION['email'] ?? null;
+
+    if ($email) {
+        // Excluir comentários antes de deletar o usuário
+        $sqlDeleteComments = "DELETE FROM comentario_estabelecimento WHERE usuario_email = ?";
+        $stmtDeleteComments = mysqli_prepare($conn, $sqlDeleteComments);
+        mysqli_stmt_bind_param($stmtDeleteComments, "s", $email);
+        mysqli_stmt_execute($stmtDeleteComments);
+        mysqli_stmt_close($stmtDeleteComments);
 
         $sql = "DELETE FROM usuario WHERE email = ?";
         $stmt = mysqli_prepare($conn, $sql);
@@ -92,19 +105,16 @@ if (isset($_POST['update'])) {
             $msg = "Erro ao deletar: " . $conn->error;
         }
 
-        $stmt->close();
-        $conn->close();
-        header("Location: login.html");
-        exit();
+        mysqli_stmt_close($stmt);
+        mysqli_close($conn);
+        safeRedirect("login.html");
 
     } else {
         $msg = "Email não fornecido.";
     }
 } elseif (isset($_POST['logout'])) {
-
     unset($_SESSION['email']);
     unset($_SESSION['senha']);
-    header('Location: login.html');
-    exit();
+    safeRedirect('login.html');
 }
 ?>

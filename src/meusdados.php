@@ -317,24 +317,37 @@ if (mysqli_num_rows($result) > 0) {
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         function confirmarExclusao() {
-        Swal.fire({
-            title: "Tem certeza?",
-            text: "Você está prestes a excluir sua conta permanentemente. Clique em 'Confirmar' para excluir ou 'Cancelar' para manter.",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#f1835e",
-            cancelButtonText: "Cancelar",
-            confirmButtonText: "Confirmar",
-            }).then((result) => {
-            if (result.isConfirmed) {
-                Swal.fire({
-                title: "Excluido",
-                text: "Sua conta foi excluida com sucesso",
-                icon: "success"
-                });
-            }
-        });
+    Swal.fire({
+        title: "Tem certeza?",
+        text: "Você está prestes a excluir sua conta permanentemente. Clique em 'Confirmar' para excluir ou 'Cancelar' para manter.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#f1835e",
+        cancelButtonText: "Cancelar",
+        confirmButtonText: "Confirmar",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = 'userUpdateDelete.php'; 
+
+            const inputDelete = document.createElement('input');
+            inputDelete.type = 'hidden';
+            inputDelete.name = 'delete';
+            inputDelete.value = 'true';
+            form.appendChild(inputDelete);
+
+            const inputEmail = document.createElement('input');
+            inputEmail.type = 'hidden';
+            inputEmail.name = 'email';
+            inputEmail.value = '<?php echo $_SESSION['email']; ?>';
+            form.appendChild(inputEmail);
+
+            document.body.appendChild(form);
+            form.submit();
         }
+    });
+}
     </script>
     <!-- Bootstrap JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
