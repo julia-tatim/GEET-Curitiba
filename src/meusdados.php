@@ -277,7 +277,7 @@ if (mysqli_num_rows($result) > 0) {
                     <div class="form-group">
                         <label for="inputNome" class="cabin2">Nome</label>
                         <input type="text" class="form-control cabin2 corfundo" name="nome" id="inputNome" value="<?php echo $nome; ?>">
-                    </div>
+                    </div>                   
                     <div class="form-group">
                         <label for="inputSenha4" class="cabin2">Senha</label>
                         <input type="password" class="form-control cabin2 corfundo" name="senha" id="inputSenha4" >
@@ -305,9 +305,10 @@ if (mysqli_num_rows($result) > 0) {
                     <button type="submit" class="btn btn-outline-light cabin2 color-btn cabin2 color-btn3 mr-2" name="delete" id="delete">Deletar</button>
                     <div class="float-right">
                        <button type="submit" class="btn btn-outline-light cabin2 color-btn4 cabin2 " name="logout" id="logout">Deslogar</button> 
-                    </div>
-                    
+                    </div>                    
                 </form>
+                
+                <a type="submit" class="btn btn-outline-light cabin2 color-btn cabin2 mr-2 "name="favoritos" id="favoritos" href="favDosUsuarios.php">Favoritos</a>
             </div>
         </div>
     </div>

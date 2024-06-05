@@ -98,7 +98,28 @@ $cryptConfirma = password_hash($confirmaSenha, PASSWORD_BCRYPT);
             if ($stmt_insert_user) {
                 mysqli_stmt_bind_param($stmt_insert_user, 'sssss', $nome, $cryptSenha, $email, $nascimento, $cryptConfirma);
                 if(mysqli_stmt_execute($stmt_insert_user)){
-                    echo '<script>alert("Usuário registrado com sucesso."); window.location.href = "index.php";</script>';
+                    echo '<!DOCTYPE html>
+                    <html lang="pt-br">
+                    <head>
+                        <meta charset="UTF-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <title>Usuário Cadastrado</title>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+                    </head>
+                    <body>
+                        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+                        <script>
+                            Swal.fire({
+                                title: "Usuário Cadastrado com sucesso!",
+                                icon: "success"
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.href = "index.php";
+                                }
+                            });
+                        </script>
+                    </body>
+                    </html>';
                     exit();
                 } else {
                     $_SESSION["error"] = "Erro ao inserir dados do usuário.";

@@ -241,7 +241,10 @@ include_once('config.php');
                     <div class="conteiner col-md-12 espacoDireita">
                         <div class="ajutarH2eI d-flex align-items-center justify-content-between w-100">
                             <h2 class="cabin2"><?php echo htmlspecialchars($dados_estabelecimento['nome']); ?></h2>
-                            <i class="far fa-bookmark save-icon" onclick="changeIcon(this)"></i>
+                            <i class="far fa-bookmark save-icon" 
+                                data-estabelecimento-id="<?php echo $dados_estabelecimento['id_estabelecimento']; ?>" 
+                                data-usuario-email="<?php echo $usuario_email; ?>" 
+                                onclick="addRemoveFav(this)"></i>
                         </div>
                         <p class="cabin2"><strong>Tipo do Local: </strong><?php echo htmlspecialchars($dados_estabelecimento['tipo_nome']); ?></p>
                         <p class="cabin2"><strong>Endereço: </strong><?php echo htmlspecialchars($dados_estabelecimento['localizacao']); ?></p>
@@ -306,19 +309,33 @@ include_once('config.php');
         </div>
     </div>
     <!-- Bootstrap JavaScript -->
-    <script>
-        function changeIcon(element) {
-    if (element.classList.contains('far')) {
-      element.classList.remove('far');
-      element.classList.add('fas');
-      element.style.color = '#F1835E';
-    } else {
-      element.classList.remove('fas');
-      element.classList.add('far');
-      element.style.color = 'black';
-    }
-  }
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script>
+function addRemoveFav(element) {
+    const estabelecimentoId = element.getAttribute('data-estabelecimento-id');
+    const usuarioEmail = element.getAttribute('data-usuario-email');
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', 'addRemoveFav.php', true);
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            const response = JSON.parse(xhr.responseText);
+            if (response.status === 'added') {
+                element.classList.remove('far');
+                element.classList.add('fas');
+                element.style.color = '#F1835E';
+            } else if (response.status === 'removed') {
+                element.classList.remove('fas');
+                element.classList.add('far');
+                element.style.color = 'black';
+            }
+        }
+    };
+    xhr.send('estabelecimento_id=' + estabelecimentoId + '&usuario_email=' + usuarioEmail);
+}
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
+
+
