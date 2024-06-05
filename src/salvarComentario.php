@@ -7,11 +7,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $estabelecimento_id = $_POST['estabelecimento_id'];
         $comentario = $_POST['comentario'];
         $usuario_email = $_SESSION['email'];
+        $estrelas = $_POST['estrelas'];
 
-        $sql = "INSERT INTO comentario_estabelecimento (texto, usuario_email, estabelecimento_id) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO comentario_estabelecimento (texto, usuario_email, estabelecimento_id, estrelas) VALUES (?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
         if ($stmt) {
-            $stmt->bind_param('ssi', $comentario, $usuario_email, $estabelecimento_id);
+            $stmt->bind_param('ssii', $comentario, $usuario_email, $estabelecimento_id, $estrelas);
             if ($stmt->execute()) {
                 header("Location: LocalHTML.php?id=$estabelecimento_id");
                 exit();

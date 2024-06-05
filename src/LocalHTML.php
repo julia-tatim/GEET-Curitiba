@@ -268,6 +268,10 @@ include_once('config.php');
                     <input type="hidden" name="estabelecimento_id" value="<?php echo $id_estabelecimento; ?>">
                     <input type="hidden" name="email" value="<?php echo htmlspecialchars($_SESSION['email']); ?>">
                     <div class="mb-3">
+                        <label for="stars" class="form-label cabin2">Avaliação (1 a 5 estrelas):</label>
+                        <input type="number" class="form-control" id="stars" name="estrelas" min="1" max="5">
+                    </div>
+                    <div class="mb-3">
                         <label for="textarea" class="form-label cabin2">Deixe seu comentário:</label>
                         <textarea class="form-control cabin2" id="textarea" rows="3" name="comentario"></textarea>
                     </div>
@@ -277,29 +281,54 @@ include_once('config.php');
                 <!-- comentarios -->
                 <div class="mt-4">
                     <?php
-                        $sql_comments = "SELECT c.texto, u.nome, c.horario
-                                        FROM comentario_estabelecimento c
-                                        JOIN usuario u ON c.usuario_email = u.email
-                                        WHERE c.estabelecimento_id = ?
-                                        ORDER BY c.horario DESC";
-                        $stmt_comments = $conn->prepare($sql_comments);
-                        $stmt_comments->bind_param('i', $id_estabelecimento);
-                        $stmt_comments->execute();
-                        $result_comments = $stmt_comments->get_result();
+                    $sql_comments = "SELECT c.id_comentario, c.texto, c.estrelas, u.nome, c.horario, c.usuario_email
+                        FROM comentario_estabelecimento c
+                        JOIN usuario u ON c.usuario_email = u.email
+                        WHERE c.estabelecimento_id = ?
+                        ORDER BY c.horario DESC";
+                    $stmt_comments = $conn->prepare($sql_comments);
+                    $stmt_comments->bind_param('i', $id_estabelecimento);
+                    $stmt_comments->execute();
+                    $result_comments = $stmt_comments->get_result();
 
-                        if ($result_comments->num_rows > 0) {
-                            while ($comentario = $result_comments->fetch_assoc()) {
-                                echo '<div class="card mt-2">';
-                                echo '<div class="card-body">';
-                                echo '<h5 class="card-title">' . htmlspecialchars($comentario['nome']) . '</h5>';
-                                echo '<p class="card-text">' . htmlspecialchars($comentario['texto']) . '</p>';
-                                echo '<p class="text-muted">' . $comentario['horario'] . '</p>';
-                                echo '</div>';
-                                echo '</div>';
+                    if ($result_comments->num_rows > 0) {
+                        while ($comentario = $result_comments->fetch_assoc()) {
+                            echo '<div class="card mt-2">';
+                            echo '<div class="card-body d-flex justify-content-between align-items-center">';
+
+                            echo '<div>';
+                            echo '<h5 class="card-title">' . htmlspecialchars($comentario['nome']) . '</h5>';
+                            if (isset($comentario['estrelas'])) {
+                                for ($i = 0; $i < $comentario['estrelas']; $i++) {
+                                    echo '⭐';
+                                }
+                                echo '</p>';
+                            } else {
+                                echo 'Sem avaliação de estrelas</p>';
                             }
-                        } else {
-                            echo '<p>Sem comentários ainda.</p>';
+                            echo '<p class="card-text">' . htmlspecialchars($comentario['texto']) . '</p>';
+                            $data_formatada = date('d/m/Y', strtotime($comentario['horario']));
+                            $hora_formatada = date('H:i', strtotime($comentario['horario']));
+                            echo '<p class="text-muted">' . $data_formatada . ' - ' . $hora_formatada . '</p>';
+                            echo '</div>';
+                
+                            if (isset($_SESSION['email']) && $_SESSION['email'] === $comentario['usuario_email']) {
+                                echo '<div class="d-flex">';
+                                echo '<div>'; // Abertura de uma nova div
+                                echo '<form action="atualizarExcluirComentarios.php" method="POST">';
+                                echo '<input type="hidden" name="comentario_id" value="' . $comentario['id_comentario'] . '">';
+                                echo '<input type="hidden" name="action" value="delete">';
+                                echo '<button type="submit" class="btn btn-danger me-2">Excluir</button>';
+                                echo '</form>';
+                                echo '</div>'; // Fechamento da div
+                                echo '</div>'; // Fechamento da div .d-flex
+                            }
+                            echo '</div>'; // Fechamento da div .card-body
+                            echo '</div>'; // Fechamento da div .card
                         }
+                    } else {
+                        echo '<p>Sem comentários ainda.</p>';
+                    }
                     ?>
                 </div>
             </div>
