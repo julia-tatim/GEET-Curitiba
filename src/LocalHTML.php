@@ -14,6 +14,8 @@ include_once('config.php');
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Cabin:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
     <style>
         body {
             background-image: url('../image/fundo1.png');
@@ -104,6 +106,33 @@ include_once('config.php');
     border-radius: 50%;
     }
 
+    .fundoImagInf{
+        background-color: rgb(300, 300, 300, 0.4);
+        padding: 30px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        border-radius: 15px;
+    }
+
+    .save-icon {
+      font-size: 30px;
+      color: black;
+      transition: color 0.3s ease;
+      cursor: pointer;
+    }
+   
+    .save-icon:hover {
+      color: #F1835E;
+    }
+    .ajutarH2eI {
+      display: flex;
+      align-items: center;
+      width: 80%;
+    }
+    .espacoDireita{
+        justify-content: space-between;
+    }
+
     </style>
 </head>
 <body>
@@ -168,7 +197,7 @@ include_once('config.php');
     <div class="container mt-4">
         <div class="row justify-content-center">
             <div class="col-md-6 color8">
-                <div class="d-flex flex-column align-items-center">
+                <div class="d-flex flex-column align-items-center fundoImagInf">
                 <?php
                     include_once('config.php');
 
@@ -209,8 +238,11 @@ include_once('config.php');
                     }
                 ?>
                     <!-- Informações -->
-                    <div class="conteiner col-md-12">
-                        <h2 class="cabin2"><?php echo htmlspecialchars($dados_estabelecimento['nome']); ?></h2>
+                    <div class="conteiner col-md-12 espacoDireita">
+                        <div class="ajutarH2eI d-flex align-items-center justify-content-between w-100">
+                            <h2 class="cabin2"><?php echo htmlspecialchars($dados_estabelecimento['nome']); ?></h2>
+                            <i class="far fa-bookmark save-icon" onclick="changeIcon(this)"></i>
+                        </div>
                         <p class="cabin2"><strong>Tipo do Local: </strong><?php echo htmlspecialchars($dados_estabelecimento['tipo_nome']); ?></p>
                         <p class="cabin2"><strong>Endereço: </strong><?php echo htmlspecialchars($dados_estabelecimento['localizacao']); ?></p>
                         <p class="cabin2"><strong>Descrição: </strong><?php echo htmlspecialchars($dados_estabelecimento['descricao']); ?></p>
@@ -274,6 +306,19 @@ include_once('config.php');
         </div>
     </div>
     <!-- Bootstrap JavaScript -->
+    <script>
+        function changeIcon(element) {
+    if (element.classList.contains('far')) {
+      element.classList.remove('far');
+      element.classList.add('fas');
+      element.style.color = '#F1835E';
+    } else {
+      element.classList.remove('fas');
+      element.classList.add('far');
+      element.style.color = 'black';
+    }
+  }
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
