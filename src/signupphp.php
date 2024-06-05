@@ -8,7 +8,7 @@ $senha = $_POST["senha"];
 $nascimento = $_POST["nascimento"];
 
 if(empty($nome) || empty($email) || empty($confirmaSenha) || empty($senha) || empty($nascimento)){
-    echo '<script>alert("Por favor, preencha todos os campos obrigatórios."); window.location.href = "login.html#";</script>';
+    header("Location: Login.html");
     exit();
 }
 
@@ -20,7 +20,29 @@ mysqli_stmt_execute($stmt_check_email);
 mysqli_stmt_store_result($stmt_check_email);
 
 if (mysqli_stmt_num_rows($stmt_check_email) > 0) {
-    echo '<script>alert("Este email já está sendo utilizado."); window.location.href = "login.html#";</script>';
+    echo '<!DOCTYPE html>
+            <html lang="pt-br">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Usuário Cadastrado</title>
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+            </head>
+            <body>
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+                <script>
+                Swal.fire({
+                    icon: "error",
+                    title: "Email já esta sendo utilizado!",
+                    confirmButtonColor: "#1E659B"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "login.html";
+                    }
+                });
+            </script>
+            </body>
+            </html>';
     exit();
 }
 
@@ -37,19 +59,61 @@ $cryptConfirma = password_hash($confirmaSenha, PASSWORD_BCRYPT);
             $max_size = 5 * 1024 * 1024; // 5MB
             
             if (!in_array($_FILES['imagem']['type'], $allowed_types)) {
-                echo "Tipo de arquivo não suportado. Apenas JPEG, PNG e GIF são permitidos.";
-                exit();
+                echo '<!DOCTYPE html>
+            <html lang="pt-br">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Usuário Cadastrado</title>
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+            </head>
+            <body>
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+                <script>
+                Swal.fire({
+                    icon: "error",
+                    title: "Tipo de arquivo não suportado. Apenas JPEG, PNG e GIF são permitidos.",
+                    confirmButtonColor: "#1E659B"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "login.html";
+                    }
+                });
+            </script>
+            </body>
+            </html>';
+            exit();
             }
             
             if ($_FILES['imagem']['size'] > $max_size) {
-                echo "O tamanho do arquivo excede o limite permitido (5MB).";
-                exit();
+                echo '<!DOCTYPE html>
+            <html lang="pt-br">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Usuário Cadastrado</title>
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+            </head>
+            <body>
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+                <script>
+                Swal.fire({
+                    icon: "error",
+                    title: "O tamanho do arquivo excede o limite permitido (5MB).",
+                    confirmButtonColor: "#1E659B"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "login.html";
+                    }
+                });
+            </script>
+            </body>
+            </html>';
+            exit();
             }
             
             $conteudo_imagem = file_get_contents($imagem_temp);
             
-
-            // INSERT PARA USUARIO
             $sql_insert_user = "INSERT INTO usuario (nome, senha, email, data_nascimento, confirmaSenha) VALUES (?, ?, ?, ?, ?)";
             $stmt_insert_user = mysqli_prepare($conn, $sql_insert_user);
 
@@ -65,8 +129,29 @@ $cryptConfirma = password_hash($confirmaSenha, PASSWORD_BCRYPT);
                     if ($stmt_insert_image) {
                         mysqli_stmt_bind_param($stmt_insert_image, 'ss', $conteudo_imagem, $id_usuario);
                         if (mysqli_stmt_execute($stmt_insert_image)) {
-
-                            echo '<script>alert("Usuário registrado com sucesso."); window.location.href = "index.php";</script>';
+                            echo '<!DOCTYPE html>
+                                <html lang="pt-br">
+                                <head>
+                                    <meta charset="UTF-8">
+                                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                                    <title>Usuário Cadastrado</title>
+                                    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+                                </head>
+                                <body>
+                                    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+                                    <script>
+                                    Swal.fire({
+                                        icon: "success",
+                                        title: "Usuário registrado com sucesso.",
+                                        confirmButtonColor: "#1E659B"
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            window.location.href = "login.html";
+                                        }
+                                    });
+                                </script>
+                                </body>
+                                </html>';
                             exit();
                         } else {
 
@@ -92,14 +177,35 @@ $cryptConfirma = password_hash($confirmaSenha, PASSWORD_BCRYPT);
             
         } else {
             // se a imagem nao foi enviada
-            // OUTRO INSERT DE USUARIO
             $sql_insert_user = "INSERT INTO usuario (nome, senha, email, data_nascimento, confirmaSenha) VALUES (?, ?, ?, ?, ?)";
             $stmt_insert_user = mysqli_prepare($conn, $sql_insert_user);
             if ($stmt_insert_user) {
                 mysqli_stmt_bind_param($stmt_insert_user, 'sssss', $nome, $cryptSenha, $email, $nascimento, $cryptConfirma);
                 if(mysqli_stmt_execute($stmt_insert_user)){
-                    echo '<script>alert("Usuário registrado com sucesso."); window.location.href = "index.php";</script>';
-                    exit();
+                    echo '<!DOCTYPE html>
+                            <html lang="pt-br">
+                            <head>
+                                <meta charset="UTF-8">
+                                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                                <title>Usuário Cadastrado</title>
+                                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+                            </head>
+                            <body>
+                                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+                                <script>
+                                Swal.fire({
+                                    icon: "success",
+                                    title: "Usuário registrado com sucesso.",
+                                    confirmButtonColor: "#1E659B"
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        window.location.href = "login.html";
+                                    }
+                                });
+                            </script>
+                            </body>
+                            </html>';
+                        exit();
                 } else {
                     $_SESSION["error"] = "Erro ao inserir dados do usuário.";
                     header("Location: Login.html");
@@ -110,11 +216,30 @@ $cryptConfirma = password_hash($confirmaSenha, PASSWORD_BCRYPT);
                 exit();
             }
         }
-        echo '<script>alert("Usuário registrado com sucesso."); window.location.href = "index.php";</script>';
-        exit();
-
-
-
+        echo '<!DOCTYPE html>
+                <html lang="pt-br">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Usuário Cadastrado</title>
+                    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+                </head>
+                <body>
+                    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+                    <script>
+                    Swal.fire({
+                        icon: "success",
+                        title: "Usuário registrado com sucesso.",
+                        confirmButtonColor: "#1E659B"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = "login.html";
+                        }
+                    });
+                </script>
+                </body>
+                </html>';
+            exit();
     
 
 ?>

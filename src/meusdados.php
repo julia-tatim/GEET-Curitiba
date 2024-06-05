@@ -50,6 +50,7 @@ if (mysqli_num_rows($result) > 0) {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Cabin:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <style>
         body {
             background-image: url('../image/fundo1.png');
@@ -302,18 +303,36 @@ if (mysqli_num_rows($result) > 0) {
 
                     </div>
                     <button type="submit" class="btn btn-outline-light cabin2 color-btn cabin2 mr-2 "name="update" id="update">Editar</button>
-                    <button type="submit" class="btn btn-outline-light cabin2 color-btn cabin2 color-btn3 mr-2" name="delete" id="delete">Deletar</button>
+                    <a class="btn btn-outline-light cabin2 color-btn3 cabin3" onclick="confirmarExclusao()">Excluir</a>
                     <div class="float-right">
                        <button type="submit" class="btn btn-outline-light cabin2 color-btn4 cabin2 " name="logout" id="logout">Deslogar</button> 
                     </div>
-                    
                 </form>
             </div>
         </div>
     </div>
-
-
-          
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function confirmarExclusao() {
+        Swal.fire({
+            title: "Tem certeza?",
+            text: "Você está prestes a excluir sua conta permanentemente. Clique em 'Confirmar' para excluir ou 'Cancelar' para manter.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#f1835e",
+            cancelButtonText: "Cancelar",
+            confirmButtonText: "Confirmar",
+            }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                title: "Excluido",
+                text: "Sua conta foi excluida com sucesso",
+                icon: "success"
+                });
+            }
+        });
+        }
+    </script>
     <!-- Bootstrap JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     
