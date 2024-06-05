@@ -74,7 +74,7 @@ if (isset($_POST['update'])) {
     exit();
 
 //DELETE
-} elseif (isset($_POST['delete'])) {
+} elseif (isset($_POST['delete']) && $_POST['delete'] === 'true') {
 
     if (!empty($_POST['email'])) {
         
