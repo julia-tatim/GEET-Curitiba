@@ -363,6 +363,16 @@
   height: 100vh; 
   background-size: cover;
 }
+
+@media (max-width: 768px) {
+    .col-md-6.d-flex.align-items-center.justify-content-center.flex-column img,
+    .col-md-6.d-flex.align-items-center.justify-content-center.flex-column p,
+    .col-md-6.d-flex.align-items-center.justify-content-center.flex-column h3 {
+        display: none;
+    }
+}
+
+
    
    </style>
 </head>
