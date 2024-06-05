@@ -1,10 +1,19 @@
 <?php
     session_start();
+
     if((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true)){
         unset($_SESSION['email']);
         unset($_SESSION['senha']);
         header('Location: login.html');
     }
+    
+    if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 60)) {
+        session_unset();     
+        session_destroy();  
+        header('Location: login.html');
+    }
+    $_SESSION['LAST_ACTIVITY'] = time();  
+
 ?>
 
 <!DOCTYPE html>
@@ -20,6 +29,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Cabin:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    
     
     <style>
         body {
