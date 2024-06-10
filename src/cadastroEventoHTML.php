@@ -173,98 +173,97 @@
                     } else {
                         // Se não houver imagem, exibir uma padrão
                         echo '<a class="navbar-brand m-2" href="paginaADM.php"><img src="../image/perfil_padrao.jpg" alt="Perfil do usuário" width="50" height="" class="rounded-circle"></a>';
-                    }
-                } else {
-                    echo '<a class="navbar-brand m-2" href="paginaADM.php"><img src="../image/perfil_padrao.jpg" alt="Perfil do usuário" width="50" height="" class="rounded-circle"></a>';
-                }
+}
+} else {
+echo '<a class="navbar-brand m-2" href="paginaADM.php"><img src="../image/perfil_padrao.jpg" alt="Perfil do usuário" width="50" height="" class="rounded-circle"></a>';
+}
+mysqli_stmt_close($stmt);
+?>
+</div>
+</nav>
+<!-- cabeçalho -->
+<!-- main -->
+<div class="container mt-4 p-4" style="border-radius: 30px; background-color: rgb(104, 104, 104);">
+<div class="row justify-content-center">
+<div class="col-lg-8">
+    <form action="cadastroEvento.php" method="POST" enctype="multipart/form-data">
+        <div class="mb-3">
 
-                mysqli_stmt_close($stmt);
-            ?>
+            <label for="nomeEvento" class="form-label cabin2">Nome</label>
+            <input type="text" class="form-control" id="nomeEvento" name="nomeEvento" required minlength="3" required pattern="^[a-zA-Z\s]+" title="Nome inválido">
+
         </div>
-    </nav>
-    <!-- cabeçalho -->
-    <!-- main -->
-    <div class="container mt-4 p-4" style="border-radius: 30px; background-color: rgb(104, 104, 104);">
-        <div class="row justify-content-center">
-            <div class="col-lg-8">
-                <form action="cadastroLocal.php" method="POST" enctype="multipart/form-data">
-                    <div class="mb-3">
-
-                        <label for="nomeLocal" class="form-label cabin2">Nome</label>
-                        <input type="text" class="form-control" id="nomeLocal" name="nomeLocal" required minlength="3" required pattern="^[a-zA-Z\s]+" title="Nome inválido">
-
-                    </div>
-                    <div class="mb-3">
-                        <label for="tipoLocal" class="form-label cabin2">Tipo de Estabelecimento</label>
-                        <select class="form-select" id="tipoLocal" name="tipoLocal" required>
-                            <option value="restaurante cabin">Restaurantes</option>
-                            <option value="restaurante_vegano cabin">Restaurantes Veganos</option>
-                            <option value="restaurante_opcao_vegana cabin">Restaurantes com Opções Veganas</option>
-                            <option value="cafe cabin">Cafés</option>
-                            <option value="cafe_vegano cabin">Cafés com Opções Veganas</option>
-                            <option value="entretenimento cabin">Entretenimento</option>
-                            <option value="pontos_turisticos cabin">Pontos Turísticos</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="descricaoLocal" class="form-label cabin2">Descrição</label>
-                        <textarea class="form-control" id="descricaoLocal" name="descricaoLocal" rows="3" required minlength="30" title="Descrição muito curta, mínimo 30 palavras"></textarea>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col">
-                        <label for="localizacao" class="form-label cabin2">Endereço</label>
-                        <input type="text" class="form-control" id="localizacao" name="localizacao" required 
-                            pattern="^[A-Za-zÀ-ÖØ-öø-ÿ\s]+,\s*\d+$" 
-                            title="Insira um endereço válido, por exemplo: Rua, 123">
-                        </div>
-                        <div class="col">
-                        <label for="telefone" class="form-label cabin2">Telefone</label>
-                        <input type="tel" class="form-control" id="telefone" name="telefone" required 
-                            pattern="^\d{2}\s\d{5}-\d{4}$" 
-                            title="Insira um número válido, por exemplo: 41 99999-9999">
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col">
-                            <label for="horario_abertura" class="form-label cabin2">Abre às</label>
-                            <input type="time" class="form-control" id="horario_abertura" name="horario_abertura" required>
-                        </div>
-                        <div class="col">
-                            <label for="horario_fechamento" class="form-label cabin2">Fecha às</label>
-                            <input type="time" class="form-control" id="horario_fechamento" name="horario_fechamento" required>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="idadeMim" class="form-label cabin2">Classificação Indicativa</label>
-                        <select class="form-select" id="idadeMim" name="idadeMim" required>
-                            <option value="livre">Livre para todos os públicos</option>
-                            <option value="10">+10</option>
-                            <option value="12">+12</option>
-                            <option value="14">+14</option>
-                            <option value="16">+16</option>
-                            <option value="18">+18</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="redeSocial" class="form-label cabin2">Rede Social</label>
-                        <input type="text" class="form-control" id="redeSocial" name="redeSocial"  title="Insira um link valido" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="site" class="form-label cabin2">Site Oficial</label>
-                        <input type="text" class="form-control" id="site" name="site"  title="Insira um link valido" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="imagem" class="form-label cabin2">Imagem do Local</label>
-                        <input type="file" name="imagem" id="imagem" accept="image/*" required>
-                    </div>
-                    <button type="submit" class="btn btn-outline-light cabin2 color-btn cabin3">Criar</button>
-                </form>
+        <div class="mb-3">
+            <label for="tipoEvento" class="form-label cabin2">Tipo de Evento</label>
+            <select class="form-select" id="tipoEvento" name="tipoEvento" required>
+                <option value="conferencia cabin">Conferências</option>
+                <option value="festival cabin">Festivais</option>
+                <option value="seminario cabin">Seminários</option>
+                <option value="feira cabin">Feiras</option>
+                <option value="workshop cabin">Workshops</option>
+                <option value="concerto cabin">Concertos</option>
+                <option value="exposicao cabin">Exposições</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="descricaoEvento" class="form-label cabin2">Descrição</label>
+            <textarea class="form-control" id="descricaoEvento" name="descricaoEvento" rows="3" required minlength="30" title="Descrição muito curta, mínimo 30 palavras"></textarea>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+            <label for="localizacao" class="form-label cabin2">Localização</label>
+            <input type="text" class="form-control" id="localizacao" name="localizacao" required 
+                pattern="^[A-Za-zÀ-ÖØ-öø-ÿ\s]+,\s*\d+$" 
+                title="Insira um endereço válido, por exemplo: Rua, 123">
+            </div>
+            <div class="col">
+            <label for="telefone" class="form-label cabin2">Telefone</label>
+            <input type="tel" class="form-control" id="telefone" name="telefone" required 
+                pattern="^\d{2}\s\d{5}-\d{4}$" 
+                title="Insira um número válido, por exemplo: 41 99999-9999">
             </div>
         </div>
-    </div>
-    <!-- main -->
-    <!-- Bootstrap JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-xxxxxxxxxxxx" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-xxxxxxxxxxxx" crossorigin="anonymous"></script>
+        <div class="row mb-3">
+            <div class="col">
+                <label for="data_inicio" class="form-label cabin2">Data de Início</label>
+                <input type="date" class="form-control" id="data_inicio" name="data_inicio" required>
+            </div>
+            <div class="col">
+                <label for="data_fim" class="form-label cabin2">Data de Fim</label>
+                <input type="date" class="form-control" id="data_fim" name="data_fim" required>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="idadeMinima" class="form-label cabin2">Classificação Indicativa</label>
+            <select class="form-select" id="idadeMinima" name="idadeMinima" required>
+                <option value="livre">Livre para todos os públicos</option>
+                <option value="10">+10</option>
+                <option value="12">+12</option>
+                <option value="14">+14</option>
+                <option value="16">+16</option>
+                <option value="18">+18</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="redeSocial" class="form-label cabin2">Rede Social</label>
+            <input type="text" class="form-control" id="redeSocial" name="redeSocial"  title="Insira um link valido" required>
+        </div>
+        <div class="mb-3">
+            <label for="site" class="form-label cabin2">Site Oficial</label>
+            <input type="text" class="form-control" id="site" name="site"  title="Insira um link valido" required>
+        </div>
+        <div class="mb-3">
+            <label for="imagem" class="form-label cabin2">Imagem do Evento</label>
+            <input type="file" name="imagem" id="imagem" accept="image/*" required>
+        </div>
+        <button type="submit" class="btn btn-outline-light cabin2 color-btn cabin3">Criar</button>
+    </form>
+</div>
+</div>
+</div>
+<!-- main -->
+<!-- Bootstrap JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-xxxxxxxxxxxx" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-xxxxxxxxxxxx" crossorigin="anonymous"></script>
 </body>
 </html>

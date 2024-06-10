@@ -119,7 +119,7 @@ $cryptConfirma = password_hash($confirmaSenha, PASSWORD_BCRYPT);
 
             if ($stmt_insert_user) {
 
-                mysqli_stmt_bind_param($stmt_insert_user, 'ssssss', $nome, $cryptSenha, $email, $nascimento, $cryptConfirma);
+                mysqli_stmt_bind_param($stmt_insert_user, 'sssss', $nome, $cryptSenha, $email, $nascimento, $cryptConfirma);
 
                 if(mysqli_stmt_execute($stmt_insert_user)){ 
 

@@ -204,10 +204,10 @@ if (mysqli_num_rows($result) > 0) {
             <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
               <ul class="navbar-nav d-flex justify-content-around w-100">
                   <li class="nav-item">
-                      <a class="nav-link text-dark cabin2" aria-current="page" href="explorarHTML.php">Explorar</a>
+                      <a class="nav-link text-dark cabin2" aria-current="page" href="explorarUSUARIOS_HTML.php">Explorar</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link text-dark cabin2" aria-current="page" href="#">Eventos</a>
+                      <a class="nav-link text-dark cabin2" aria-current="page" href="explorarEventosUSUARIOS_HTML.php">Eventos</a>
                   </li>
                   <li class="nav-item">
                       <a class="nav-link text-dark cabin2" aria-current="page" href="index.php#contato">Contato</a>

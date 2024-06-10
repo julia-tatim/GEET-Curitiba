@@ -387,10 +387,10 @@
             <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
               <ul class="navbar-nav d-flex justify-content-around w-100">
                   <li class="nav-item">
-                      <a class="nav-link text-dark cabin2" aria-current="page" href="explorarHTML.php">Explorar</a>
+                      <a class="nav-link text-dark cabin2" aria-current="page" href="explorarUSUARIOS_HTML.php">Explorar</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link text-dark cabin2" aria-current="page" href="#">Eventos</a>
+                      <a class="nav-link text-dark cabin2" aria-current="page" href="explorarEventosUSUARIOS_HTML.php">Eventos</a>
                   </li>
                   <li class="nav-item">
                       <a class="nav-link text-dark cabin2" aria-current="page" href="#contato">Contato</a>
@@ -448,7 +448,7 @@
                 <div class="carousel-caption d-md-block">
                     <h5 class="cabin2 dim">EXPLORE, DESCUBRA, DESFRUTE</h5>
                     <p class="cabin dim3">Os melhores destinos estão aqui!</p>
-                    <a href="explorar.html"><button type="button" class="btn btn-outline-light cabin2 color-btn dim2" >CLIQUE AQUI</button></a>
+                    <a href="explorarHTML.php"><button type="button" class="btn btn-outline-light cabin2 color-btn dim2" >CLIQUE AQUI</button></a>
 
                 </div>
             </div>
@@ -457,7 +457,7 @@
                 <div class="carousel-caption d-md-block">
                     <h5 class="cabin2 dim">EXPLORE, DESCUBRA, DESFRUTE</h5>
                     <p class="cabin dim3">Os melhores destinos estão aqui!</p>
-                    <a href="explorar.html"><button type="button" class="btn btn-outline-light cabin2 color-btn dim2" >CLIQUE AQUI</button></a>
+                    <a href="explorarHTML.php"><button type="button" class="btn btn-outline-light cabin2 color-btn dim2" >CLIQUE AQUI</button></a>
 
                 </div>
             </div>
@@ -466,7 +466,7 @@
                 <div class="carousel-caption d-md-block">
                     <h5 class="cabin2 dim">EXPLORE, DESCUBRA, DESFRUTE</h5>
                     <p class="cabin dim3">Os melhores destinos estão aqui!</p>
-                    <a href="explorar.html"><button type="button" class="btn btn-outline-light cabin2 color-btn dim2" >CLIQUE AQUI</button></a>
+                    <a href="explorarHTML.php"><button type="button" class="btn btn-outline-light cabin2 color-btn dim2" >CLIQUE AQUI</button></a>
                 </div>
             </div>
         </div>
@@ -532,7 +532,7 @@
     <section class="ftco-section">
         <h2 class="text-center cabin2 mb-4">Destaques</h2>
       <div class="text-center mb-3">
-        <a href="explorar.html"><button type="button" class="btn btn-outline-light cabin2 color-btn" >MOSTRAR MAIS</button></a>
+        <a href="explorarHTML.php"><button type="button" class="btn btn-outline-light cabin2 color-btn" >MOSTRAR MAIS</button></a>
       </div>
 
         <div class="container">

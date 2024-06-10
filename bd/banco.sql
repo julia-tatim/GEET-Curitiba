@@ -40,14 +40,15 @@ CREATE TABLE usuario (
 
 CREATE TABLE evento (
     id_evento INT AUTO_INCREMENT PRIMARY KEY,
-    horario VARCHAR(50),
-    nome VARCHAR(50) UNIQUE,
     localizacao VARCHAR(250),
+    nome VARCHAR(50) UNIQUE,
+    data_inicio DATE,
     descricao TEXT,
-    telefone VARCHAR(50),
+    telefone VARCHAR(50) UNIQUE,
     rede_social VARCHAR(500),
     site VARCHAR(500),
     idadeMinima VARCHAR(35),
+    data_fim DATE,
     imagem_id INT,
     id_tipo INT,
     FOREIGN KEY (imagem_id) REFERENCES imagem(id_imagem) ON DELETE RESTRICT,
@@ -58,7 +59,6 @@ CREATE TABLE administrador (
     email VARCHAR(50) PRIMARY KEY,
     senha VARCHAR(50)
 );
-
 
 CREATE TABLE comentario_estabelecimento (
     id_comentario INT AUTO_INCREMENT PRIMARY KEY,
@@ -108,6 +108,10 @@ insert into tipo (id_tipo, tipoLocal, local) values
 (6, "Entretenimento", 'Estabelecimento'),
 (7, "Pontos Turísticos", 'Estabelecimento'),
 
-(30, "$", 'Estabelecimento'),
-(31, "$$", 'Estabelecimento'),
-(32, "$$%", 'Estabelecimento');
+(10, "Conferências", 'Evento'),
+(11, "Festivais", 'Evento'),
+(12, "Seminários", 'Evento'),
+(13, "Feiras", 'Evento'),
+(14, "Workshops", 'Evento'),
+(15, "Concertos", 'Evento'),
+(16, "Exposições", 'Evento');

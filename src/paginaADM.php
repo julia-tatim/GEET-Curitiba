@@ -207,7 +207,7 @@ if (mysqli_num_rows($result) > 0) {
                       <a class="nav-link text-dark cabin2" aria-current="page" href="explorarHTML.php">Explorar</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link text-dark cabin2" aria-current="page" href="#">Eventos</a>
+                      <a class="nav-link text-dark cabin2" aria-current="page" href="explorarEventosHTML.php">Eventos</a>
                   </li>
                   <li class="nav-item">
                       <a class="nav-link text-dark cabin2" aria-current="page" href="index.php#contato">Contato</a>

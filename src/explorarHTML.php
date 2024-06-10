@@ -146,7 +146,7 @@ if (!$result) {
                       <a class="nav-link text-dark cabin2" aria-current="page" href="explorarHTML.php">Explorar</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link text-dark cabin2" aria-current="page" href="#">Eventos</a>
+                      <a class="nav-link text-dark cabin2" aria-current="page" href="explorarEventosHTML.php">Eventos</a>
                   </li>
                   <li class="nav-item">
                       <a class="nav-link text-dark cabin2" aria-current="page" href="index.php#contato">Contato</a>
@@ -190,6 +190,9 @@ if (!$result) {
             ?>
         </div>
     </nav>
+
+
+    
     <!-- cabeçalho -->
     <div class="container mt-4">
         <div class="row">

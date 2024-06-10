@@ -1,6 +1,12 @@
 <?php
-session_start();
 include_once('config.php');
+
+session_start();
+    if((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true)){
+        unset($_SESSION['email']);
+        unset($_SESSION['senha']);
+        header('Location: login.html');
+    }
 
 $where = "";
 
@@ -11,45 +17,17 @@ if (isset($_GET['categorias']) && !empty($_GET['categorias'])) {
     $where = " WHERE ";
     $where .= "e.id_tipo IN (SELECT id_tipo FROM tipo WHERE tipoLocal IN ('" . implode("','", $categorias) . "'))";
 }
-
-// Monta a consulta SQL para selecionar os estabelecimentos favoritos do usuário
+// Monta a consulta SQL
 $sql = "SELECT e.id_estabelecimento, e.nome, e.descricao, i.imagem 
         FROM estabelecimento e
-        LEFT JOIN imagem i ON e.imagem_id = i.id_imagem
-        INNER JOIN favorito_estabelecimento fe ON e.id_estabelecimento = fe.fk_estabelecimento_id
-        WHERE fe.fk_usuario_email = ?";
-
-// Aplica a cláusula WHERE
+        LEFT JOIN imagem i ON e.imagem_id = i.id_imagem";
 $sql .= $where;
 
-// Prepara a consulta
-$stmt = mysqli_prepare($conn, $sql);
-
-if (!$stmt) {
-    die("Erro na preparação da consulta: " . mysqli_error($conn));
-}
-
-// Vincula o parâmetro email do usuário
-$email = $_SESSION['email'];
-mysqli_stmt_bind_param($stmt, 's', $email);
-
-// Executa a consulta
-if (!mysqli_stmt_execute($stmt)) {
-    die("Erro ao executar a consulta: " . mysqli_stmt_error($stmt));
-}
-
-// Obtém o resultado da consulta
-$result = mysqli_stmt_get_result($stmt);
-
-// Fecha a consulta preparada
-mysqli_stmt_close($stmt);
-
-// Executa a consulta SQL
+$result = mysqli_query($conn, $sql);
 if (!$result) {
     die("Erro na consulta SQL: " . mysqli_error($conn));
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -212,6 +190,9 @@ if (!$result) {
             ?>
         </div>
     </nav>
+
+
+    
     <!-- cabeçalho -->
     <div class="container mt-4">
         <div class="row">
@@ -261,7 +242,7 @@ if (!$result) {
           
             <!-- Cards de lugares -->
             <div class="col-lg-9">
-                <h1 class="mb-4 cabin2">Seus Lugares Favoritos!</h1>
+                <h1 class="mb-4 cabin2">Explore nossos destinos turísticos</h1>
                 <div class="row">
                     <?php
                     if ($result && mysqli_num_rows($result) > 0) {
@@ -280,7 +261,6 @@ if (!$result) {
                             echo "<div class='card-body'>";
                             echo "<h5 class='card-title cabin2'>$nome</h5>";
                             echo "<a href='LocalHTML.php?id=$id_estabelecimento' class='btn btn-outline-light cabin2 color-btn cabin2'>Saiba mais</a>"; 
-                            echo "<a href='edicaoLocalHTML.php?id=$id_estabelecimento' class='btn btn-outline-light cabin2 color-btn cabin2'>ADM</a>";
                             echo "</div>";
                             echo "</div>";
                             echo "</div>";
@@ -299,4 +279,3 @@ if (!$result) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
-
