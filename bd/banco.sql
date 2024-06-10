@@ -111,4 +111,3 @@ insert into tipo (id_tipo, tipoLocal, local) values
 (30, "$", 'Estabelecimento'),
 (31, "$$", 'Estabelecimento'),
 (32, "$$%", 'Estabelecimento');
-

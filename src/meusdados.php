@@ -278,7 +278,7 @@ if (mysqli_num_rows($result) > 0) {
                     <div class="form-group">
                         <label for="inputNome" class="cabin2">Nome</label>
                         <input type="text" class="form-control cabin2 corfundo" name="nome" id="inputNome" value="<?php echo $nome; ?>">
-                    </div>                   
+                    </div> 
                     <div class="form-group">
                         <label for="inputSenha4" class="cabin2">Senha</label>
                         <input type="password" class="form-control cabin2 corfundo" name="senha" id="inputSenha4" >

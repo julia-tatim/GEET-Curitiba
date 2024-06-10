@@ -184,12 +184,12 @@
             }, 500); // Espera a transição terminar antes de trocar a exibição
         });
 
-
             // Calcula a data máxima permitida (10 anos atrás)
             var maxDate = new Date();
             maxDate.setFullYear(maxDate.getFullYear() - 10);
             var formattedMaxDate = maxDate.toISOString().slice(0, 10);
             document.getElementById("birthdate").max = formattedMaxDate;
+            
     </script>
 </body>
 

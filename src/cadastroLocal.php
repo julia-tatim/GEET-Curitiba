@@ -110,14 +110,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         exit();
                     } else {
 
-
-                        // INSET DE DADOS DO ESTABELECIMENTO
                         $sql_estabelecimento = "INSERT INTO estabelecimento (localizacao, nome, descricao, telefone, rede_social, site, idadeMinima, horario_abertura, horario_fechamento, imagem_id, id_tipo)
                         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-                        // i inteiro
-                        // s string
-                        // d double/float 29.89
-                        // b blob binarios
+
                         $stmt = mysqli_prepare($conn, $sql_estabelecimento);
                         mysqli_stmt_bind_param($stmt, "ssssssssssi", $localizacao, $nome, $descricao, $telefone, $redeSocial, $site, $idadeMim, $horario_abertura, $horario_fechamento, $id_imagem, $id_tipo);
 
@@ -139,7 +134,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         confirmButtonColor: "#1E659B"
                                     }).then((result) => {
                                         if (result.isConfirmed) {
-                                            window.location.href = "cadastroLocalhtml.php";
+                                            window.location.href = "explorarHTML.php";
                                         }
                                     });
                                 </script>
